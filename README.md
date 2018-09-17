@@ -1,11 +1,10 @@
 # Deep Images Hub
 
-This project create a platform to automatically verifying, preprocessing,and orangize users streaming images and allow user to train image models on demand.
+This project create a platform to automatically verifying, preprocessing,and orangize users streaming images, and allow user to train image models on demand.
 
 #### Motivation
 
-The demands for machine learning on mobile devices are getting higher and higher especially for computer vision applications. Image classification and object detection algorithms are getting more mature and efficient to run on mobile devices with expected accuracy (ex. MobileNet V2). Companies like Google and Apple are rolling out DL/ML frameworks like Tensorflow Mobile and CoreML. However, there are still a gap to meet the needs from end users. There are not sufficient datasets that are dedicated for mobile image classification, and models that meets user’s specific needs. Image Trainer is a solution to attempt to solve this problem by creating a pipeline to allow users to label and upload mobile captured images to the cloud to automatically feed to train image classification and object detection models.  
-
+The demands for machine learning on mobile and IoT devices are getting higher and higher especially for computer vision applications. Image classification and object detection algorithms are getting more mature and efficient to run on mobile devices with expected accuracy (ex. MobileNet V2). Companies like Google and Apple are rolling out DL/ML frameworks like Tensorflow Mobile and CoreML. However, there are still a gap to meet the needs from end users. There are not sufficient datasets that are dedicated for mobile image classification, and models that meets user’s specific needs. Deep iamges Hub is a solution to attempt to solve this problem by creating a platform to allow users to submit labeled images to the platfrom to crowsourcing imagedataset with different labels. The platform will automatically verify the image if it is matching with the labels. And it will assign the image to proper fodler where it belongs according to it's label. On the other hand, user who wants to train their customized computer vision model, can select the existing lables that are avilable on the platfrom, or list a new request for new labels so the image suppliers will know what object to collect and submit. Customized model will be train according to user's preferences.
 
 [Slides](https://docs.google.com/presentation/d/17XCa3oY8J-khs3DmT14Esi0rPLR4x-ynFPMEQ80cagw/edit#slide=id.g36132c4481_0_39)
 
@@ -60,9 +59,10 @@ Deep learning is increasingly adopted by the big data and data science community
 
 #### Challenges
 
-1. Create a pipeline to simulate data transferring between mobile to cloud distributed system at scale.
-2. Automate filtering, preprocessing and data organizing on the fly. 
-3. Automatically verifying and clustering images uploaded by users.
+1. Need to prepare the Open Images Dataset and group them into Image-Level Labels first.
+2. Create a pipeline to simulate data transferring between mobile to cloud distributed system at scale.
+3. Automate filtering, preprocessing and data organizing on the fly. 
+4. Automatically verifying and clustering images uploaded by users.
 
 
 ###### Performance Optimizations:
