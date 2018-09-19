@@ -3,7 +3,7 @@
 # ---------------
 # Author: Zhongheng Li
 # Init Date: 09-18-2018
-# Updated Date: 09-18-2018
+# Updated Date: 09-19-2018
 
 """
 
@@ -33,11 +33,13 @@ The producer will perform the following tasks to process the images:
 """
 import sys
 from argparse import ArgumentParser
+from configparser import ConfigParser
 import os
 import boto3
 from io import BytesIO
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
+import psycopg2
 import json
 import time
 import datetime
@@ -48,10 +50,24 @@ from os.path import dirname as up
 Commonly Shared Statics
 
 """
+
+# TODO - user env variable for username and password
+# db_host = "insight-deep-images-hub.cj6pgqwql32a.us-east-1.rds.amazonaws.com"
+# db_name = "insight_deep_images_hub"
+# db_username = "heng"
+# db_password = "deepimageshub"
+
+
 # Set up project path
 projectPath = up(up(os.getcwd()))
 
 s3_bucket_name = "s3://insight-data-images/Entity"
+
+database_ini_file_path = "/utilities/database/database.ini"
+
+
+
+
 #
 # bbox_labels_600_hierarchy_json_file = projectPath + "/data/labels/bbox_labels_600_hierarchy.json"
 
@@ -60,6 +76,70 @@ s3_bucket_name = "s3://insight-data-images/Entity"
 
 
 # entity_dict = json.loads(bbox_labels_600_hierarchy_json_file)
+
+
+
+"""
+
+config Database
+
+"""
+
+def config(filename=projectPath+database_ini_file_path, section='postgresql'):
+    # create a parser
+    parser = ConfigParser()
+    # read config file
+    parser.read(filename)
+
+    # get section, default to postgresql
+    db = {}
+    if parser.has_section(section):
+        params = parser.items(section)
+        for param in params:
+            db[param[0]] = param[1]
+    else:
+        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+
+    return db
+
+
+"""
+
+Connect to DB
+
+
+"""
+
+def connect():
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        # execute a statement
+        print('PostgreSQL database version:')
+        cur.execute('SELECT version()')
+
+        # display the PostgreSQL database server version
+        db_version = cur.fetchone()
+        print(db_version)
+
+        # close the communication with the PostgreSQL
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
 
 
 
@@ -94,10 +174,16 @@ Analysing Image Label
 ## TODO
 
 
+
 label_name = ""
 category_name = ""
 subcategory_name = ""
 
+#
+# conn = psycopg2.connect( "host=" + db_name + " dbname=" + db_name + " user=" +  db_username + " password=" + db_password )
+
+# TODO use the keyword arguments as the input
+# conn = psycopg2.connect(host="localhost",database="suppliers", user="postgres", password="postgres")
 
 
 """
@@ -134,16 +220,16 @@ bucket = s3.Bucket('insight-data-images')
 prefix = "Entity/food/packaged_food/protein_bar/samples/"
 
 
-for obj in bucket.objects.filter(Prefix=prefix).all():
-
-    if '.jpg' in obj.key:
-
-        image = mpimg.imread(BytesIO(obj.get()['Body'].read()), 'jpg')
-
-        plt.figure(0)
-        plt.imshow(image)
-        plt.title('Sample Image from S3')
-        plt.pause(0.05)
+# for obj in bucket.objects.filter(Prefix=prefix).all():
+#
+#     if '.jpg' in obj.key:
+#
+#         image = mpimg.imread(BytesIO(obj.get()['Body'].read()), 'jpg')
+#
+#         plt.figure(0)
+#         plt.imshow(image)
+#         plt.title('Sample Image from S3')
+#         plt.pause(0.05)
 
 """
 For each image
@@ -163,7 +249,10 @@ Put image to the proper folder in the AWS bucket
 
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
+    connect()
+
+
 #     # Set up argument parser
 #     parser = ArgumentParser()
 #     parser.add_argument("-b", "--bucketPath", help="S3 bucket path", required=True)
