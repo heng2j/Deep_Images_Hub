@@ -40,9 +40,12 @@ from io import BytesIO
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import psycopg2
+from geopy.geocoders import Nominatim
 import json
 import time
 import datetime
+import random
+import math
 from os.path import dirname as up
 
 
@@ -103,45 +106,6 @@ def config(filename=projectPath+database_ini_file_path, section='postgresql'):
     return db
 
 
-"""
-
-Connect to DB
-
-
-"""
-
-def connect():
-    """ Connect to the PostgreSQL database server """
-    conn = None
-    try:
-        # read connection parameters
-        params = config()
-
-        # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
-        conn = psycopg2.connect(**params)
-
-        # create a cursor
-        cur = conn.cursor()
-
-        # execute a statement
-        print('PostgreSQL database version:')
-        cur.execute('SELECT version()')
-
-        # display the PostgreSQL database server version
-        db_version = cur.fetchone()
-        print(db_version)
-
-        # close the communication with the PostgreSQL
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            print('Database connection closed.')
-
-
 
 """
 Variables
@@ -149,9 +113,20 @@ Variables
 """
 
 
+final_label_name = ""
+
+place_id = ""
+geo_licence = ""
+postcode = ""
+neighbourhood = ""
+city = ""
+country = ""
+
+
+
+
 
 image_path = ""
-label_name = ""
 category_name = ""
 subcategory_name = ""
 geo_dot = ""
@@ -174,16 +149,50 @@ Analysing Image Label
 ## TODO
 
 
+## Dummy Value - To be replaced with arguments
+label_name = 'Think_thin_high_protein_caramel_fudge'
 
-label_name = ""
-category_name = ""
-subcategory_name = ""
+def verify_label(label_name):
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
 
-#
-# conn = psycopg2.connect( "host=" + db_name + " dbname=" + db_name + " user=" +  db_username + " password=" + db_password )
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
 
-# TODO use the keyword arguments as the input
-# conn = psycopg2.connect(host="localhost",database="suppliers", user="postgres", password="postgres")
+        # create a cursor
+        cur = conn.cursor()
+
+        #TODO -  augmented SQL statement
+        sql = "SELECT count(label_name)  FROM labels WHERE label_name = '" + label_name +"' ;"
+        print("sql: ", sql)
+
+        # verify if label exist in the database
+
+        # execute a statement
+        print('Verifying if the label existed in the database...')
+        cur.execute(sql)
+
+        result_count = cur.fetchone()[0]
+
+        if result_count == 1:
+            print("Label existed")
+            return True
+        else:
+            print("Label doesn't exist")
+            return False
+
+        # close the communication with the PostgreSQL
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
 
 
 """
@@ -191,6 +200,10 @@ Analysing geoinfo
 
 """
 ## TODO
+
+## Dummy Value - To be replaced with arguments
+lon = -73.935242
+lat = 40.730610
 
 
 """
@@ -200,13 +213,42 @@ Generating geoinfo
 """
 ## TODO
 
-"""
-Save metadata in DB
+def generate_random_geo_point(lon,lat):
 
-"""
-## TODO
+    dec_lat = random.random() / 20
+    dec_lon = random.random() / 20
+
+    new_lon = lon + dec_lon
+    new_lat = lat + dec_lat
+
+    return new_lon , new_lat
 
 
+def getGeoinfo(lon,lat):
+    geolocator = Nominatim(user_agent="specify_your_app_name_here")
+    lon_lat_str = str(lat) + ", " + str(lon)
+    print('lon_lat_str: ', lon_lat_str)
+
+    location = geolocator.reverse(lon_lat_str)
+
+    print(location.raw['place_id'])
+    print(location.raw['licence'])
+    print(location.raw['address']['postcode'])
+    print(location.raw['address']['neighbourhood'])
+    print(location.raw['address']['city'])
+    print(location.raw['address']['country'])
+
+
+    return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , location.raw['address']['neighbourhood'],location.raw['address']['city'],location.raw['address']['country']
+
+
+
+    # {'place_id': '138622978', 'licence': 'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright',
+    #  'osm_type': 'way', 'osm_id': '265159179', 'lat': '40.7364439', 'lon': '-73.9339868252163',
+    #  'display_name': '51-27, 35th Street, Blissville, Queens County, NYC, New York, 11101, USA',
+    #  'address': {'house_number': '51-27', 'road': '35th Street', 'neighbourhood': 'Blissville',
+    #              'county': 'Queens County', 'city': 'NYC', 'state': 'New York', 'postcode': '11101', 'country': 'USA',
+    #              'country_code': 'us'}, 'boundingbox': ['40.7362729', '40.7365456', '-73.9340831', '-73.9338454']}
 
 
 """
@@ -249,20 +291,50 @@ Put image to the proper folder in the AWS bucket
 
 
 
+"""
+Save metadata in DB
+
+"""
+## TODO
+
+
+
+
 if __name__ == '__main__':
-    connect()
+
+    #     # Set up argument parser
+    #     parser = ArgumentParser()
+    #     parser.add_argument("-b", "--bucketPath", help="S3 bucket path", required=True)
+    #     parser.add_argument("-l", "--labelName", help="images label", required=True)
+    #
+    #     args = parser.parse_args()
+    #
+    #     # Assign input, output files and number of lines variables from command line arguments
+    #     bucketPath = args.bucketPath
+    #     labelName = args.labelName
 
 
-#     # Set up argument parser
-#     parser = ArgumentParser()
-#     parser.add_argument("-b", "--bucketPath", help="S3 bucket path", required=True)
-#     parser.add_argument("-l", "--labelName", help="images label", required=True)
-#
-#     args = parser.parse_args()
-#
-#     # Assign input, output files and number of lines variables from command line arguments
-#     bucketPath = args.bucketPath
-#     labelName = args.labelName
+
+
+    # Verifying Label if exist
+    isLabel = verify_label(label_name)
+
+    if isLabel == False:
+        print("Sorry the suppplying label doesn't exist in database")
+        exit()
+
+
+    final_label_name = label_name
+    print("final_label_name: ", final_label_name)
+
+
+    # Analyzing geo info
+    lon,lat = generate_random_geo_point(lon,lat)
+
+    print (lon)
+    getGeoinfo(lon,lat)
+
+
 
 
 
