@@ -3,6 +3,41 @@
 
 
 -- Select Statemens
-SELECT label_name
+-- Select to check if the label exist
+SELECT count(label_name)
 FROM labels
-WHERE;
+WHERE label_name = 'Think_thin_high_protein_caramel_fudge';
+
+
+
+
+-- Select parent Recursively 
+SELECT parent_name
+FROM labels
+WHERE label_name = 'Think_thin_high_protein_caramel_fudge';
+
+
+WITH RECURSIVE tens (n) AS (
+    SELECT 10
+  UNION ALL
+    SELECT n+10 FROM tens WHERE n+10<= 100
+)
+SELECT n FROM tens;
+
+
+
+
+WITH RECURSIVE labeltree AS (
+  SELECT parent_name
+  FROM labels
+  WHERE parent_name IS NOT NULL
+  UNION ALL
+  SELECT l.parent_name
+  FROM labels l
+  INNER JOIN labeltree ltree ON ltree.parent_name = l.label_name
+
+)
+
+SELECT *
+FROM labeltree;
+

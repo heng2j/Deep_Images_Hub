@@ -28,10 +28,50 @@ CREATE TABLE IF NOT EXISTS images (
 	batch_id		int,
 	submission_time timestamp,
 	user_id			int,
-	geometry 		point,
-	city			text,
-	country			text
-	
+	place_id		int,
+	geometry 		point
 );
 	
+	
+	
+	
+-- Drop images table if exists;
+-- Create images table if not exists;
+DROP TABLE IF EXISTS images;
+
+CREATE TABLE IF NOT EXISTS images (
+    image_id		int	PRIMARY KEY ,
+    image_file_name	text,
+    image_path    	text,
+	bucket_name		text,
+	prefix			text,
+	label_name		text,
+	batch_id		int,
+	submission_time timestamp,
+	user_id			int,
+	place_id		int,
+	geometry 		point,
+	image_index		int,
+	embeddings		float[]
+);
+
+
+
+	
+-- Drop places table if exists;
+-- Create places table if not exists;
+DROP TABLE IF EXISTS places;
+
+CREATE TABLE IF NOT EXISTS places (
+    place_id		int	PRIMARY KEY ,
+    licence			text,
+    postcode    	int,
+	neighbourhood	text,
+	city			text,
+	country			text,
+	lon				float,
+	lat 			float,
+	geometry 		point,
+	time_added		timestamp
+);
 	

@@ -201,14 +201,17 @@ Analysing geoinfo
 """
 ## TODO
 
-## Dummy Value - To be replaced with arguments
-lon = -73.935242
-lat = 40.730610
-
 
 """
 Generating geoinfo
 
+    # Raw Location Data Sample:
+    # {'place_id': '138622978', 'licence': 'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright',
+    #  'osm_type': 'way', 'osm_id': '265159179', 'lat': '40.7364439', 'lon': '-73.9339868252163',
+    #  'display_name': '51-27, 35th Street, Blissville, Queens County, NYC, New York, 11101, USA',
+    #  'address': {'house_number': '51-27', 'road': '35th Street', 'neighbourhood': 'Blissville',
+    #              'county': 'Queens County', 'city': 'NYC', 'state': 'New York', 'postcode': '11101', 'country': 'USA',
+    #              'country_code': 'us'}, 'boundingbox': ['40.7362729', '40.7365456', '-73.9340831', '-73.9338454']}
 
 """
 ## TODO
@@ -231,24 +234,9 @@ def getGeoinfo(lon,lat):
 
     location = geolocator.reverse(lon_lat_str)
 
-    print(location.raw['place_id'])
-    print(location.raw['licence'])
-    print(location.raw['address']['postcode'])
-    print(location.raw['address']['neighbourhood'])
-    print(location.raw['address']['city'])
-    print(location.raw['address']['country'])
-
-
     return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , location.raw['address']['neighbourhood'],location.raw['address']['city'],location.raw['address']['country']
 
 
-
-    # {'place_id': '138622978', 'licence': 'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright',
-    #  'osm_type': 'way', 'osm_id': '265159179', 'lat': '40.7364439', 'lon': '-73.9339868252163',
-    #  'display_name': '51-27, 35th Street, Blissville, Queens County, NYC, New York, 11101, USA',
-    #  'address': {'house_number': '51-27', 'road': '35th Street', 'neighbourhood': 'Blissville',
-    #              'county': 'Queens County', 'city': 'NYC', 'state': 'New York', 'postcode': '11101', 'country': 'USA',
-    #              'country_code': 'us'}, 'boundingbox': ['40.7362729', '40.7365456', '-73.9340831', '-73.9338454']}
 
 
 """
@@ -261,17 +249,25 @@ s3 = boto3.resource('s3', region_name='us-east-1')
 bucket = s3.Bucket('insight-data-images')
 prefix = "Entity/food/packaged_food/protein_bar/samples/"
 
+destination_bucket = "insight-deep-images-hub"
+destination_prefix = ""
 
-# for obj in bucket.objects.filter(Prefix=prefix).all():
-#
-#     if '.jpg' in obj.key:
-#
-#         image = mpimg.imread(BytesIO(obj.get()['Body'].read()), 'jpg')
-#
-#         plt.figure(0)
-#         plt.imshow(image)
-#         plt.title('Sample Image from S3')
-#         plt.pause(0.05)
+
+for obj in bucket.objects.filter(Prefix=prefix).all():
+
+    if '.jpg' in obj.key:
+
+        image = mpimg.imread(BytesIO(obj.get()['Body'].read()), 'jpg')
+
+        print("obj.key: ", obj.key)
+
+        #s3.Object('mybucket', 'hello.txt').put(Body=open('/tmp/hello.txt', 'rb'))
+        #s3.Object('insight-data-images', image).put(Body=open('/tmp/hello.txt', 'rb'))
+
+        # plt.figure(0)
+        # plt.imshow(image)
+        # plt.title('Sample Image from S3')
+        # plt.pause(0.05)
 
 """
 For each image
@@ -314,8 +310,6 @@ if __name__ == '__main__':
     #     labelName = args.labelName
 
 
-
-
     # Verifying Label if exist
     isLabel = verify_label(label_name)
 
@@ -328,11 +322,21 @@ if __name__ == '__main__':
     print("final_label_name: ", final_label_name)
 
 
+
+
     # Analyzing geo info
+
+    ## Dummy Value - TODO replaced with arguments
+    lon = -73.935242
+    lat = 40.730610
+
     lon,lat = generate_random_geo_point(lon,lat)
 
-    print (lon)
-    getGeoinfo(lon,lat)
+    place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
+
+
+    print(place_id, geo_licence, postcode, neighbourhood, city, country)
+
 
 
 
