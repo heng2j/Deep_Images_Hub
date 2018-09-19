@@ -1,0 +1,37 @@
+-- Create Tables
+
+
+
+-- Drop labels table if exists;
+-- Create labels table if not exists;
+DROP TABLE IF EXISTS labels;
+
+CREATE TABLE IF NOT EXISTS labels (
+    label_name  text PRIMARY KEY ,
+    parent_name text references labels(label_name),
+    children    varchar[]
+);
+	
+	
+	
+-- Drop images table if exists;
+-- Create images table if not exists;
+DROP TABLE IF EXISTS images;
+
+CREATE TABLE IF NOT EXISTS images (
+    image_id		int	PRIMARY KEY ,
+    image_file_name	text,
+    image_path    	text,
+	bucket_name		text,
+	prefix			text,
+	label_name		text,
+	batch_id		int,
+	submission_time timestamp,
+	user_id			int,
+	geometry 		point,
+	city			text,
+	country			text
+	
+);
+	
+	

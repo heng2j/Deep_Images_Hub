@@ -101,6 +101,29 @@ subcategory_name = ""
 
 
 """
+Analysing geoinfo
+
+"""
+## TODO
+
+
+"""
+Generating geoinfo
+
+
+"""
+## TODO
+
+"""
+Save metadata in DB
+
+"""
+## TODO
+
+
+
+
+"""
 Fetch images
 
 """
@@ -135,21 +158,8 @@ Put image to the proper folder in the AWS bucket
 """
 ## TODO
 
-
-
-"""
-Generate geoinfo
-
-"""
-## TODO
-
-
-
-"""
-Save metadata in DB
-
-"""
-## TODO
+# Boto 3
+# s3.Object('mybucket', 'hello.txt').put(Body=open('/tmp/hello.txt', 'rb'))
 
 
 
