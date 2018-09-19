@@ -1,0 +1,23 @@
+-- Sample Data
+
+-- Inserts
+
+
+-- Insert Sample data into labels table
+DELETE FROM labels;
+
+INSERT INTO labels (label_name, parent_name, children) VALUES
+    ('Think_thin_high_protein_caramel_fudge', 'protein_bar', NULL ),
+    ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}'),
+    ('packaged_food', 'food', '{"protein_bar","snack"}'   ),
+	('food', 'Entity', '{"packaged_food"}' ),
+	('Entity', null,  '{"food"}'    );
+						
+SELECT * 
+FROM labels;					
+
+-- Append entity "footware" into the children array of 'Entity'
+UPDATE labels set children = array_append(children, 'footware') where label_name = 'Entity';
+						
+SELECT * 
+FROM labels;

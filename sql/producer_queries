@@ -1,0 +1,8 @@
+-- Queries
+
+
+
+-- Select Statemens
+SELECT label_name
+FROM labels
+WHERE;

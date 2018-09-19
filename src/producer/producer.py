@@ -52,11 +52,11 @@ Commonly Shared Statics
 projectPath = up(up(os.getcwd()))
 
 s3_bucket_name = "s3://insight-data-images/Entity"
+#
+# bbox_labels_600_hierarchy_json_file = projectPath + "/data/labels/bbox_labels_600_hierarchy.json"
 
-bbox_labels_600_hierarchy_json_file = projectPath + "/data/labels/bbox_labels_600_hierarchy.json"
-
-
-print('bbox_labels_600_hierarchy_json_file_Path:', bbox_labels_600_hierarchy_json_file)
+#
+# print('bbox_labels_600_hierarchy_json_file_Path:', bbox_labels_600_hierarchy_json_file)
 
 
 # entity_dict = json.loads(bbox_labels_600_hierarchy_json_file)
