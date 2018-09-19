@@ -18,7 +18,7 @@ Data preprocessor is used to ....:
     Run with .....:
 
     example:
-        request_model.py "s3://insight-deep-images-hub/users/<user_id>/models/packaged_food"
+        request_model.py "s3://insight-deep-images-hub/users/username_organization_id/models/packaged_food"
 
 
 

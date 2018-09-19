@@ -34,6 +34,10 @@ The producer will perform the following tasks to process the images:
 import sys
 from argparse import ArgumentParser
 import os
+import boto3
+from io import BytesIO
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
 import json
 import time
 import datetime
@@ -55,7 +59,7 @@ bbox_labels_600_hierarchy_json_file = projectPath + "/data/labels/bbox_labels_60
 print('bbox_labels_600_hierarchy_json_file_Path:', bbox_labels_600_hierarchy_json_file)
 
 
-entity_dict = json.loads(bbox_labels_600_hierarchy_json_file)
+# entity_dict = json.loads(bbox_labels_600_hierarchy_json_file)
 
 
 
@@ -90,6 +94,28 @@ Analysing Image Label
 ## TODO
 
 
+"""
+Fetch images
+
+"""
+## TODO
+
+temp_path = 'insight-data-images/Entity/food/packaged_food/protein_bar/Think_thin_high_protein_caramel_fudge/'
+
+
+resource = boto3.resource('s3', region_name='us-east-1')
+bucket = resource.Bucket('insight-data-images')
+
+
+
+image_object = bucket.Object('Entity/food/packaged_food/protein_bar/Think_thin_high_protein_caramel_fudge/IMG_1673.jpg')
+
+image = mpimg.imread(BytesIO(image_object.get()['Body'].read()), 'jpg')
+
+plt.figure(0)
+plt.imshow(image)
+plt.title('Sample Image from S3')
+plt.pause(2)
 
 
 """
@@ -122,17 +148,17 @@ Save metadata in DB
 
 
 
-if __name__ == '__main__':
-    # Set up argument parser
-    parser = ArgumentParser()
-    parser.add_argument("-b", "--bucketPath", help="S3 bucket path", required=True)
-    parser.add_argument("-l", "--labelName", help="images label", required=True)
-
-    args = parser.parse_args()
-
-    # Assign input, output files and number of lines variables from command line arguments
-    bucketPath = args.bucketPath
-    labelName = args.labelName
+# if __name__ == '__main__':
+#     # Set up argument parser
+#     parser = ArgumentParser()
+#     parser.add_argument("-b", "--bucketPath", help="S3 bucket path", required=True)
+#     parser.add_argument("-l", "--labelName", help="images label", required=True)
+#
+#     args = parser.parse_args()
+#
+#     # Assign input, output files and number of lines variables from command line arguments
+#     bucketPath = args.bucketPath
+#     labelName = args.labelName
 
 
 
