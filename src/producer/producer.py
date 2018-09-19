@@ -94,29 +94,33 @@ Analysing Image Label
 ## TODO
 
 
+label_name = ""
+category_name = ""
+subcategory_name = ""
+
+
+
 """
 Fetch images
 
 """
 ## TODO
 
-temp_path = 'insight-data-images/Entity/food/packaged_food/protein_bar/Think_thin_high_protein_caramel_fudge/'
+s3 = boto3.resource('s3', region_name='us-east-1')
+bucket = s3.Bucket('insight-data-images')
+prefix = "Entity/food/packaged_food/protein_bar/samples/"
 
 
-resource = boto3.resource('s3', region_name='us-east-1')
-bucket = resource.Bucket('insight-data-images')
+for obj in bucket.objects.filter(Prefix=prefix).all():
 
+    if '.jpg' in obj.key:
 
+        image = mpimg.imread(BytesIO(obj.get()['Body'].read()), 'jpg')
 
-image_object = bucket.Object('Entity/food/packaged_food/protein_bar/Think_thin_high_protein_caramel_fudge/IMG_1673.jpg')
-
-image = mpimg.imread(BytesIO(image_object.get()['Body'].read()), 'jpg')
-
-plt.figure(0)
-plt.imshow(image)
-plt.title('Sample Image from S3')
-plt.pause(2)
-
+        plt.figure(0)
+        plt.imshow(image)
+        plt.title('Sample Image from S3')
+        plt.pause(0.05)
 
 """
 For each image
@@ -130,6 +134,7 @@ Put image to the proper folder in the AWS bucket
 
 """
 ## TODO
+
 
 
 """
