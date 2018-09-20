@@ -18,8 +18,8 @@
       <file leaf-file-name="producer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5082">
-              <caret line="126" column="33" lean-forward="false" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
+            <state relative-caret-position="76">
+              <caret line="425" column="0" lean-forward="false" selection-start-line="425" selection-start-column="0" selection-end-line="435" selection-end-column="0" />
               <folding>
                 <element signature="e#1038#1048#0" expanded="true" />
               </folding>
@@ -110,9 +110,9 @@
     <findStrings>
       <find>print</find>
       <find>prefix</find>
-      <find>neighbourhood</find>
       <find>s3_bucket_name</find>
       <find>destination_prefix</find>
+      <find>neighbourhood</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -368,8 +368,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5082">
-          <caret line="126" column="33" lean-forward="false" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
+        <state relative-caret-position="76">
+          <caret line="425" column="0" lean-forward="false" selection-start-line="425" selection-start-column="0" selection-end-line="435" selection-end-column="0" />
           <folding>
             <element signature="e#1038#1048#0" expanded="true" />
           </folding>

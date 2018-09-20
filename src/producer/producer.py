@@ -89,37 +89,6 @@ def config(filename=projectPath+database_ini_file_path, section='postgresql'):
     return db
 
 
-
-"""
-Variables
-
-"""
-
-
-final_label_name = ""
-parent_labels = []
-
-
-place_id = ""
-geo_licence = ""
-postcode = ""
-neighbourhood = ""
-city = ""
-country = ""
-
-
-
-
-
-image_path = ""
-category_name = ""
-subcategory_name = ""
-geo_dot = ""
-city = ""
-country = ""
-timestamp = ""
-
-
 """
 Verify Batch ID
 
@@ -139,9 +108,6 @@ Analysing Image Label
 """
 ## TODO
 
-
-## Dummy Value - To be replaced with arguments
-label_name = 'Think_thin_high_protein_caramel_fudge'
 
 def verify_label(label_name):
     """ Connect to the PostgreSQL database server """
@@ -297,11 +263,62 @@ def getGeoinfo(lon,lat):
 
     if location.raw['address']['neighbourhood'] == None:
 
+        # TODO Default raw values
         return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , None ,location.raw['address']['city'],location.raw['address']['country']
 
 
     else:
         return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , location.raw['address']['neighbourhood'],location.raw['address']['city'],location.raw['address']['country']
+
+
+def writeGeoinfo_into_DB(image_info):
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        #TODO -  augmented SQL statement
+        sql = "INSERT \
+                INTO \
+                places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added) VALUES \
+                (" + str(image_info['place_id']) + ", '"+ image_info['geo_licence'] + "', " + str(image_info['postcode']) + \
+                ", '" + image_info['neighbourhood'] + "', '" + image_info['city'] + \
+                "', '" + image_info['country'] + "', " + str(image_info['lon']) + \
+                ", " + str(image_info['lat']) + ", NULL, (SELECT NOW()) ) \
+                ON CONFLICT(place_id)\
+                DO NOTHING RETURNING place_id;"
+
+
+
+
+        print("sql: ", sql)
+
+        # Insert geoinfo into database if place_id is not already exist
+
+        # execute a statement
+        print('Inserting geoinfo into database if place_id is not already exist...')
+        cur.execute(sql)
+
+        # commit the changes to the database
+        conn.commit()
+
+        # close the communication with the PostgreSQL
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
 
 
 
@@ -312,19 +329,9 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 """
 ## TODO
 
-# From
-s3 = boto3.resource('s3', region_name='us-east-1')
-bucket = s3.Bucket('insight-data-images')
-prefix = "Entity/food/packaged_food/protein_bar/samples/"
-
-# To
-destination_bucket = "insight-deep-images-hub"
-destination_prefix = ""
 
 
-new_bucket = s3.Bucket(destination_bucket)
-
-def processing_images(prefix,destination_prefix):
+def processing_images(prefix,destination_prefix,image_info):
 
     for obj in bucket.objects.filter(Prefix=prefix).all():
 
@@ -344,10 +351,10 @@ def processing_images(prefix,destination_prefix):
 
             new_key = obj.key.replace(prefix, "data/images" + destination_prefix + "/")
 
-            print(destination_prefix)
-
-            for path in destination_prefix.rsplit('/')[1:]:
-                print (path)
+            # print(destination_prefix)
+            #
+            # for path in destination_prefix.rsplit('/')[1:]:
+            #     print (path)
 
             print("Put file in to: ", new_key)
             # new_obj = new_bucket.Object(new_key)
@@ -355,6 +362,7 @@ def processing_images(prefix,destination_prefix):
 
 
             # Save metadata in DB
+            write_imageinfo_to_DB(new_key, image_info)
 
 
 
@@ -367,7 +375,7 @@ Save metadata in DB
 """
 ## TODO
 
-def write_imageinfo_to_DB(label_name):
+def write_imageinfo_to_DB(obj_key,image_info):
     """ Connect to the PostgreSQL database server """
     conn = None
     try:
@@ -382,23 +390,25 @@ def write_imageinfo_to_DB(label_name):
         cur = conn.cursor()
 
         #TODO -  augmented SQL statement
-        sql = "SELECT count(label_name)  FROM labels WHERE label_name = '" + label_name +"' ;"
+        sql = "INSERT INTO \
+        images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
+        VALUES \
+        ('" + obj_key + "', '" + image_info['destination_bucket'] + \
+        "', '" + image_info['destination_prefix'] + "', '"+ image_info['final_label_name'] + "', 1, (SELECT \
+        NOW()), 1, " + image_info['place_id'] + ", NULL, NULL, NULL );"
+
+
+
         print("sql: ", sql)
 
-        # verify if label exist in the database
+        # writing image info into the database
 
         # execute a statement
-        print('Verifying if the label existed in the database...')
+        print('writing image info into the database...')
         cur.execute(sql)
 
-        result_count = cur.fetchone()[0]
-
-        if result_count == 1:
-            print("Label existed")
-            return True
-        else:
-            print("Label doesn't exist")
-            return False
+        # commit the changes to the database
+        conn.commit()
 
         # close the communication with the PostgreSQL
         cur.close()
@@ -413,17 +423,36 @@ def write_imageinfo_to_DB(label_name):
 
 if __name__ == '__main__':
 
-    #     # Set up argument parser
-    #     parser = ArgumentParser()
-    #     parser.add_argument("-b", "--bucketPath", help="S3 bucket path", required=True)
-    #     parser.add_argument("-l", "--labelName", help="images label", required=True)
+    # # Set up argument parser
+    # parser = ArgumentParser()
+    # parser.add_argument("-b", "--bucketPath", help="S3 bucket path", required=True)
+    # parser.add_argument("-l", "--labelName", help="images label", required=True)
     #
-    #     args = parser.parse_args()
+    # args = parser.parse_args()
     #
-    #     # Assign input, output files and number of lines variables from command line arguments
-    #     bucketPath = args.bucketPath
-    #     labelName = args.labelName
+    # # Assign input, output files and number of lines variables from command line arguments
+    # bucketPath = args.bucketPath
+    # labelName = args.labelName
 
+    ## Dummy Value - To be replaced with arguments
+    label_name = 'Think_thin_high_protein_caramel_fudge'
+
+    # From
+    s3 = boto3.resource('s3', region_name='us-east-1')
+    bucket = s3.Bucket('insight-data-images')
+    prefix = "Entity/food/packaged_food/protein_bar/samples/"
+
+    # To
+    destination_bucket = "insight-deep-images-hub"
+    destination_prefix = ""
+
+    new_bucket = s3.Bucket(destination_bucket)
+
+    # Temp Variables
+    final_label_name = ""
+    parent_labels = []
+    batch_id = 1
+    user_id = 1
 
     # Verifying Label if exist
     isLabel = verify_label(label_name)
@@ -445,7 +474,6 @@ if __name__ == '__main__':
 
     print(destination_prefix)
 
-    processing_images(prefix, destination_prefix)
 
     # Analyzing geo info
     ## Dummy Value - TODO replaced with arguments
@@ -456,10 +484,29 @@ if __name__ == '__main__':
 
     place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
 
+    image_info = { "destination_bucket" : destination_bucket,
+                   "destination_prefix" : destination_prefix,
+                   "final_label_name" : final_label_name,
+                   "batch_id"   : batch_id,
+                   "user_id"    : user_id,
+                   "place_id"   : place_id,
+                   "geo_licence"   : geo_licence,
+                   "postcode"   : postcode,
+                   "neighbourhood" : neighbourhood,
+                   "city" : city,
+                   "country" : country,
+                   "lon" : lon,
+                   "lat" : lat
 
-    print(place_id, geo_licence, postcode, neighbourhood, city, country)
+    }
 
-    # Save Batch images info to database
+    # Insert geoinfo into database if place_id is not already exist
+    writeGeoinfo_into_DB(image_info)
+
+
+
+    # Process imges
+    processing_images(prefix, destination_prefix,image_info)
 
 
 

@@ -36,6 +36,23 @@ CREATE TABLE IF NOT EXISTS images_batches (
 	on_board_date 		timestamp
 );
 
+
+-- Drop places table if exists;
+-- Create places table if not exists;
+DROP TABLE IF EXISTS places;
+
+CREATE TABLE IF NOT EXISTS places (
+    place_id		int	PRIMARY KEY ,
+    licence			text,
+    postcode    	int,
+	neighbourhood	text,
+	city			text,
+	country			text,
+	lon				float,
+	lat 			float,
+	geometry 		point,
+	time_added		timestamp
+);
 	
 	
 -- Drop images table if exists;
@@ -60,20 +77,4 @@ CREATE TABLE IF NOT EXISTS images (
 
 
 	
--- Drop places table if exists;
--- Create places table if not exists;
-DROP TABLE IF EXISTS places;
-
-CREATE TABLE IF NOT EXISTS places (
-    place_id		int	PRIMARY KEY ,
-    licence			text,
-    postcode    	int,
-	neighbourhood	text,
-	city			text,
-	country			text,
-	lon				float,
-	lat 			float,
-	geometry 		point,
-	time_added		timestamp
-);
 	

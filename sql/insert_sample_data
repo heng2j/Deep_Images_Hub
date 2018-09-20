@@ -23,8 +23,6 @@ FROM labels;
 
 
 
-
-
 -- Insert image info into users table
 DELETE FROM users;
 ALTER SEQUENCE users_user_id_seq RESTART WITH 1;
@@ -35,14 +33,18 @@ INSERT INTO users (user_name, user_role, on_board_date) VALUES
 
 SELECT * FROM 	users; 
 
+	 
 
 -- Insert place info into places table
 DELETE FROM places;
 INSERT INTO places (place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added ) VALUES
 
-	( 1 , 'licence', 10038, 'neighbourhood', 'city', 'country', 23.124234, 13.12545, NULL, (SELECT NOW()) );
+	( 1 , 'licence', 10038, 'neighbourhood', 'city', 'country', 23.124234, 13.12545, NULL, (SELECT NOW()) )
+	 ON CONFLICT (place_id)  DO NOTHING RETURNING place_id ;
 
 SELECT * FROM 	places; 
+	
+	 
 	 
 	 
 -- Insert images_batches info into batches table
@@ -53,6 +55,8 @@ INSERT INTO images_batches (user_id, on_board_date ) VALUES
 
 SELECT * FROM 	images_batches;  
 
+
+	 
 	 
 -- Insert image info into images table
 DELETE FROM images;
