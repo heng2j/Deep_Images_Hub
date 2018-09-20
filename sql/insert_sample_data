@@ -1,8 +1,6 @@
 -- Sample Data
 
 -- Inserts
-
-
 -- Insert Sample data into labels table
 DELETE FROM labels;
 
@@ -21,3 +19,46 @@ UPDATE labels set children = array_append(children, 'footware') where label_name
 						
 SELECT * 
 FROM labels;
+
+
+
+
+
+
+-- Insert image info into users table
+DELETE FROM users;
+ALTER SEQUENCE users_user_id_seq RESTART WITH 1;
+INSERT INTO users (user_name, user_role, on_board_date) VALUES
+
+	( 'supplier_1', 'supplier', (SELECT NOW()) ),
+	( 'customer_1', 'customer', (SELECT NOW()) ) ;
+
+SELECT * FROM 	users; 
+
+
+-- Insert place info into places table
+DELETE FROM places;
+INSERT INTO places (place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added ) VALUES
+
+	( 1 , 'licence', 10038, 'neighbourhood', 'city', 'country', 23.124234, 13.12545, NULL, (SELECT NOW()) );
+
+SELECT * FROM 	places; 
+	 
+	 
+-- Insert images_batches info into batches table
+DELETE FROM images_batches;
+INSERT INTO images_batches (user_id, on_board_date ) VALUES
+
+	( 1 , (SELECT NOW()) );
+
+SELECT * FROM 	images_batches;  
+
+	 
+-- Insert image info into images table
+DELETE FROM images;
+ALTER SEQUENCE images_image_id_seq RESTART WITH 1;
+INSERT INTO images (image_object_key, bucket_name, parent_labels,label_name,batch_id,submission_time,user_id,place_id,geometry,image_index,embeddings) VALUES
+
+	('image_object_key', 'bucket_name', 'parent_labels','label_name',1, (SELECT NOW()),1, 1,NULL,NULL,NULL );
+
+SELECT * FROM images;

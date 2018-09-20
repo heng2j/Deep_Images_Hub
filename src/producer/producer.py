@@ -3,7 +3,7 @@
 # ---------------
 # Author: Zhongheng Li
 # Init Date: 09-18-2018
-# Updated Date: 09-19-2018
+# Updated Date: 09-20-2018
 
 """
 
@@ -54,13 +54,6 @@ Commonly Shared Statics
 
 """
 
-# TODO - user env variable for username and password
-# db_host = "insight-deep-images-hub.cj6pgqwql32a.us-east-1.rds.amazonaws.com"
-# db_name = "insight_deep_images_hub"
-# db_username = "heng"
-# db_password = "deepimageshub"
-
-
 # Set up project path
 projectPath = up(up(os.getcwd()))
 
@@ -69,16 +62,6 @@ s3_bucket_name = "s3://insight-data-images/"
 database_ini_file_path = "/utilities/database/database.ini"
 
 
-
-
-#
-# bbox_labels_600_hierarchy_json_file = projectPath + "/data/labels/bbox_labels_600_hierarchy.json"
-
-#
-# print('bbox_labels_600_hierarchy_json_file_Path:', bbox_labels_600_hierarchy_json_file)
-
-
-# entity_dict = json.loads(bbox_labels_600_hierarchy_json_file)
 
 
 
@@ -136,6 +119,12 @@ city = ""
 country = ""
 timestamp = ""
 
+
+"""
+Verify Batch ID
+
+"""
+## TODO - Maybe not in this Scope
 
 
 """
@@ -318,12 +307,10 @@ def getGeoinfo(lon,lat):
 
 
 """
-Fetch images
+Fetch images, *compare image embeddings and put image to the proper folder in the AWS bucket
 
 """
 ## TODO
-
-
 
 # From
 s3 = boto3.resource('s3', region_name='us-east-1')
@@ -355,30 +342,22 @@ def processing_images(prefix,destination_prefix):
             old_source = {'Bucket': 'insight-data-images',
                           'Key': obj.key}
 
-            new_key = obj.key.replace(prefix, "data/images" + destination_prefix)
+            new_key = obj.key.replace(prefix, "data/images" + destination_prefix + "/")
+
+            print(destination_prefix)
+
+            for path in destination_prefix.rsplit('/')[1:]:
+                print (path)
+
             print("Put file in to: ", new_key)
-            new_obj = new_bucket.Object(new_key)
-            new_obj.copy(old_source)
+            # new_obj = new_bucket.Object(new_key)
+            # new_obj.copy(old_source)
+
+
+            # Save metadata in DB
 
 
 
-
-
-"""
-For each image
-
-"""
-## TODO
-
-
-"""
-Put image to the proper folder in the AWS bucket
-
-"""
-## TODO
-
-# Boto 3
-# s3.Object('mybucket', 'hello.txt').put(Body=open('/tmp/hello.txt', 'rb'))
 
 
 
@@ -388,6 +367,47 @@ Save metadata in DB
 """
 ## TODO
 
+def write_imageinfo_to_DB(label_name):
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        #TODO -  augmented SQL statement
+        sql = "SELECT count(label_name)  FROM labels WHERE label_name = '" + label_name +"' ;"
+        print("sql: ", sql)
+
+        # verify if label exist in the database
+
+        # execute a statement
+        print('Verifying if the label existed in the database...')
+        cur.execute(sql)
+
+        result_count = cur.fetchone()[0]
+
+        if result_count == 1:
+            print("Label existed")
+            return True
+        else:
+            print("Label doesn't exist")
+            return False
+
+        # close the communication with the PostgreSQL
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
 
 
 

@@ -12,27 +12,30 @@ CREATE TABLE IF NOT EXISTS labels (
     children    varchar[]
 );
 	
-	
-	
--- Drop images table if exists;
--- Create images table if not exists;
-DROP TABLE IF EXISTS images;
 
-CREATE TABLE IF NOT EXISTS images (
-    image_id		int	PRIMARY KEY ,
-    image_file_name	text,
-    image_path    	text,
-	bucket_name		text,
-	prefix			text,
-	label_name		text,
-	batch_id		int,
-	submission_time timestamp,
-	user_id			int,
-	place_id		int,
-	geometry 		point
+-- Drop users table if exists;
+-- Create users table if not exists;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users (
+    user_id				SERIAL	PRIMARY KEY ,
+	user_name			text,
+    user_role			text,
+	on_board_date 		timestamp
+
 );
-	
-	
+
+
+-- Drop batches table if exists;
+-- Create batches table if not exists;
+DROP TABLE IF EXISTS images_batches;
+
+CREATE TABLE IF NOT EXISTS images_batches (
+    batch_id			SERIAL	PRIMARY KEY ,
+	user_id				int references users(user_id),
+	on_board_date 		timestamp
+);
+
 	
 	
 -- Drop images table if exists;
@@ -40,19 +43,18 @@ CREATE TABLE IF NOT EXISTS images (
 DROP TABLE IF EXISTS images;
 
 CREATE TABLE IF NOT EXISTS images (
-    image_id		int	PRIMARY KEY ,
-    image_file_name	text,
-    image_path    	text,
-	bucket_name		text,
-	prefix			text,
-	label_name		text,
-	batch_id		int,
-	submission_time timestamp,
-	user_id			int,
-	place_id		int,
-	geometry 		point,
-	image_index		int,
-	embeddings		float[]
+    image_id			SERIAL	PRIMARY KEY ,
+    image_object_key	text,
+	bucket_name			text,
+	parent_labels		text,
+	label_name			text,
+	batch_id			int references images_batches(batch_id),
+	submission_time 	timestamp,
+	user_id				int references users(user_id),
+	place_id			int references places(place_id),
+	geometry 			point,
+	image_index			int,
+	embeddings			float[]
 );
 
 
