@@ -352,13 +352,12 @@ def processing_images(prefix,destination_prefix,image_info):
             new_key = obj.key.replace(prefix, "data/images" + destination_prefix + "/")
 
             # print(destination_prefix)
-            #
             # for path in destination_prefix.rsplit('/')[1:]:
             #     print (path)
 
             print("Put file in to: ", new_key)
-            # new_obj = new_bucket.Object(new_key)
-            # new_obj.copy(old_source)
+            new_obj = new_bucket.Object(new_key)
+            new_obj.copy(old_source)
 
 
             # Save metadata in DB
