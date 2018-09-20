@@ -64,7 +64,7 @@ Commonly Shared Statics
 # Set up project path
 projectPath = up(up(os.getcwd()))
 
-s3_bucket_name = "s3://insight-data-images/Entity"
+s3_bucket_name = "s3://insight-data-images/"
 
 database_ini_file_path = "/utilities/database/database.ini"
 
@@ -114,6 +114,8 @@ Variables
 
 
 final_label_name = ""
+parent_labels = []
+
 
 place_id = ""
 geo_licence = ""
@@ -195,6 +197,76 @@ def verify_label(label_name):
             print('Database connection closed.')
 
 
+# Recursively getting the parents' labels using Common Table Expressions (CTEs)
+def getParent_labels(label_name):
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        #TODO -  augmented SQL statement
+        sql = "WITH RECURSIVE labeltree AS ( \
+                SELECT parent_name \
+                FROM labels \
+                  WHERE label_name = '" + label_name + "' \
+                  UNION ALL \
+                  SELECT l.parent_name \
+                  FROM labels l \
+                  INNER JOIN labeltree ltree ON ltree.parent_name = l.label_name \
+                      WHERE l.parent_name IS NOT NULL \
+                ) \
+                SELECT * \
+                FROM labeltree;"
+
+
+        print("sql: ", sql)
+
+        # recursively split out the parent's label one by one to construct the path for the bucket's prefix
+        # execute a statement
+        print('Recursively getting the labels\' parents...')
+        cur.execute(sql)
+
+        row = cur.fetchone()
+
+        parent_labels = []
+
+        while row is not None:
+            parent_labels.insert(0,row[0])
+            row = cur.fetchone()
+
+        return parent_labels
+
+
+        # close the communication with the PostgreSQL
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
+# Construct the path for the bucket's prefix
+def construct_bucket_prefix(parent_labels):
+
+    prefix = ""
+
+    # '/tmp/hello.txt'
+    for label in parent_labels:
+        prefix = prefix + "/" + label
+
+    return prefix
+
+
 """
 Analysing geoinfo
 
@@ -234,7 +306,13 @@ def getGeoinfo(lon,lat):
 
     location = geolocator.reverse(lon_lat_str)
 
-    return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , location.raw['address']['neighbourhood'],location.raw['address']['city'],location.raw['address']['country']
+    if location.raw['address']['neighbourhood'] == None:
+
+        return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , None ,location.raw['address']['city'],location.raw['address']['country']
+
+
+    else:
+        return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , location.raw['address']['neighbourhood'],location.raw['address']['city'],location.raw['address']['country']
 
 
 
@@ -245,29 +323,46 @@ Fetch images
 """
 ## TODO
 
+
+
+# From
 s3 = boto3.resource('s3', region_name='us-east-1')
 bucket = s3.Bucket('insight-data-images')
 prefix = "Entity/food/packaged_food/protein_bar/samples/"
 
+# To
 destination_bucket = "insight-deep-images-hub"
 destination_prefix = ""
 
 
-for obj in bucket.objects.filter(Prefix=prefix).all():
+new_bucket = s3.Bucket(destination_bucket)
 
-    if '.jpg' in obj.key:
+def processing_images(prefix,destination_prefix):
 
-        image = mpimg.imread(BytesIO(obj.get()['Body'].read()), 'jpg')
+    for obj in bucket.objects.filter(Prefix=prefix).all():
 
-        print("obj.key: ", obj.key)
+        if '.jpg' in obj.key:
 
-        #s3.Object('mybucket', 'hello.txt').put(Body=open('/tmp/hello.txt', 'rb'))
-        #s3.Object('insight-data-images', image).put(Body=open('/tmp/hello.txt', 'rb'))
+            # TODO - Processing Images
+            image = mpimg.imread(BytesIO(obj.get()['Body'].read()), 'jpg')
 
-        # plt.figure(0)
-        # plt.imshow(image)
-        # plt.title('Sample Image from S3')
-        # plt.pause(0.05)
+            # plt.figure(0)
+            # plt.imshow(image)
+            # plt.title('Sample Image from S3')
+            # plt.pause(0.05)
+
+            # Temp - Copy the the file from source bucket to destination bucekt
+            old_source = {'Bucket': 'insight-data-images',
+                          'Key': obj.key}
+
+            new_key = obj.key.replace(prefix, "data/images" + destination_prefix)
+            print("Put file in to: ", new_key)
+            new_obj = new_bucket.Object(new_key)
+            new_obj.copy(old_source)
+
+
+
+
 
 """
 For each image
@@ -322,10 +417,17 @@ if __name__ == '__main__':
     print("final_label_name: ", final_label_name)
 
 
+    # Setting up the path for the prefix to save the images to the S3 bucket
+    parent_labels = getParent_labels(label_name)
+    print(parent_labels)
 
+    destination_prefix = construct_bucket_prefix(parent_labels)
+
+    print(destination_prefix)
+
+    processing_images(prefix, destination_prefix)
 
     # Analyzing geo info
-
     ## Dummy Value - TODO replaced with arguments
     lon = -73.935242
     lat = 40.730610
@@ -336,6 +438,10 @@ if __name__ == '__main__':
 
 
     print(place_id, geo_licence, postcode, neighbourhood, city, country)
+
+    # Save Batch images info to database
+
+
 
 
 
