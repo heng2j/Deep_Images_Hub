@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
     user_id				SERIAL	PRIMARY KEY ,
 	user_name			text,
+	user_email			text,
     user_role			text,
 	on_board_date 		timestamp
 
@@ -72,6 +73,20 @@ CREATE TABLE IF NOT EXISTS images (
 	geometry 			point,
 	image_index			int,
 	embeddings			float[]
+);
+
+
+
+
+-- Drop requests table if exists;
+-- Create requests table if not exists;
+DROP TABLE IF EXISTS requests;
+
+CREATE TABLE IF NOT EXISTS images_batches (
+    request_id			SERIAL	PRIMARY KEY ,
+	user_id				int references users(user_id),
+	request_date_time 		timestamp,
+	labels    varchar[]
 );
 
 

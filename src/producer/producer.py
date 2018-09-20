@@ -397,7 +397,6 @@ def write_imageinfo_to_DB(obj_key,image_info):
         NOW()), 1, " + image_info['place_id'] + ", NULL, NULL, NULL );"
 
 
-
         print("sql: ", sql)
 
         # writing image info into the database
@@ -498,7 +497,6 @@ if __name__ == '__main__':
 
 
     # Analyzing geo info
-
     lon,lat = generate_random_geo_point(lon,lat)
 
     place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
@@ -522,9 +520,7 @@ if __name__ == '__main__':
     # Insert geoinfo into database if place_id is not already exist
     writeGeoinfo_into_DB(image_info)
 
-
-
-    # Process imges
+    # Processing images
     processing_images(prefix, destination_prefix,image_info)
 
 

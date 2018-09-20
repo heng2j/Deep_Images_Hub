@@ -9,7 +9,11 @@ INSERT INTO labels (label_name, parent_name, children) VALUES
     ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}'),
     ('packaged_food', 'food', '{"protein_bar","snack"}'   ),
 	('food', 'Entity', '{"packaged_food"}' ),
-	('Entity', null,  '{"food"}'    );
+	('furniture', 'equipment', '{"chair","diningtable","sofa"}' ),
+	('equipment', 'Entity', '{"container","furniture"}' ),
+	('animal', 'Entity', '{"bird", "cat","dog","cow","horse","sheep"}' ),
+	('transportation', 'Entity', '{"train", "motorbike","car","bus","boat","bicylce", "aeroplane"}' ),
+	('Entity', null,  '{"food", "animal", "equipment", "person", "transportation"}'    );
 						
 SELECT * 
 FROM labels;					
@@ -26,10 +30,10 @@ FROM labels;
 -- Insert image info into users table
 DELETE FROM users;
 ALTER SEQUENCE users_user_id_seq RESTART WITH 1;
-INSERT INTO users (user_name, user_role, on_board_date) VALUES
+INSERT INTO users (user_name, user_email, user_role, on_board_date) VALUES
 
-	( 'supplier_1', 'supplier', (SELECT NOW()) ),
-	( 'customer_1', 'customer', (SELECT NOW()) ) ;
+	( 'supplier_1', 'heng2j@gmail.com', 'supplier', (SELECT NOW()) ),
+	( 'customer_1', 'heng2j@gmail.com', 'customer', (SELECT NOW()) ) ;
 
 SELECT * FROM 	users; 
 
@@ -42,6 +46,8 @@ INSERT INTO places (place_id, licence, postcode, neighbourhood, city, country, l
 	( 1 , 'licence', 10038, 'neighbourhood', 'city', 'country', 23.124234, 13.12545, NULL, (SELECT NOW()) )
 	 ON CONFLICT (place_id)  DO NOTHING RETURNING place_id ;
 
+ INSERT                 INTO                 places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added) VALUES                 (141511485, 'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright', 11377, 'Woodside', 'NYC', 'USA', -73.90173357686848, 40.745229792203425, NULL, (SELECT NOW()) )                 ON CONFLICT(place_id)                DO NOTHING RETURNING place_id;
+
 SELECT * FROM 	places; 
 	
 	 
@@ -49,6 +55,7 @@ SELECT * FROM 	places;
 	 
 -- Insert images_batches info into batches table
 DELETE FROM images_batches;
+ALTER SEQUENCE images_batches_batch_id_seq RESTART WITH 1;
 INSERT INTO images_batches (user_id, on_board_date ) VALUES
 
 	( 1 , (SELECT NOW()) );
@@ -65,4 +72,14 @@ INSERT INTO images (image_object_key, bucket_name, parent_labels,label_name,batc
 
 	('image_object_key', 'bucket_name', 'parent_labels','label_name',1, (SELECT NOW()),1, 1,NULL,NULL,NULL );
 
-SELECT * FROM images;
+	 
+SELECT * 
+FROM images i;
+	 
+SELECT * 
+FROM images i
+JOIN places pl 
+ON i.place_id = pl.place_id;
+	 
+	 
+	 
