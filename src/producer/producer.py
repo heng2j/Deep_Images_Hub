@@ -423,30 +423,53 @@ def write_imageinfo_to_DB(obj_key,image_info):
 
 if __name__ == '__main__':
 
-    # # Set up argument parser
-    # parser = ArgumentParser()
-    # parser.add_argument("-b", "--bucketPath", help="S3 bucket path", required=True)
-    # parser.add_argument("-l", "--labelName", help="images label", required=True)
-    #
-    # args = parser.parse_args()
-    #
-    # # Assign input, output files and number of lines variables from command line arguments
-    # bucketPath = args.bucketPath
-    # labelName = args.labelName
+    # Set up argument parser
+    parser = ArgumentParser()
+    parser.add_argument("-src_b", "--src_bucket_name", help="Source S3 bucket name", required=True)
+    parser.add_argument("-src_p", "--src_prefix", help="Source S3 folder prefix", required=True)
+    parser.add_argument("-des_b", "--des_bucket_name", help="Destination S3 bucket name", required=True)
+    parser.add_argument("-l", "--label_name", help="images label", required=True)
+    parser.add_argument("-lon", "--lon", help="longitude", required=True)
+    parser.add_argument("-lat", "--lat", help="latitude", required=True)
+    parser.add_argument("-bid", "--batch_id", help="images batch id", required=True)
+    parser.add_argument("-uid", "--user_id", help="supplier user id", required=True)
 
-    ## Dummy Value - To be replaced with arguments
-    label_name = 'Think_thin_high_protein_caramel_fudge'
+
+
+    args = parser.parse_args()
+
+    # Assign input, output files and number of lines variables from command line arguments
+    src_bucket_name = args.src_bucket_name
+    des_bucket_name = args.des_bucket_name
+
+    label_name = args.label_name
+    lon = float(args.lon)
+    lat = float(args.lat)
+    bid = args.batch_id
+    uid = args.user_id
+    prefix = args.src_prefix
+
+
+
+
+    ## Dummy Value - TODO replaced with arguments
+    # lon = -73.935242
+    # lat = 40.730610
+    #
+    # label_name = 'Think_thin_high_protein_caramel_fudge'
 
     # From
     s3 = boto3.resource('s3', region_name='us-east-1')
-    bucket = s3.Bucket('insight-data-images')
-    prefix = "Entity/food/packaged_food/protein_bar/samples/"
+
+    #bucket = s3.Bucket('insight-data-images')
+    bucket = s3.Bucket(src_bucket_name)
+    # prefix = "Entity/food/packaged_food/protein_bar/samples/"
 
     # To
-    destination_bucket = "insight-deep-images-hub"
+    # destination_bucket = "insight-deep-images-hub"
     destination_prefix = ""
 
-    new_bucket = s3.Bucket(destination_bucket)
+    new_bucket = s3.Bucket(des_bucket_name)
 
     # Temp Variables
     final_label_name = ""
@@ -476,15 +499,12 @@ if __name__ == '__main__':
 
 
     # Analyzing geo info
-    ## Dummy Value - TODO replaced with arguments
-    lon = -73.935242
-    lat = 40.730610
 
     lon,lat = generate_random_geo_point(lon,lat)
 
     place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
 
-    image_info = { "destination_bucket" : destination_bucket,
+    image_info = { "destination_bucket" : des_bucket_name,
                    "destination_prefix" : destination_prefix,
                    "final_label_name" : final_label_name,
                    "batch_id"   : batch_id,
