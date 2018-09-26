@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/requester_queries" afterPath="$PROJECT_DIR$/sql/requester_queries" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/tabels_creations" afterPath="$PROJECT_DIR$/sql/tabels_creations" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/consumer/requester.py" afterPath="$PROJECT_DIR$/src/consumer/requester.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/producer_local.py" afterPath="$PROJECT_DIR$/src/producer/producer_local.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,8 +31,8 @@
       <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="29" column="71" lean-forward="true" selection-start-line="29" selection-start-column="71" selection-end-line="29" selection-end-column="132" />
+            <state relative-caret-position="310">
+              <caret line="463" column="0" lean-forward="false" selection-start-line="463" selection-start-column="0" selection-end-line="463" selection-end-column="26" />
               <folding>
                 <element signature="e#1239#1276#0" expanded="true" />
               </folding>
@@ -54,8 +55,8 @@
       <file leaf-file-name="requester.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/consumer/requester.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="247" column="34" lean-forward="false" selection-start-line="247" selection-start-column="34" selection-end-line="247" selection-end-column="60" />
+            <state relative-caret-position="-452">
+              <caret line="185" column="28" lean-forward="false" selection-start-line="185" selection-start-column="4" selection-end-line="185" selection-end-column="28" />
               <folding>
                 <element signature="e#1962#1999#0" expanded="true" />
               </folding>
@@ -136,6 +137,8 @@
       <find>boto</find>
       <find>Connecting to the PostgreSQL</find>
       <find>psycopg2.extras.execute_values</find>
+      <find>uid</find>
+      <find>bid</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -156,9 +159,9 @@
         <option value="$PROJECT_DIR$/src/data_preprocessor/CreateThumbnail.py" />
         <option value="$PROJECT_DIR$/src/data_preprocessor/create_thumbnail.py" />
         <option value="$PROJECT_DIR$/src/consumer/request_model.py" />
-        <option value="$PROJECT_DIR$/src/producer/producer_local.py" />
         <option value="$PROJECT_DIR$/src/producer/producer.py" />
         <option value="$PROJECT_DIR$/src/consumer/requestor.py" />
+        <option value="$PROJECT_DIR$/src/producer/producer_local.py" />
         <option value="$PROJECT_DIR$/src/consumer/requester.py" />
       </list>
     </option>
@@ -708,8 +711,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="29" column="71" lean-forward="true" selection-start-line="29" selection-start-column="71" selection-end-line="29" selection-end-column="132" />
+        <state relative-caret-position="310">
+          <caret line="463" column="0" lean-forward="false" selection-start-line="463" selection-start-column="0" selection-end-line="463" selection-end-column="26" />
           <folding>
             <element signature="e#1239#1276#0" expanded="true" />
           </folding>
@@ -718,8 +721,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/consumer/requester.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="247" column="34" lean-forward="false" selection-start-line="247" selection-start-column="34" selection-end-line="247" selection-end-column="60" />
+        <state relative-caret-position="-452">
+          <caret line="185" column="28" lean-forward="false" selection-start-line="185" selection-start-column="4" selection-end-line="185" selection-end-column="28" />
           <folding>
             <element signature="e#1962#1999#0" expanded="true" />
           </folding>

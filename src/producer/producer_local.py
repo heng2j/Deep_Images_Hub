@@ -460,8 +460,8 @@ if __name__ == '__main__':
     label_name = args.label_name
     lon = float(args.lon)
     lat = float(args.lat)
-    bid = args.batch_id
-    uid = args.user_id
+    batch_id = args.batch_id
+    user_id = args.user_id
     prefix = args.src_prefix
 
 

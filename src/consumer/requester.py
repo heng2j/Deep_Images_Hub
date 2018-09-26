@@ -183,7 +183,10 @@ def verify_labels(label_list):
             print('Database connection closed.')
 
 # Verify if the labels currently have enough images
-def verify_labels_quantities(label_list):
+def verify_labels_quantities(label_list,user_info):
+
+    user_id = user_info['user_id']
+
     """ Connect to the PostgreSQL database server """
     conn = None
     try:
@@ -220,6 +223,10 @@ def verify_labels_quantities(label_list):
                 print("These labels will save into the requesting_label_watchlist table")
 
                 # TODO - Save labels into the requesting_label_watchlist table
+                save_to_requesting_label_watchlist(cur, results, user_id)
+
+                # commit changes
+                conn.commit()
 
                 return False
 
@@ -242,15 +249,21 @@ def verify_labels_quantities(label_list):
 
 
 # Save labels into the requesting_label_watchlist table
-def save_to_requesting_label_watchlist(cur,label_list):
+def save_to_requesting_label_watchlist(cur,label_list,user_id):
 
 
     print('Saving labels into the requesting_label_watchlist table...')
     for label_name in label_list:
-        # TODO -  augmented SQL statement
-        sql = "SELECT label_name FROM labels WHERE label_name in ('Apple', 'Banana','protein_bar' ) AND image_count < 100;"
 
-        # " '" + label_name +"' ;"
+        # TODO -  augmented SQL statement
+
+        sql = " INSERT INTO requesting_label_watchlist (label_name, user_ids,last_requested_userid, new_requested_date ) VALUES \
+        ( '"+ label_name[0] +"',ARRAY[" + user_id + "], " + user_id + ", (SELECT NOW()) ) ON CONFLICT (label_name)\
+        DO UPDATE \
+        SET user_ids = array_append(requesting_label_watchlist.user_ids, "+ user_id +"),\
+        last_requested_userid = " + user_id + " \
+        WHERE requesting_label_watchlist.label_name = '" + label_name[0] + "';"
+
         print("sql: ", sql)
 
         # verify if label exist in the database
@@ -277,9 +290,16 @@ if __name__ == '__main__':
     des_bucket_name = args.des_bucket_name
     prefix = args.des_prefix
     label_list = args.label_List
-    uid = args.user_id
+    user_id = args.user_id
+
+
+    user_info = { "destination_bucket" : des_bucket_name,
+                   "destination_prefix" : prefix,
+                   "user_id"    : user_id
+
+
+    }
 
 
     verify_labels(label_list)
-    verify_labels_quantities(label_list)
-
+    verify_labels_quantities(label_list,user_info)
