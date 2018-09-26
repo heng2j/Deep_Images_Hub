@@ -427,7 +427,7 @@ if __name__ == '__main__':
     # imports for pySpark
     from pyspark.context import SparkContext
     from pyspark.conf import SparkConf
-    from tensorflowonspark import TFCluster
+
 
     sc = SparkContext(conf=SparkConf().setAppName("producer_spark"))
     executors = sc._conf.get("spark.executor.instances")
@@ -538,9 +538,9 @@ if __name__ == '__main__':
 
     
 
-    cluster = TFCluster.run(sc, main, args, args.cluster_size, args.num_ps, tensorboard=args.tensorboard,
-                            input_mode=TFCluster.InputMode.TENSORFLOW, log_dir=args.model, master_node='master')
-    cluster.shutdown()
+    # cluster = TFCluster.run(sc, main, args, args.cluster_size, args.num_ps, tensorboard=args.tensorboard,
+    #                         input_mode=TFCluster.InputMode.TENSORFLOW, log_dir=args.model, master_node='master')
+    # cluster.shutdown()
 
 
 

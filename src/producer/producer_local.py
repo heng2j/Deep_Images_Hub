@@ -299,12 +299,13 @@ def writeGeoinfo_into_DB(image_info):
 
 
 
-        print("sql: ", sql)
+
 
         # Insert geoinfo into database if place_id is not already exist
 
         # execute a statement
         print('Inserting geoinfo into database if place_id is not already exist...')
+        print("sql: ", sql)
         cur.execute(sql)
 
         # commit the changes to the database
@@ -331,7 +332,7 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 
 
 
-def processing_images(prefix,destination_prefix,image_info):
+def processing_images(bucket,prefix,destination_prefix,image_info,new_keys_list):
 
     for obj in bucket.objects.filter(Prefix=prefix).all():
 
@@ -351,17 +352,16 @@ def processing_images(prefix,destination_prefix,image_info):
 
             new_key = obj.key.replace(prefix, "data/images" + destination_prefix + "/" + image_info['final_label_name'] + "/")
 
-            # print(destination_prefix)
-            # for path in destination_prefix.rsplit('/')[1:]:
-            #     print (path)
 
             print("Put file in to: ", new_key)
             new_obj = new_bucket.Object(new_key)
             new_obj.copy(old_source)
 
+            new_keys_list.append(new_key)
 
-            # TODO - decoupled this process to reduce DB access Save metadata in DB
-            write_imageinfo_to_DB(new_key, image_info)
+
+            # # TODO - decoupled this process to reduce DB access Save metadata in DB
+            # write_imageinfo_to_DB(new_key, image_info)
 
 
 
@@ -374,7 +374,7 @@ Save metadata in DB
 """
 ## TODO
 
-def write_imageinfo_to_DB(obj_key,image_info):
+def write_imageinfo_to_DB(obj_keys,image_info):
     """ Connect to the PostgreSQL database server """
     conn = None
     try:
@@ -388,22 +388,23 @@ def write_imageinfo_to_DB(obj_key,image_info):
         # create a cursor
         cur = conn.cursor()
 
-        #TODO -  augmented SQL statement
-        sql = "INSERT INTO \
-        images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
-        VALUES \
-        ('" + obj_key + "', '" + image_info['destination_bucket'] + \
-        "', '" + image_info['destination_prefix'] + "', '"+ image_info['final_label_name'] + "', 1, (SELECT \
-        NOW()), 1, " + image_info['place_id'] + ", NULL, NULL, NULL );"
+        for obj_key in obj_keys:
+
+            #TODO -  augmented SQL statement
+            sql = "INSERT INTO \
+            images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
+            VALUES \
+            ('" + obj_key + "', '" + image_info['destination_bucket'] + \
+            "', '" + image_info['destination_prefix'] + "', '"+ image_info['final_label_name'] + "', 1, (SELECT \
+            NOW()), 1, " + image_info['place_id'] + ", NULL, NULL, NULL );"
 
 
-        print("sql: ", sql)
+            print("sql: ", sql)
 
-        # writing image info into the database
-
-        # execute a statement
-        print('writing image info into the database...')
-        cur.execute(sql)
+            # writing image info into the database
+            # execute a statement
+            print('writing image info into the database...')
+            cur.execute(sql)
 
         # commit the changes to the database
         conn.commit()
@@ -448,23 +449,12 @@ if __name__ == '__main__':
     prefix = args.src_prefix
 
 
-
-
-    ## Dummy Value - TODO replaced with arguments
-    # lon = -73.935242
-    # lat = 40.730610
-    #
-    # label_name = 'Think_thin_high_protein_caramel_fudge'
-
     # From
     s3 = boto3.resource('s3', region_name='us-east-1')
-
-    #bucket = s3.Bucket('insight-data-images')
     bucket = s3.Bucket(src_bucket_name)
-    # prefix = "Entity/food/packaged_food/protein_bar/samples/"
+
 
     # To
-    # destination_bucket = "insight-deep-images-hub"
     destination_prefix = ""
 
     new_bucket = s3.Bucket(des_bucket_name)
@@ -479,7 +469,7 @@ if __name__ == '__main__':
     isLabel = verify_label(label_name)
 
     if isLabel == False:
-        print("Sorry the suppplying label doesn't exist in database")
+        print("Sorry the supplying label doesn't exist in database")
         exit()
 
 
@@ -489,11 +479,7 @@ if __name__ == '__main__':
 
     # Setting up the path for the prefix to save the images to the S3 bucket
     parent_labels = getParent_labels(label_name)
-    print(parent_labels)
-
     destination_prefix = construct_bucket_prefix(parent_labels)
-
-    print(destination_prefix)
 
 
     # Analyzing geo info
@@ -520,8 +506,14 @@ if __name__ == '__main__':
     # Insert geoinfo into database if place_id is not already exist
     writeGeoinfo_into_DB(image_info)
 
+    # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
+    new_keys = []
+
     # Processing images
-    processing_images(prefix, destination_prefix,image_info)
+    processing_images(bucket,prefix,destination_prefix,image_info,new_keys)
+
+    # Bulk upload image info to database
+    write_imageinfo_to_DB(new_keys, image_info)
 
 
 
