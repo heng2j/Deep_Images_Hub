@@ -1,0 +1,22 @@
+-- Queries
+
+-- Requester queries
+
+
+-- Check if all requestion labels exisits 
+
+
+SELECT label_name 
+FROM labels
+WHERE label_name IN
+(SELECT l.label_name 
+FROM labels l
+WHERE l.label_name
+in ('Apple', '','Banana'));	
+
+
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ALL
+(SELECT column_name FROM table_name WHERE condition);
+

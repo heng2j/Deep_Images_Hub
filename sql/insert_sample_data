@@ -8,7 +8,7 @@ INSERT INTO labels (label_name, parent_name, children) VALUES
     ('Think_thin_high_protein_caramel_fudge', 'protein_bar', NULL ),
     ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}'),
     ('packaged_food', 'food', '{"protein_bar","snack"}'   ),
-	('Apple', 'fruit', NULL   )
+	('Apple', 'fruit', NULL   ),
 	('fruit', 'food', '{"Apple","Banana"}'   ),
 	('food', 'Entity', '{"packaged_food","fruit"}' ),
 	('furniture', 'equipment', '{"chair","diningtable","sofa"}' ),
@@ -18,7 +18,32 @@ INSERT INTO labels (label_name, parent_name, children) VALUES
 	('Entity', null,  '{"food", "animal", "equipment", "person", "transportation"}'    );
 						
 SELECT * 
-FROM labels;					
+FROM labels;		
+
+
+
+-- Insert Sample data into labels table
+DELETE FROM labels;
+
+INSERT INTO labels (label_name, parent_name, children, image_count, on_board_date) VALUES
+    ('Think_thin_high_protein_caramel_fudge', 'protein_bar', NULL ),
+    ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}'),
+    ('packaged_food', 'food', '{"protein_bar","snack"}'   ),
+	('Apple', 'fruit', NULL   ),
+	('fruit', 'food', '{"Apple","Banana"}'   ),
+	('food', 'Entity', '{"packaged_food","fruit"}' ),
+	('furniture', 'equipment', '{"chair","diningtable","sofa"}' ),
+	('equipment', 'Entity', '{"container","furniture"}' ),
+	('animal', 'Entity', '{"bird", "cat","dog","cow","horse","sheep"}' ),
+	('transportation', 'Entity', '{"train", "motorbike","car","bus","boat","bicylce", "aeroplane"}' ),
+	('Entity', null,  '{"food", "animal", "equipment", "person", "transportation"}'    );
+						
+SELECT * 
+FROM labels;		
+
+
+
+
 
 -- Append entity "footware" into the children array of 'Entity'
 UPDATE labels set children = array_append(children, 'footware') where label_name = 'Entity';
@@ -48,7 +73,9 @@ INSERT INTO places (place_id, licence, postcode, neighbourhood, city, country, l
 	( 1 , 'licence', 10038, 'neighbourhood', 'city', 'country', 23.124234, 13.12545, NULL, (SELECT NOW()) )
 	 ON CONFLICT (place_id)  DO NOTHING RETURNING place_id ;
 
- INSERT                 INTO                 places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added) VALUES                 (141511485, 'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright', 11377, 'Woodside', 'NYC', 'USA', -73.90173357686848, 40.745229792203425, NULL, (SELECT NOW()) )                 ON CONFLICT(place_id)                DO NOTHING RETURNING place_id;
+ 
+	 
+	 INSERT                 INTO                 places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added) VALUES                 (141511485, 'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright', 11377, 'Woodside', 'NYC', 'USA', -73.90173357686848, 40.745229792203425, NULL, (SELECT NOW()) )                 ON CONFLICT(place_id)                DO NOTHING RETURNING place_id;
 
 SELECT * FROM 	places; 
 	
