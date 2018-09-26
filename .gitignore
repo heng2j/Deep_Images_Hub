@@ -1,4 +1,3 @@
 # Ignore database credentials 
-../../utilities/database/
-
+utilities/database/database.ini
 
