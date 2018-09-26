@@ -8,7 +8,9 @@ INSERT INTO labels (label_name, parent_name, children) VALUES
     ('Think_thin_high_protein_caramel_fudge', 'protein_bar', NULL ),
     ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}'),
     ('packaged_food', 'food', '{"protein_bar","snack"}'   ),
-	('food', 'Entity', '{"packaged_food"}' ),
+	('Apple', 'fruit', NULL   )
+	('fruit', 'food', '{"Apple","Banana"}'   ),
+	('food', 'Entity', '{"packaged_food","fruit"}' ),
 	('furniture', 'equipment', '{"chair","diningtable","sofa"}' ),
 	('equipment', 'Entity', '{"container","furniture"}' ),
 	('animal', 'Entity', '{"bird", "cat","dog","cow","horse","sheep"}' ),

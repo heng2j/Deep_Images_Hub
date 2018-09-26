@@ -40,6 +40,7 @@ from io import BytesIO
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import psycopg2
+from psycopg2 import extras
 from geopy.geocoders import Nominatim
 import json
 import time
@@ -375,6 +376,14 @@ Save metadata in DB
 ## TODO
 
 def write_imageinfo_to_DB(obj_keys,image_info):
+
+
+    sql = """ INSERT INTO \
+     images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
+     VALUES %s
+     """
+
+
     """ Connect to the PostgreSQL database server """
     conn = None
     try:
@@ -388,24 +397,30 @@ def write_imageinfo_to_DB(obj_keys,image_info):
         # create a cursor
         cur = conn.cursor()
 
+        # create values list
+        values_list = []
+
         for obj_key in obj_keys:
 
-            #TODO -  augmented SQL statement
-            sql = "INSERT INTO \
-            images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
-            VALUES \
-            ('" + obj_key + "', '" + image_info['destination_bucket'] + \
-            "', '" + image_info['destination_prefix'] + "', '"+ image_info['final_label_name'] + "', 1, (SELECT \
-            NOW()), 1, " + image_info['place_id'] + ", NULL, NULL, NULL );"
+            values = (obj_key,
+                      image_info['destination_bucket'],
+                      image_info['destination_prefix'],
+                      image_info['final_label_name'],
+                      image_info['batch_id'],
+                      datetime.datetime.now(),
+                      image_info['user_id'],
+                      image_info['place_id'],
+                      None,
+                      None,
+                      None
+                      )
 
+            values_list.append(values)
 
-            print("sql: ", sql)
-
-            # writing image info into the database
-            # execute a statement
-            print('writing image info into the database...')
-            cur.execute(sql)
-
+        # writing image info into the database
+        # execute a statement
+        print('writing images info into the database...')
+        psycopg2.extras.execute_values(cur, sql, values_list)
         # commit the changes to the database
         conn.commit()
 

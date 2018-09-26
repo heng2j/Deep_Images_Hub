@@ -353,17 +353,11 @@ def processing_images(prefix,destination_prefix,image_info):
 
             new_key = obj.key.replace(prefix, "data/images" + destination_prefix + "/" + image_info['final_label_name'] + "/")
 
-            # print(destination_prefix)
-            # for path in destination_prefix.rsplit('/')[1:]:
-            #     print (path)
 
             print("Put file in to: ", new_key)
             new_obj = new_bucket.Object(new_key)
             new_obj.copy(old_source)
 
-
-            # TODO - decoupled this process to reduce DB access Save metadata in DB
-            write_imageinfo_to_DB(new_key, image_info)
 
 
 
@@ -376,7 +370,15 @@ Save metadata in DB
 """
 ## TODO
 
-def write_imageinfo_to_DB(obj_key,image_info):
+def write_imageinfo_to_DB(obj_keys,image_info):
+
+
+    sql = """ INSERT INTO \
+     images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
+     VALUES %s
+     """
+
+
     """ Connect to the PostgreSQL database server """
     conn = None
     try:
@@ -390,23 +392,30 @@ def write_imageinfo_to_DB(obj_key,image_info):
         # create a cursor
         cur = conn.cursor()
 
-        #TODO -  augmented SQL statement
-        sql = "INSERT INTO \
-        images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
-        VALUES \
-        ('" + obj_key + "', '" + image_info['destination_bucket'] + \
-        "', '" + image_info['destination_prefix'] + "', '"+ image_info['final_label_name'] + "', 1, (SELECT \
-        NOW()), 1, " + image_info['place_id'] + ", NULL, NULL, NULL );"
+        # create values list
+        values_list = []
 
+        for obj_key in obj_keys:
 
-        print("sql: ", sql)
+            values = (obj_key,
+                      image_info['destination_bucket'],
+                      image_info['destination_prefix'],
+                      image_info['final_label_name'],
+                      image_info['batch_id'],
+                      datetime.datetime.now(),
+                      image_info['user_id'],
+                      image_info['place_id'],
+                      None,
+                      None,
+                      None
+                      )
+
+            values_list.append(values)
 
         # writing image info into the database
-
         # execute a statement
-        print('writing image info into the database...')
-        cur.execute(sql)
-
+        print('writing images info into the database...')
+        psycopg2.extras.execute_values(cur, sql, values_list)
         # commit the changes to the database
         conn.commit()
 
@@ -418,6 +427,7 @@ def write_imageinfo_to_DB(obj_key,image_info):
         if conn is not None:
             conn.close()
             print('Database connection closed.')
+
 
 
 
@@ -460,23 +470,12 @@ if __name__ == '__main__':
     prefix = args.src_prefix
 
 
-
-
-    ## Dummy Value - TODO replaced with arguments
-    # lon = -73.935242
-    # lat = 40.730610
-    #
-    # label_name = 'Think_thin_high_protein_caramel_fudge'
-
     # From
     s3 = boto3.resource('s3', region_name='us-east-1')
-
-    #bucket = s3.Bucket('insight-data-images')
     bucket = s3.Bucket(src_bucket_name)
-    # prefix = "Entity/food/packaged_food/protein_bar/samples/"
+
 
     # To
-    # destination_bucket = "insight-deep-images-hub"
     destination_prefix = ""
 
     new_bucket = s3.Bucket(des_bucket_name)
@@ -491,7 +490,7 @@ if __name__ == '__main__':
     isLabel = verify_label(label_name)
 
     if isLabel == False:
-        print("Sorry the suppplying label doesn't exist in database")
+        print("Sorry the supplying label doesn't exist in database")
         exit()
 
 
@@ -501,11 +500,7 @@ if __name__ == '__main__':
 
     # Setting up the path for the prefix to save the images to the S3 bucket
     parent_labels = getParent_labels(label_name)
-    print(parent_labels)
-
     destination_prefix = construct_bucket_prefix(parent_labels)
-
-    print(destination_prefix)
 
 
     # Analyzing geo info
@@ -532,15 +527,15 @@ if __name__ == '__main__':
     # Insert geoinfo into database if place_id is not already exist
     writeGeoinfo_into_DB(image_info)
 
+    # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
+    new_keys = []
+
     # Processing images
-    processing_images(prefix, destination_prefix,image_info)
+    processing_images(bucket,prefix,destination_prefix,image_info,new_keys)
 
+    # Bulk upload image info to database
+    write_imageinfo_to_DB(new_keys, image_info)
 
-    
-
-    # cluster = TFCluster.run(sc, main, args, args.cluster_size, args.num_ps, tensorboard=args.tensorboard,
-    #                         input_mode=TFCluster.InputMode.TENSORFLOW, log_dir=args.model, master_node='master')
-    # cluster.shutdown()
 
 
 

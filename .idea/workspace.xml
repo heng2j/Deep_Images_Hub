@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/insert_sample_data" afterPath="$PROJECT_DIR$/sql/insert_sample_data" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/producer.py" afterPath="$PROJECT_DIR$/src/producer/producer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/producer_local.py" afterPath="$PROJECT_DIR$/src/producer/producer_local.py" />
     </list>
@@ -18,8 +18,8 @@
       <file leaf-file-name="producer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="601">
-              <caret line="429" column="0" lean-forward="true" selection-start-line="429" selection-start-column="0" selection-end-line="429" selection-end-column="0" />
+            <state relative-caret-position="-387">
+              <caret line="325" column="0" lean-forward="true" selection-start-line="325" selection-start-column="0" selection-end-line="325" selection-end-column="0" />
               <folding>
                 <element signature="e#1239#1276#0" expanded="true" />
               </folding>
@@ -30,9 +30,11 @@
       <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="307" column="27" lean-forward="false" selection-start-line="307" selection-start-column="27" selection-end-line="307" selection-end-column="27" />
-              <folding />
+            <state relative-caret-position="2087">
+              <caret line="439" column="0" lean-forward="false" selection-start-line="439" selection-start-column="0" selection-end-line="532" selection-end-column="0" />
+              <folding>
+                <element signature="e#1215#1252#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -45,16 +47,6 @@
               <folding>
                 <element signature="e#708#745#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="database.ini" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utilities/database/database.ini">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="22" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -75,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/../../Projects/Data_Science/LearnDataScience/pharmacy_counting-master/run.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
-              <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -140,8 +132,9 @@
       <find>generate_random_geo_point</find>
       <find>Put</find>
       <find>projectPath</find>
-      <find>boto</find>
       <find>processing_images</find>
+      <find>psycopg2.extras.execute_values</find>
+      <find>boto</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -163,8 +156,8 @@
         <option value="$PROJECT_DIR$/src/data_preprocessor/create_thumbnail.py" />
         <option value="$PROJECT_DIR$/src/consumer/request_model.py" />
         <option value="$PROJECT_DIR$/src/consumer/requestor.py" />
-        <option value="$PROJECT_DIR$/src/producer/producer.py" />
         <option value="$PROJECT_DIR$/src/producer/producer_local.py" />
+        <option value="$PROJECT_DIR$/src/producer/producer.py" />
       </list>
     </option>
   </component>
@@ -520,7 +513,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3969">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1215#1252#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -696,15 +691,23 @@
     <entry file="file://$PROJECT_DIR$/../../Projects/Data_Science/LearnDataScience/pharmacy_counting-master/run.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
-          <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/datetime.pyi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="429" column="0" lean-forward="true" selection-start-line="429" selection-start-column="0" selection-end-line="429" selection-end-column="0" />
+        <state relative-caret-position="-387">
+          <caret line="325" column="0" lean-forward="true" selection-start-line="325" selection-start-column="0" selection-end-line="325" selection-end-column="0" />
           <folding>
             <element signature="e#1239#1276#0" expanded="true" />
           </folding>
@@ -713,9 +716,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="307" column="27" lean-forward="false" selection-start-line="307" selection-start-column="27" selection-end-line="307" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="2087">
+          <caret line="439" column="0" lean-forward="false" selection-start-line="439" selection-start-column="0" selection-end-line="532" selection-end-column="0" />
+          <folding>
+            <element signature="e#1215#1252#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
