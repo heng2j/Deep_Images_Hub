@@ -421,16 +421,6 @@ def write_imageinfo_to_DB(obj_key,image_info):
 
 if __name__ == '__main__':
 
-
-    # imports for pySpark
-    from pyspark.context import SparkContext
-    from pyspark.conf import SparkConf
-    from tensorflowonspark import TFCluster
-
-    sc = SparkContext(conf=SparkConf().setAppName("producer_spark"))
-    executors = sc._conf.get("spark.executor.instances")
-    num_executors = int(executors) if executors is not None else 1
-
     # Set up argument parser
     parser = ArgumentParser()
     parser.add_argument("-src_b", "--src_bucket_name", help="Source S3 bucket name", required=True)
@@ -534,11 +524,8 @@ if __name__ == '__main__':
     processing_images(prefix, destination_prefix,image_info)
 
 
-    
 
-    cluster = TFCluster.run(sc, main, args, args.cluster_size, args.num_ps, tensorboard=args.tensorboard,
-                            input_mode=TFCluster.InputMode.TENSORFLOW, log_dir=args.model, master_node='master')
-    cluster.shutdown()
+
 
 
 

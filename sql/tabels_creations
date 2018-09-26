@@ -9,7 +9,9 @@ DROP TABLE IF EXISTS labels;
 CREATE TABLE IF NOT EXISTS labels (
     label_name  text PRIMARY KEY ,
     parent_name text references labels(label_name),
-    children    varchar[]
+    children    varchar[],
+	image_count	int,
+	on_board_date 		timestamp
 );
 	
 
@@ -22,6 +24,7 @@ CREATE TABLE IF NOT EXISTS users (
 	user_name			text,
 	user_email			text,
     user_role			text,
+	user_organization	text,
 	on_board_date 		timestamp
 
 );
@@ -64,8 +67,9 @@ CREATE TABLE IF NOT EXISTS images (
     image_id			SERIAL	PRIMARY KEY ,
     image_object_key	text,
 	bucket_name			text,
-	parent_labels		text,
+	parent_labels		text, -- can be a list
 	label_name			text,
+	accuracy			float,
 	batch_id			int references images_batches(batch_id),
 	submission_time 	timestamp,
 	user_id				int references users(user_id),
