@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python2
 # producer.py
 # ---------------
@@ -56,6 +57,7 @@ Commonly Shared Statics
 
 # Set up project path
 projectPath = up(up(os.getcwd()))
+
 
 s3_bucket_name = "s3://insight-data-images/"
 
