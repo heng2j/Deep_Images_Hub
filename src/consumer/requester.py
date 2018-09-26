@@ -197,7 +197,7 @@ def verify_labels_quantities(label_list):
         # create a cursor
         cur = conn.cursor()
 
-        print('Verifying if the labels existed in the database...')
+        print('Verifying if the labels has enough images...')
         for label_name in label_list:
 
             #TODO -  augmented SQL statement
@@ -210,7 +210,7 @@ def verify_labels_quantities(label_list):
             # execute a statement
             cur.execute(sql)
 
-            results = cur.fetchall()[0][0]
+            results = cur.fetchall()
 
             # The returning results are the labels that doesn't have enough images
             if results:
@@ -239,6 +239,27 @@ def verify_labels_quantities(label_list):
         if conn is not None:
             conn.close()
             print('Database connection closed.')
+
+
+# Save labels into the requesting_label_watchlist table
+def save_to_requesting_label_watchlist(cur,label_list):
+
+
+    print('Saving labels into the requesting_label_watchlist table...')
+    for label_name in label_list:
+        # TODO -  augmented SQL statement
+        sql = "SELECT label_name FROM labels WHERE label_name in ('Apple', 'Banana','protein_bar' ) AND image_count < 100;"
+
+        # " '" + label_name +"' ;"
+        print("sql: ", sql)
+
+        # verify if label exist in the database
+        # execute a statement
+        cur.execute(sql)
+
+
+
+
 
 
 if __name__ == '__main__':

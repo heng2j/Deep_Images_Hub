@@ -95,5 +95,17 @@ CREATE TABLE IF NOT EXISTS images_batches (
 
 
 
+
+-- Drop requesting_label_watchlist table if exists;
+-- Create requesting_label_watchlist table if not exists;
+DROP TABLE IF EXISTS requesting_label_watchlist;
+
+CREATE TABLE IF NOT EXISTS requesting_label_watchlist (
+    label_name  text PRIMARY KEY ,
+    user_ids    int[],
+	last_requested_userid int ,
+	new_requested_date 		timestamp
+);
+	
 	
 	
