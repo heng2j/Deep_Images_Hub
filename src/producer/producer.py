@@ -41,6 +41,7 @@ from io import BytesIO
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import psycopg2
+from psycopg2 import extras
 from geopy.geocoders import Nominatim
 import json
 import time
