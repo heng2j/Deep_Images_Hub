@@ -333,7 +333,7 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 
 
 
-def processing_images(prefix,destination_prefix,image_info):
+def processing_images(bucket,prefix,destination_prefix,image_info,new_keys_list):
 
     for obj in bucket.objects.filter(Prefix=prefix).all():
 
@@ -358,6 +358,11 @@ def processing_images(prefix,destination_prefix,image_info):
             new_obj = new_bucket.Object(new_key)
             new_obj.copy(old_source)
 
+            new_keys_list.append(new_key)
+
+
+            # # TODO - decoupled this process to reduce DB access Save metadata in DB
+            # write_imageinfo_to_DB(new_key, image_info)
 
 
 
