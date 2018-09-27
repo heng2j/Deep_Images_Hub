@@ -10,6 +10,16 @@ WHERE label_name = 'Think_thin_high_protein_caramel_fudge';
 
 
 
+-- update label's count 
+						
+UPDATE labels 
+SET image_count = image_count + 10
+WHERE label_name = 'Apple';
+
+SELECT * 
+FROM labels
+WHERE label_name = 'Apple'
+
 
 -- Select parent Recursively 
 SELECT parent_name

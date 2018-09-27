@@ -4,42 +4,31 @@
 -- Insert Sample data into labels table
 DELETE FROM labels;
 
-INSERT INTO labels (label_name, parent_name, children) VALUES
-    ('Think_thin_high_protein_caramel_fudge', 'protein_bar', NULL ),
-    ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}'),
-    ('packaged_food', 'food', '{"protein_bar","snack"}'   ),
-	('Apple', 'fruit', NULL   ),
-	('fruit', 'food', '{"Apple","Banana"}'   ),
-	('food', 'Entity', '{"packaged_food","fruit"}' ),
-	('furniture', 'equipment', '{"chair","diningtable","sofa"}' ),
-	('equipment', 'Entity', '{"container","furniture"}' ),
-	('animal', 'Entity', '{"bird", "cat","dog","cow","horse","sheep"}' ),
-	('transportation', 'Entity', '{"train", "motorbike","car","bus","boat","bicylce", "aeroplane"}' ),
-	('Entity', null,  '{"food", "animal", "equipment", "person", "transportation"}'    );
+INSERT INTO labels (label_name, parent_name, children,image_count) VALUES
+    ('Think_thin_high_protein_caramel_fudge', 'protein_bar', NULL , 0),
+    ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}', 0),
+    ('packaged_food', 'food', '{"protein_bar","snack"}'  , 0 ),
+	('Apple', 'fruit', NULL, 0 ),
+	('fruit', 'food', '{"Apple","Banana"}' , 0  ),
+	('food', 'Entity', '{"packaged_food","fruit"}', 0 ),
+	('furniture', 'equipment', '{"chair","diningtable","sofa"}', 0 ),
+	('equipment', 'Entity', '{"container","furniture"}', 0 ),
+	('animal', 'Entity', '{"bird", "cat","dog","cow","horse","sheep"}' , 0),
+	('transportation', 'Entity', '{"train", "motorbike","car","bus","boat","bicylce", "aeroplane"}', 0 ),
+	('Entity', null,  '{"food", "animal", "equipment", "person", "transportation"}' , 0   );
 						
 SELECT * 
 FROM labels;		
-
 
 
 -- Insert Sample data into labels table
-DELETE FROM labels;
-
 INSERT INTO labels (label_name, parent_name, children, image_count, on_board_date) VALUES
-    ('Think_thin_high_protein_caramel_fudge', 'protein_bar', NULL ),
-    ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}'),
-    ('packaged_food', 'food', '{"protein_bar","snack"}'   ),
-	('Apple', 'fruit', NULL   ),
-	('fruit', 'food', '{"Apple","Banana"}'   ),
-	('food', 'Entity', '{"packaged_food","fruit"}' ),
-	('furniture', 'equipment', '{"chair","diningtable","sofa"}' ),
-	('equipment', 'Entity', '{"container","furniture"}' ),
-	('animal', 'Entity', '{"bird", "cat","dog","cow","horse","sheep"}' ),
-	('transportation', 'Entity', '{"train", "motorbike","car","bus","boat","bicylce", "aeroplane"}' ),
-	('Entity', null,  '{"food", "animal", "equipment", "person", "transportation"}'    );
+	('Banana', 'fruit', NULL, 120, Null   );
 						
 SELECT * 
 FROM labels;		
+
+
 
 
 

@@ -163,7 +163,7 @@ def verify_labels(label_list):
             result_count = cur.fetchone()[0]
 
             if result_count == 1:
-                print("Label existed")
+                print("Label " + label_name + " existed")
 
             else:
                 print("Label '" + label_name +"' doesn't exist")
@@ -251,7 +251,6 @@ def verify_labels_quantities(label_list,user_info):
 # Save labels into the requesting_label_watchlist table
 def save_to_requesting_label_watchlist(cur,label_list,user_id):
 
-
     print('Saving labels into the requesting_label_watchlist table...')
     for label_name in label_list:
 
@@ -271,6 +270,23 @@ def save_to_requesting_label_watchlist(cur,label_list,user_id):
         cur.execute(sql)
 
 
+
+"""
+
+Kick Start Traiing Process
+
+Temp workflow:
+    1. Get counts for total number of images 
+    2. Evaluate the number of slaves nodes 
+
+"""
+
+# Invoke model training script to train model in TensorflowOnSpark with the requesting labels
+def invoke_model_training(label_list,user_info):
+
+    #TODO
+    print("Invoking model training process...")
+    print("Training started")
 
 
 

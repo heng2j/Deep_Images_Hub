@@ -336,6 +336,8 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 
 def processing_images(bucket,prefix,destination_prefix,image_info,new_keys_list):
 
+
+
     for obj in bucket.objects.filter(Prefix=prefix).all():
 
         if '.jpg' in obj.key:
@@ -361,9 +363,10 @@ def processing_images(bucket,prefix,destination_prefix,image_info,new_keys_list)
 
             new_keys_list.append(new_key)
 
+            # increase image_counter by 1
+            global image_counter
+            image_counter+=1
 
-            # # TODO - decoupled this process to reduce DB access Save metadata in DB
-            # write_imageinfo_to_DB(new_key, image_info)
 
 
 
@@ -379,7 +382,7 @@ Save metadata in DB
 def write_imageinfo_to_DB(obj_keys,image_info):
 
 
-    sql = """ INSERT INTO \
+    sql_images_insert = """ INSERT INTO \
      images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
      VALUES %s
      """
@@ -397,6 +400,15 @@ def write_imageinfo_to_DB(obj_keys,image_info):
 
         # create a cursor
         cur = conn.cursor()
+
+
+        # update label's count
+        print('Updating the image counts for the label: ', image_info['final_label_name'])
+        sql_update_counts_on_label = "UPDATE labels \
+        SET image_count = image_count + " + str(image_info['image_counter']) + " \
+        WHERE label_name = '" + image_info['final_label_name'] +"'; "
+
+        cur.execute(sql_update_counts_on_label)
 
         # create values list
         values_list = []
@@ -421,7 +433,7 @@ def write_imageinfo_to_DB(obj_keys,image_info):
         # writing image info into the database
         # execute a statement
         print('writing images info into the database...')
-        psycopg2.extras.execute_values(cur, sql, values_list)
+        psycopg2.extras.execute_values(cur, sql_images_insert, values_list)
         # commit the changes to the database
         conn.commit()
 
@@ -525,8 +537,14 @@ if __name__ == '__main__':
     # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
     new_keys = []
 
+    # Initiate image_counter
+    image_counter = 0
+
     # Processing images
     processing_images(bucket,prefix,destination_prefix,image_info,new_keys)
+
+    print("Added "+ str(image_counter) + " images.")
+    image_info['image_counter'] = image_counter
 
     # Bulk upload image info to database
     write_imageinfo_to_DB(new_keys, image_info)
