@@ -130,7 +130,15 @@ def generate_features(image_paths, model):
     # We load all our dataset in memory because it is relatively small
     for i, f in enumerate(image_paths):
         img = image.load_img(f, target_size=(224, 224))
+
+        print("f type: ", f)
+        print("img type: ", type(img))
+        print(img)
+
         x_raw = image.img_to_array(img)
+
+        print("type of x_raw: ",type(x_raw) )
+
         x_expand = np.expand_dims(x_raw, axis=0)
         images[i, :, :, :] = x_expand
 

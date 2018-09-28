@@ -36,6 +36,8 @@ import sys
 from argparse import ArgumentParser
 from configparser import ConfigParser
 import os
+import io
+import cv2
 import boto3
 from io import BytesIO
 import matplotlib.image as mpimg
@@ -51,6 +53,30 @@ import math
 from os.path import dirname as up
 
 
+
+import logging
+from keras_preprocessing import image
+import time
+import os
+import numpy as np
+from keras.applications.imagenet_utils import preprocess_input
+from keras.preprocessing import image
+from keras.applications.vgg16 import VGG16
+from keras.models import Model
+from os.path import dirname as up
+from resizeimage import resizeimage
+
+
+
+#
+#
+# from data_preprocessor import preprocessor load_headless_pretrained_model
+#
+#
+#
+# model = load_headless_pretrained_model()
+
+
 """
 Commonly Shared Statics
 
@@ -64,6 +90,66 @@ s3_bucket_name = "s3://insight-data-images/"
 database_ini_file_path = "/utilities/database/database.ini"
 
 
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+
+"""
+
+Need to be moved to be moduleize
+
+
+"""
+
+
+def load_headless_pretrained_model():
+    """
+    Loads the pretrained version of VGG with the last layer cut off
+    :return: pre-trained headless VGG16 Keras Model
+    """
+    pretrained_vgg16 = VGG16(weights='imagenet', include_top=True)
+    model = Model(inputs=pretrained_vgg16.input,
+                  outputs=pretrained_vgg16.get_layer('fc2').output)
+    return model
+
+
+def generate_features(numpy_arrays, model):
+    """
+    Takes in an array of image paths, and a trained model.
+    Returns the activations of the last layer for each image
+    :param image_paths: array of image paths
+    :param model: pre-trained model
+    :return: array of last-layer activations, and mapping from array_index to file_path
+    """
+    start = time.time()
+    images = np.zeros(shape=(len(numpy_arrays), 224, 224, 3))
+    file_mapping = {i: f for i, f in enumerate(numpy_arrays)}
+
+    # We load all our dataset in memory because it is relatively small
+    for i, img in enumerate(numpy_arrays):
+        # img = image.load_img(f, target_size=(224, 224))
+
+        x_raw = image.img_to_array(img)
+        x_expand = np.expand_dims(x_raw, axis=0)
+        images[i, :, :, :] = x_expand
+
+    logger.info("%s images loaded" % len(images))
+    inputs = preprocess_input(images)
+    logger.info("Images preprocessed")
+    images_features = model.predict(inputs)
+    end = time.time()
+    logger.info("Inference done, %s Generation time" % (end - start))
+    return images_features, file_mapping
+
+   #
+   # images_features, file_index = generate_features(image_paths,model)
+   #
+   #  print(image_paths)
+   #  print(vectors)
+   #  print(images_features[0])
+   #  print(images_features[1])
+   #  print(file_index)
 
 
 
@@ -92,10 +178,65 @@ def config(filename=projectPath+database_ini_file_path, section='postgresql'):
 
 
 """
-Verify Batch ID
+Create Batch ID
+
+1. Add batch ID 
 
 """
-## TODO - Maybe not in this Scope
+# TODO
+
+def generate_new_batch_id(user_id,place_id,image_counter):
+
+
+    sql = "INSERT INTO images_batches (user_id, ready, place_id, submitted_count, on_board_date ) VALUES %s RETURNING batch_id;"
+
+
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        # TODO -  augmented SQL statement
+        values_list = []
+
+        values = (
+                      user_id,
+                      False,
+                      place_id,
+                      image_counter,
+                      datetime.datetime.now()
+                      )
+
+        values_list.append(values)
+
+        # writing image info into the database
+        # execute a statement
+        print('writing image batch info into the database...')
+        psycopg2.extras.execute_values(cur, sql, values_list)
+        # commit the changes to the database
+        conn.commit()
+
+        batch_id = cur.fetchone()[0]
+        # close the communication with the PostgreSQL
+        cur.close()
+
+        return batch_id
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
 
 
 """
@@ -217,7 +358,6 @@ def construct_bucket_prefix(parent_labels):
 
     prefix = ""
 
-    # '/tmp/hello.txt'
     for label in parent_labels:
         prefix = prefix + "/" + label
 
@@ -334,7 +474,7 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 
 
 
-def processing_images(bucket,prefix,destination_prefix,image_info,new_keys_list):
+def import_images_from_source(bucket, prefix, destination_prefix, image_info, new_keys_list):
 
 
 
@@ -343,12 +483,13 @@ def processing_images(bucket,prefix,destination_prefix,image_info,new_keys_list)
         if '.jpg' in obj.key:
 
             # TODO - Processing Images
-            image = mpimg.imread(BytesIO(obj.get()['Body'].read()), 'jpg')
+            img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(224, 224))
+
 
             # plt.figure(0)
-            # plt.imshow(image)
+            # plt.imshow(img)
             # plt.title('Sample Image from S3')
-            # plt.pause(0.05)
+            # plt.pause(0.01)
 
             # Temp - Copy the the file from source bucket to destination bucekt
             old_source = {'Bucket': 'insight-data-images',
@@ -367,6 +508,10 @@ def processing_images(bucket,prefix,destination_prefix,image_info,new_keys_list)
             global image_counter
             image_counter+=1
 
+            # append image numpy arrays
+            global images_in_numpy_arrays
+            images_in_numpy_arrays.append(img)
+
 
 
 
@@ -379,7 +524,7 @@ Save metadata in DB
 """
 ## TODO
 
-def write_imageinfo_to_DB(obj_keys,image_info):
+def write_imageinfo_to_DB(obj_keys, images_features, image_info):
 
 
     sql_images_insert = """ INSERT INTO \
@@ -410,10 +555,18 @@ def write_imageinfo_to_DB(obj_keys,image_info):
 
         cur.execute(sql_update_counts_on_label)
 
+
+        # writing image info into the database
+        # execute a statement
+        print('writing images info into the database...')
+
         # create values list
         values_list = []
 
-        for obj_key in obj_keys:
+        for i, obj_key in enumerate(obj_keys):
+
+
+            # print(images_features[i].astype(float).tolist())
 
             values = (obj_key,
                       image_info['destination_bucket'],
@@ -425,14 +578,12 @@ def write_imageinfo_to_DB(obj_keys,image_info):
                       image_info['place_id'],
                       None,
                       None,
-                      None
+                      images_features[i].astype(float).tolist()
                       )
 
             values_list.append(values)
 
-        # writing image info into the database
-        # execute a statement
-        print('writing images info into the database...')
+
         psycopg2.extras.execute_values(cur, sql_images_insert, values_list)
         # commit the changes to the database
         conn.commit()
@@ -458,7 +609,7 @@ if __name__ == '__main__':
     parser.add_argument("-l", "--label_name", help="images label", required=True)
     parser.add_argument("-lon", "--lon", help="longitude", required=True)
     parser.add_argument("-lat", "--lat", help="latitude", required=True)
-    parser.add_argument("-bid", "--batch_id", help="images batch id", required=True)
+    # parser.add_argument("-bid", "--batch_id", help="images batch id", required=True)
     parser.add_argument("-uid", "--user_id", help="supplier user id", required=True)
 
 
@@ -472,10 +623,12 @@ if __name__ == '__main__':
     label_name = args.label_name
     lon = float(args.lon)
     lat = float(args.lat)
-    batch_id = args.batch_id
     user_id = args.user_id
     prefix = args.src_prefix
 
+
+    # Set up this images batch_id
+    # batch_id = args.batch_id
 
     # From
     s3 = boto3.resource('s3', region_name='us-east-1')
@@ -484,14 +637,12 @@ if __name__ == '__main__':
 
     # To
     destination_prefix = ""
-
     new_bucket = s3.Bucket(des_bucket_name)
 
-    # Temp Variables
+
+    # Variables
     final_label_name = ""
     parent_labels = []
-    batch_id = 1
-    user_id = 1
 
     # Verifying Label if exist
     isLabel = verify_label(label_name)
@@ -515,10 +666,11 @@ if __name__ == '__main__':
 
     place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
 
+
+
     image_info = { "destination_bucket" : des_bucket_name,
                    "destination_prefix" : destination_prefix,
                    "final_label_name" : final_label_name,
-                   "batch_id"   : batch_id,
                    "user_id"    : user_id,
                    "place_id"   : place_id,
                    "geo_licence"   : geo_licence,
@@ -534,20 +686,40 @@ if __name__ == '__main__':
     # Insert geoinfo into database if place_id is not already exist
     writeGeoinfo_into_DB(image_info)
 
+
     # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
     new_keys = []
+
+    # Initiate an empty list of numpy array representation the images
+    images_in_numpy_arrays = []
 
     # Initiate image_counter
     image_counter = 0
 
     # Processing images
-    processing_images(bucket,prefix,destination_prefix,image_info,new_keys)
+    import_images_from_source(bucket, prefix, destination_prefix, image_info, new_keys)
 
     print("Added "+ str(image_counter) + " images.")
     image_info['image_counter'] = image_counter
 
+
+    # Load Model and generate vector representation of images
+    model = load_headless_pretrained_model()
+    images_features = generate_features(images_in_numpy_arrays, model)
+
+
+    batch_id = generate_new_batch_id(user_id, place_id,image_counter)
+
+    print("batch_id:", batch_id)
+
+    image_info['batch_id'] = batch_id
+
+
+
     # Bulk upload image info to database
-    write_imageinfo_to_DB(new_keys, image_info)
+    write_imageinfo_to_DB(new_keys,images_features[0], image_info)
+
+
 
 
 

@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS labels (
     parent_name text references labels(label_name),
     children    varchar[],
 	image_count	int,
+	requested_count int,
 	on_board_date 		timestamp
 );
 	
@@ -32,11 +33,16 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Drop batches table if exists;
 -- Create batches table if not exists;
-DROP TABLE IF EXISTS images_batches;
+DROP TABLE IF EXISTS images_batches CASCADE;
 
 CREATE TABLE IF NOT EXISTS images_batches (
     batch_id			SERIAL	PRIMARY KEY ,
 	user_id				int references users(user_id),
+	ready				boolean,
+	place_id			int references places(place_id),
+	submitted_count		int,
+	accepted_count		int,
+	quality_score		float,
 	on_board_date 		timestamp
 );
 
@@ -64,19 +70,20 @@ CREATE TABLE IF NOT EXISTS places (
 DROP TABLE IF EXISTS images;
 
 CREATE TABLE IF NOT EXISTS images (
-    image_id			SERIAL	PRIMARY KEY ,
-    image_object_key	text,
-	bucket_name			text,
-	parent_labels		text, -- can be a list
-	label_name			text,
-	accuracy			float,
-	batch_id			int references images_batches(batch_id),
-	submission_time 	timestamp,
-	user_id				int references users(user_id),
-	place_id			int references places(place_id),
-	geometry 			point,
-	image_index			int,
-	embeddings			float[]
+    image_id				SERIAL	PRIMARY KEY ,
+    image_object_key		text,
+	image_thumel_object_key text,
+	bucket_name				text,
+	parent_labels			text, -- can be a list
+	label_name				text,
+	accuracy				float,
+	batch_id				int references images_batches(batch_id),
+	submission_time 		timestamp,
+	user_id					int references users(user_id),
+	place_id				int references places(place_id),
+	geometry 				point,
+	image_index				int,
+	verified				boolean,
 );
 
 

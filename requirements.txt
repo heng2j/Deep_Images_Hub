@@ -8,3 +8,4 @@ matplotlib
 annoy
 h5py
 Pillow
+keras_preprocessing
