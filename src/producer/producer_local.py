@@ -142,15 +142,6 @@ def generate_features(numpy_arrays, model):
     logger.info("Inference done, %s Generation time" % (end - start))
     return images_features, file_mapping
 
-   #
-   # images_features, file_index = generate_features(image_paths,model)
-   #
-   #  print(image_paths)
-   #  print(vectors)
-   #  print(images_features[0])
-   #  print(images_features[1])
-   #  print(file_index)
-
 
 
 """
@@ -267,14 +258,14 @@ def verify_label(label_name):
         cur = conn.cursor()
 
         #TODO -  augmented SQL statement
-        sql = "SELECT count(label_name)  FROM labels WHERE label_name = '" + label_name +"' ;"
-        print("sql: ", sql)
+        sql = "SELECT count(label_name)  FROM labels WHERE label_name = %s ;"
+
 
         # verify if label exist in the database
 
         # execute a statement
         print('Verifying if the label existed in the database...')
-        cur.execute(sql)
+        cur.execute(sql,(label_name,))
 
         result_count = cur.fetchone()[0]
 
@@ -314,7 +305,7 @@ def getParent_labels(label_name):
         sql = "WITH RECURSIVE labeltree AS ( \
                 SELECT parent_name \
                 FROM labels \
-                  WHERE label_name = '" + label_name + "' \
+                  WHERE label_name = %s \
                   UNION ALL \
                   SELECT l.parent_name \
                   FROM labels l \
@@ -325,12 +316,11 @@ def getParent_labels(label_name):
                 FROM labeltree;"
 
 
-        print("sql: ", sql)
 
         # recursively split out the parent's label one by one to construct the path for the bucket's prefix
         # execute a statement
         print('Recursively getting the labels\' parents...')
-        cur.execute(sql)
+        cur.execute(sql,(label_name,))
 
         row = cur.fetchone()
 
@@ -403,10 +393,10 @@ def getGeoinfo(lon,lat):
 
     location = geolocator.reverse(lon_lat_str)
 
-    if location.raw['address']['neighbourhood'] == None:
+    if location is None:
 
         # TODO Default raw values
-        return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , None ,location.raw['address']['city'],location.raw['address']['country']
+        return 1 , "UNKNOWN" , None , "UNKNOWN" ,"UNKNOWN","UNKNOWN"
 
 
     else:
@@ -428,18 +418,38 @@ def writeGeoinfo_into_DB(image_info):
         cur = conn.cursor()
 
         #TODO -  augmented SQL statement
+
         sql = "INSERT \
-                INTO \
-                places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added) VALUES \
-                (" + str(image_info['place_id']) + ", '"+ image_info['geo_licence'] + "', " + str(image_info['postcode']) + \
-                ", '" + image_info['neighbourhood'] + "', '" + image_info['city'] + \
-                "', '" + image_info['country'] + "', " + str(image_info['lon']) + \
-                ", " + str(image_info['lat']) + ", NULL, (SELECT NOW()) ) \
-                ON CONFLICT(place_id)\
-                DO NOTHING RETURNING place_id;"
+                       INTO \
+                       places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added) VALUES \
+                       (" + str(image_info['place_id']) + ", '" + image_info['geo_licence'] + "', " + str(
+            image_info['postcode']) + \
+              ", '" + image_info['neighbourhood'] + "', '" + image_info['city'] + \
+              "', '" + image_info['country'] + "', " + str(image_info['lon']) + \
+              ", " + str(image_info['lat']) + ", NULL, (SELECT NOW()) ) \
+                       ON CONFLICT(place_id)\
+                       DO NOTHING RETURNING place_id;"
 
 
-
+        # sql = "INSERT \
+        #         INTO \
+        #         places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, time_added) \
+        #         VALUES (%s) \
+        #         ON CONFLICT(place_id)\
+        #         DO NOTHING RETURNING place_id;"
+        #
+        #
+        # values = (    str(image_info['place_id']),
+        #               image_info['geo_licence'],
+        #               str(image_info['postcode']),
+        #               image_info['neighbourhood'],
+        #               image_info['city'],
+        #               image_info['country'],
+        #               str(image_info['lon']),
+        #               str(image_info['lat']),
+        #               str(datetime.datetime.now()),
+        #
+        #               )
 
 
 
@@ -447,7 +457,9 @@ def writeGeoinfo_into_DB(image_info):
 
         # execute a statement
         print('Inserting geoinfo into database if place_id is not already exist...')
-        print("sql: ", sql)
+
+        # print(values)
+
         cur.execute(sql)
 
         # commit the changes to the database
@@ -547,13 +559,23 @@ def write_imageinfo_to_DB(obj_keys, images_features, image_info):
         cur = conn.cursor()
 
 
-        # update label's count
-        print('Updating the image counts for the label: ', image_info['final_label_name'])
-        sql_update_counts_on_label = "UPDATE labels \
-        SET image_count = image_count + " + str(image_info['image_counter']) + " \
-        WHERE label_name = '" + image_info['final_label_name'] +"'; "
-
-        cur.execute(sql_update_counts_on_label)
+        # update label's count TODO - No need to update count at the moment Update when verified
+        # print('Updating the image counts for the label: ', image_info['final_label_name'])
+        #
+        # sql_update_counts_on_label = "UPDATE labels \
+        # SET image_count = image_count + %s \
+        # WHERE label_name = %s ; "
+        #
+        # values = (
+        #
+        #     str(image_info['image_counter']),
+        #     image_info['final_label_name']
+        #
+        # ,)
+        #
+        #
+        #
+        # cur.execute(sql_update_counts_on_label,values)
 
 
         # writing image info into the database

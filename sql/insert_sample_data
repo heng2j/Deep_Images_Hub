@@ -4,25 +4,25 @@
 -- Insert Sample data into labels table
 DELETE FROM labels;
 
-INSERT INTO labels (label_name, parent_name, children,image_count) VALUES
-    ('Think_thin_high_protein_caramel_fudge', 'protein_bar', NULL , 0),
-    ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}', 0),
-    ('packaged_food', 'food', '{"protein_bar","snack"}'  , 0 ),
-	('Apple', 'fruit', NULL, 0 ),
-	('fruit', 'food', '{"Apple","Banana"}' , 0  ),
-	('food', 'Entity', '{"packaged_food","fruit"}', 0 ),
-	('furniture', 'equipment', '{"chair","diningtable","sofa"}', 0 ),
-	('equipment', 'Entity', '{"container","furniture"}', 0 ),
-	('animal', 'Entity', '{"bird", "cat","dog","cow","horse","sheep"}' , 0),
-	('transportation', 'Entity', '{"train", "motorbike","car","bus","boat","bicylce", "aeroplane"}', 0 ),
-	('Entity', null,  '{"food", "animal", "equipment", "person", "transportation"}' , 0   );
+INSERT INTO labels (label_name, parent_name, children,image_count,updated_date) VALUES
+    ('Think_thin_high_protein_caramel_fudge', 'protein_bar', NULL , 0,(SELECT NOW())),
+    ('protein_bar', 'packaged_food', '{"Think_thin_high_protein_caramel_fudge"}', 0,(SELECT NOW())),
+    ('packaged_food', 'food', '{"protein_bar","snack"}'  , 0,(SELECT NOW()) ),
+	('Apple', 'fruit', NULL, 0 ,(SELECT NOW())),
+	('fruit', 'food', '{"Apple","Banana"}' , 0 ,(SELECT NOW()) ),
+	('food', 'Entity', '{"packaged_food","fruit"}', 0 ,(SELECT NOW())),
+	('furniture', 'equipment', '{"chair","diningtable","sofa"}', 0 ,(SELECT NOW())),
+	('equipment', 'Entity', '{"container","furniture"}', 0 ,(SELECT NOW())),
+	('animal', 'Entity', '{"bird", "cat","dog","cow","horse","sheep"}' , 0,(SELECT NOW())),
+	('transportation', 'Entity', '{"train", "motorbike","car","bus","boat","bicylce", "aeroplane"}', 0 ,(SELECT NOW())),
+	('Entity', null,  '{"food", "animal", "equipment", "person", "transportation"}' , 0 ,(SELECT NOW())  );
 						
 SELECT * 
 FROM labels;		
 
 
 -- Insert Sample data into labels table
-INSERT INTO labels (label_name, parent_name, children, image_count, on_board_date) VALUES
+INSERT INTO labels (label_name, parent_name, children, image_count, updated_date) VALUES
 	('Banana', 'fruit', NULL, 120, Null   );
 						
 SELECT * 
@@ -59,7 +59,7 @@ SELECT * FROM 	users;
 DELETE FROM places;
 INSERT INTO places (place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added ) VALUES
 
-	( 1 , 'licence', 10038, 'neighbourhood', 'city', 'country', 23.124234, 13.12545, NULL, (SELECT NOW()) )
+	( 1 , 'UNKNOWN', 10038, 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', 0, 0 , NULL, (SELECT NOW()) )
 	 ON CONFLICT (place_id)  DO NOTHING RETURNING place_id ;
 
  
@@ -74,9 +74,11 @@ SELECT * FROM 	places;
 -- Insert images_batches info into batches table
 DELETE FROM images_batches;
 ALTER SEQUENCE images_batches_batch_id_seq RESTART WITH 1;
-INSERT INTO images_batches (user_id, on_board_date ) VALUES
 
-	( 1 , (SELECT NOW()) );
+
+INSERT INTO images_batches (user_id, ready, place_id, submitted_count , on_board_date ) VALUES
+
+	( 1 ,False, 1, 500, (SELECT NOW()) ) RETURNING batch_id;
 
 SELECT * FROM 	images_batches;  
 

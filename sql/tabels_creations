@@ -4,7 +4,7 @@
 
 -- Drop labels table if exists;
 -- Create labels table if not exists;
-DROP TABLE IF EXISTS labels;
+DROP TABLE IF EXISTS labels CASCADE;
 
 CREATE TABLE IF NOT EXISTS labels (
     label_name  text PRIMARY KEY ,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS labels (
     children    varchar[],
 	image_count	int,
 	requested_count int,
-	on_board_date 		timestamp
+	updated_date 		timestamp
 );
 	
 
@@ -63,6 +63,8 @@ CREATE TABLE IF NOT EXISTS places (
 	geometry 		point,
 	time_added		timestamp
 );
+
+SELECT * FROM places;
 	
 	
 -- Drop images table if exists;
