@@ -1,3 +1,11 @@
 # Ignore database credentials 
 utilities/database/database.ini
-
+data/doc/labels/class-descriptions.csv.1
+data/doc/labels/classes-trainable.txt.1
+data/doc/labels/test-annotations-human-imagelabels.csv
+data/doc/labels/test-images-with-rotation.csv
+data/doc/labels/train-annotations-human-imagelabels.csv
+data/doc/labels/train-images-with-labels-with-rotation.csv
+data/doc/labels/validation-annotations-human-imagelabels.csv
+data/doc/labels/validation-images-with-rotation.csv
+utilities/data_processing/

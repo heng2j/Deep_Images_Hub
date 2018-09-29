@@ -49,16 +49,19 @@ from os.path import dirname as up
 
 
 import logging
+import keras
 from keras_preprocessing import image
 import time
 import os
 import numpy as np
 from keras.applications.imagenet_utils import preprocess_input
-from keras.preprocessing import image
 from keras.applications.vgg16 import VGG16
 from keras.models import Model
 from os.path import dirname as up
+<<<<<<< HEAD
 # from resizeimage import resizeimage
+=======
+>>>>>>> b0bfedeb0e6711af610924da4da404b4e875c885
 
 
 

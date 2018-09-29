@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/insert_sample_data" afterPath="$PROJECT_DIR$/sql/insert_sample_data" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/tabels_creations" afterPath="$PROJECT_DIR$/sql/tabels_creations" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/producer_local.py" afterPath="$PROJECT_DIR$/src/producer/producer_local.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/producer.py" afterPath="$PROJECT_DIR$/src/producer/producer.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,11 +15,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.6932953">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="producer.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="producer.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="441" column="0" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="449" selection-end-column="66" />
+                <state relative-caret-position="814">
+                  <caret line="750" column="0" lean-forward="true" selection-start-line="750" selection-start-column="0" selection-end-line="750" selection-end-column="0" />
                   <folding>
                     <element signature="e#1239#1276#0" expanded="true" />
                   </folding>
@@ -30,11 +27,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="343">
-                  <caret line="396" column="19" lean-forward="true" selection-start-line="396" selection-start-column="19" selection-end-line="396" selection-end-column="19" />
+                <state relative-caret-position="189">
+                  <caret line="389" column="8" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="750" selection-end-column="0" />
                   <folding>
                     <element signature="e#1239#1276#0" expanded="true" />
                   </folding>
@@ -201,7 +198,6 @@
         <option value="$PROJECT_DIR$/src/data_preprocessor/CreateThumbnail.py" />
         <option value="$PROJECT_DIR$/src/data_preprocessor/create_thumbnail.py" />
         <option value="$PROJECT_DIR$/src/consumer/request_model.py" />
-        <option value="$PROJECT_DIR$/src/producer/producer.py" />
         <option value="$PROJECT_DIR$/src/consumer/requestor.py" />
         <option value="$PROJECT_DIR$/src/consumer/requester.py" />
         <option value="$PROJECT_DIR$/src/data_preprocessor/generate_vector.py" />
@@ -209,6 +205,7 @@
         <option value="$PROJECT_DIR$/src/producer_local.py" />
         <option value="$PROJECT_DIR$/src/data_preprocessor/preprocessor.py" />
         <option value="$PROJECT_DIR$/src/producer/producer_local.py" />
+        <option value="$PROJECT_DIR$/src/producer/producer.py" />
       </list>
     </option>
   </component>
@@ -775,16 +772,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="441" column="0" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="449" selection-end-column="66" />
-          <folding>
-            <element signature="e#1239#1276#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///anaconda3/lib/python3.6/site-packages/keras_preprocessing/image.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9900">
@@ -821,8 +808,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="396" column="19" lean-forward="true" selection-start-line="396" selection-start-column="19" selection-end-line="396" selection-end-column="19" />
+        <state relative-caret-position="189">
+          <caret line="389" column="8" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="750" selection-end-column="0" />
+          <folding>
+            <element signature="e#1239#1276#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="814">
+          <caret line="750" column="0" lean-forward="true" selection-start-line="750" selection-start-column="0" selection-end-line="750" selection-end-column="0" />
           <folding>
             <element signature="e#1239#1276#0" expanded="true" />
           </folding>

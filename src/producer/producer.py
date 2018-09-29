@@ -4,7 +4,7 @@
 # ---------------
 # Author: Zhongheng Li
 # Init Date: 09-18-2018
-# Updated Date: 09-21-2018
+# Updated Date: 09-27-2018
 
 """
 
@@ -32,23 +32,43 @@ The producer will perform the following tasks to process the images:
 
 """
 from __future__ import print_function
-import sys
+
 from argparse import ArgumentParser
 from configparser import ConfigParser
-import os
 import boto3
 from io import BytesIO
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
 import psycopg2
 from psycopg2 import extras
 from geopy.geocoders import Nominatim
-import json
-import time
 import datetime
 import random
-import math
+# from geojson import Point
+# import geojson
 from os.path import dirname as up
+
+
+
+import logging
+from keras_preprocessing import image
+import time
+import os
+import numpy as np
+from keras.applications.imagenet_utils import preprocess_input
+from keras.preprocessing import image
+from keras.applications.vgg16 import VGG16
+from keras.models import Model
+from os.path import dirname as up
+# from resizeimage import resizeimage
+
+
+
+#
+#
+# from data_preprocessor import preprocessor load_headless_pretrained_model
+#
+#
+#
+# model = load_headless_pretrained_model()
 
 
 """
@@ -59,12 +79,62 @@ Commonly Shared Statics
 # Set up project path
 projectPath = up(up(os.getcwd()))
 
-
 s3_bucket_name = "s3://insight-data-images/"
 
 database_ini_file_path = "/utilities/database/database.ini"
 
 
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+
+"""
+
+Need to be moved to be moduleize
+
+
+"""
+
+
+def load_headless_pretrained_model():
+    """
+    Loads the pretrained version of VGG with the last layer cut off
+    :return: pre-trained headless VGG16 Keras Model
+    """
+    pretrained_vgg16 = VGG16(weights='imagenet', include_top=True)
+    model = Model(inputs=pretrained_vgg16.input,
+                  outputs=pretrained_vgg16.get_layer('fc2').output)
+    return model
+
+
+def generate_features(numpy_arrays, model):
+    """
+    Takes in an array of image paths, and a trained model.
+    Returns the activations of the last layer for each image
+    :param image_paths: array of image paths
+    :param model: pre-trained model
+    :return: array of last-layer activations, and mapping from array_index to file_path
+    """
+    start = time.time()
+    images = np.zeros(shape=(len(numpy_arrays), 224, 224, 3))
+    file_mapping = {i: f for i, f in enumerate(numpy_arrays)}
+
+    # We load all our dataset in memory because it is relatively small
+    for i, img in enumerate(numpy_arrays):
+        # img = image.load_img(f, target_size=(224, 224))
+
+        x_raw = image.img_to_array(img)
+        x_expand = np.expand_dims(x_raw, axis=0)
+        images[i, :, :, :] = x_expand
+
+    logger.info("%s images loaded" % len(images))
+    inputs = preprocess_input(images)
+    logger.info("Images preprocessed")
+    images_features = model.predict(inputs)
+    end = time.time()
+    logger.info("Inference done, %s Generation time" % (end - start))
+    return images_features, file_mapping
 
 
 
@@ -93,10 +163,65 @@ def config(filename=projectPath+database_ini_file_path, section='postgresql'):
 
 
 """
-Verify Batch ID
+Create Batch ID
+
+1. Add batch ID 
 
 """
-## TODO - Maybe not in this Scope
+# TODO
+
+def generate_new_batch_id(user_id,place_id,image_counter):
+
+
+    sql = "INSERT INTO images_batches (user_id, ready, place_id, submitted_count, on_board_date ) VALUES %s RETURNING batch_id;"
+
+
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        # TODO -  augmented SQL statement
+        values_list = []
+
+        values = (
+                      user_id,
+                      False,
+                      place_id,
+                      image_counter,
+                      datetime.datetime.now()
+                      )
+
+        values_list.append(values)
+
+        # writing image info into the database
+        # execute a statement
+        print('writing image batch info into the database...')
+        psycopg2.extras.execute_values(cur, sql, values_list)
+        # commit the changes to the database
+        conn.commit()
+
+        batch_id = cur.fetchone()[0]
+        # close the communication with the PostgreSQL
+        cur.close()
+
+        return batch_id
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
 
 
 """
@@ -127,14 +252,14 @@ def verify_label(label_name):
         cur = conn.cursor()
 
         #TODO -  augmented SQL statement
-        sql = "SELECT count(label_name)  FROM labels WHERE label_name = '" + label_name +"' ;"
-        print("sql: ", sql)
+        sql = "SELECT count(label_name)  FROM labels WHERE label_name = %s ;"
+
 
         # verify if label exist in the database
 
         # execute a statement
         print('Verifying if the label existed in the database...')
-        cur.execute(sql)
+        cur.execute(sql,(label_name,))
 
         result_count = cur.fetchone()[0]
 
@@ -174,7 +299,7 @@ def getParent_labels(label_name):
         sql = "WITH RECURSIVE labeltree AS ( \
                 SELECT parent_name \
                 FROM labels \
-                  WHERE label_name = '" + label_name + "' \
+                  WHERE label_name = %s \
                   UNION ALL \
                   SELECT l.parent_name \
                   FROM labels l \
@@ -185,12 +310,11 @@ def getParent_labels(label_name):
                 FROM labeltree;"
 
 
-        print("sql: ", sql)
 
         # recursively split out the parent's label one by one to construct the path for the bucket's prefix
         # execute a statement
         print('Recursively getting the labels\' parents...')
-        cur.execute(sql)
+        cur.execute(sql,(label_name,))
 
         row = cur.fetchone()
 
@@ -218,7 +342,6 @@ def construct_bucket_prefix(parent_labels):
 
     prefix = ""
 
-    # '/tmp/hello.txt'
     for label in parent_labels:
         prefix = prefix + "/" + label
 
@@ -264,15 +387,15 @@ def getGeoinfo(lon,lat):
 
     location = geolocator.reverse(lon_lat_str)
 
-    if location.raw['address']['neighbourhood'] == None:
+    try:
+        location.raw['address']['neighbourhood']
+        return location.raw['place_id'], location.raw['licence'], location.raw['address']['postcode'], \
+               location.raw['address']['neighbourhood'], location.raw['address']['city'], location.raw['address'][
+                   'country']
 
-        # TODO Default raw values
-        return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , None ,location.raw['address']['city'],location.raw['address']['country']
-
-
-    else:
-        return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , location.raw['address']['neighbourhood'],location.raw['address']['city'],location.raw['address']['country']
-
+    except KeyError as e:
+        print("Can not find this address from Nominatim")
+        return 1, "UNKNOWN", None, "UNKNOWN", "UNKNOWN", "UNKNOWN"
 
 def writeGeoinfo_into_DB(image_info):
     """ Connect to the PostgreSQL database server """
@@ -289,25 +412,48 @@ def writeGeoinfo_into_DB(image_info):
         cur = conn.cursor()
 
         #TODO -  augmented SQL statement
+
         sql = "INSERT \
-                INTO \
-                places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added) VALUES \
-                (" + str(image_info['place_id']) + ", '"+ image_info['geo_licence'] + "', " + str(image_info['postcode']) + \
-                ", '" + image_info['neighbourhood'] + "', '" + image_info['city'] + \
-                "', '" + image_info['country'] + "', " + str(image_info['lon']) + \
-                ", " + str(image_info['lat']) + ", NULL, (SELECT NOW()) ) \
-                ON CONFLICT(place_id)\
-                DO NOTHING RETURNING place_id;"
+                       INTO \
+                       places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added) VALUES \
+                       (" + str(image_info['place_id']) + ", '" + image_info['geo_licence'] + "', " + str(
+            image_info['postcode']) + \
+              ", '" + image_info['neighbourhood'] + "', '" + image_info['city'] + \
+              "', '" + image_info['country'] + "', " + str(image_info['lon']) + \
+              ", " + str(image_info['lat']) + ", '" + str(image_info['geo_point']) +"', (SELECT NOW()) ) \
+                       ON CONFLICT(place_id)\
+                       DO NOTHING RETURNING place_id;"
 
 
+        # sql = "INSERT \
+        #         INTO \
+        #         places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, time_added) \
+        #         VALUES (%s) \
+        #         ON CONFLICT(place_id)\
+        #         DO NOTHING RETURNING place_id;"
+        #
+        #
+        # values = (    str(image_info['place_id']),
+        #               image_info['geo_licence'],
+        #               str(image_info['postcode']),
+        #               image_info['neighbourhood'],
+        #               image_info['city'],
+        #               image_info['country'],
+        #               str(image_info['lon']),
+        #               str(image_info['lat']),
+        #               str(datetime.datetime.now()),
+        #
+        #               )
 
 
-        print("sql: ", sql)
 
         # Insert geoinfo into database if place_id is not already exist
 
         # execute a statement
         print('Inserting geoinfo into database if place_id is not already exist...')
+
+        # print(values)
+
         cur.execute(sql)
 
         # commit the changes to the database
@@ -334,19 +480,22 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 
 
 
-def processing_images(bucket,prefix,destination_prefix,image_info,new_keys_list):
+def import_images_from_source(bucket, prefix, destination_prefix, image_info, new_keys_list):
+
+
 
     for obj in bucket.objects.filter(Prefix=prefix).all():
 
         if '.jpg' in obj.key:
 
             # TODO - Processing Images
-            image = mpimg.imread(BytesIO(obj.get()['Body'].read()), 'jpg')
+            img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(224, 224))
+
 
             # plt.figure(0)
-            # plt.imshow(image)
+            # plt.imshow(img)
             # plt.title('Sample Image from S3')
-            # plt.pause(0.05)
+            # plt.pause(0.01)
 
             # Temp - Copy the the file from source bucket to destination bucekt
             old_source = {'Bucket': 'insight-data-images',
@@ -361,9 +510,14 @@ def processing_images(bucket,prefix,destination_prefix,image_info,new_keys_list)
 
             new_keys_list.append(new_key)
 
+            # increase image_counter by 1
+            global image_counter
+            image_counter+=1
 
-            # # TODO - decoupled this process to reduce DB access Save metadata in DB
-            # write_imageinfo_to_DB(new_key, image_info)
+            # append image numpy arrays
+            global images_in_numpy_arrays
+            images_in_numpy_arrays.append(img)
+
 
 
 
@@ -376,11 +530,11 @@ Save metadata in DB
 """
 ## TODO
 
-def write_imageinfo_to_DB(obj_keys,image_info):
+def write_imageinfo_to_DB(obj_keys, images_features, image_info):
 
 
-    sql = """ INSERT INTO \
-     images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
+    sql_images_insert = """ INSERT INTO \
+     images(image_object_key, bucket_name, full_hadoop_path, parent_labels, label_name, batch_id, submission_time, user_id, place_id, image_index, embeddings, verified)\
      VALUES %s
      """
 
@@ -398,30 +552,56 @@ def write_imageinfo_to_DB(obj_keys,image_info):
         # create a cursor
         cur = conn.cursor()
 
-        # create values list
-        values_list = []
 
-        for obj_key in obj_keys:
+        # update label's count TODO - No need to update count at the moment Update when verified
+        print('Updating the image counts for the label: ', image_info['final_label_name'])
 
-            values = (obj_key,
-                      image_info['destination_bucket'],
-                      image_info['destination_prefix'],
-                      image_info['final_label_name'],
-                      image_info['batch_id'],
-                      datetime.datetime.now(),
-                      image_info['user_id'],
-                      image_info['place_id'],
-                      None,
-                      None,
-                      None
-                      )
+        sql_update_counts_on_label = "UPDATE labels \
+        SET image_count = image_count + %s \
+        WHERE label_name = %s ; "
 
-            values_list.append(values)
+        values = (
+
+            str(image_info['image_counter']),
+            image_info['final_label_name']
+
+        ,)
+
+
+
+        cur.execute(sql_update_counts_on_label,values)
+
 
         # writing image info into the database
         # execute a statement
         print('writing images info into the database...')
-        psycopg2.extras.execute_values(cur, sql, values_list)
+
+        # create values list
+        values_list = []
+
+        # hadoop s3a prefix
+        s3a_prefix = 's3a://'
+
+        for i, obj_key in enumerate(obj_keys):
+
+            values = (obj_key,
+              image_info['destination_bucket'],
+              s3a_prefix + image_info['destination_bucket'] + '/' + obj_key,
+              image_info['destination_prefix'],
+              image_info['final_label_name'],
+              image_info['batch_id'],
+              datetime.datetime.now(),
+              image_info['user_id'],
+              image_info['place_id'],
+              None,
+              images_features[i].astype(float).tolist(),
+              True # TODO -- For now with out batch filtering
+              )
+
+            values_list.append(values)
+
+
+        psycopg2.extras.execute_values(cur, sql_images_insert, values_list)
         # commit the changes to the database
         conn.commit()
 
@@ -436,18 +616,7 @@ def write_imageinfo_to_DB(obj_keys,image_info):
 
 
 
-
 if __name__ == '__main__':
-
-
-    # imports for pySpark
-    from pyspark.context import SparkContext
-    from pyspark.conf import SparkConf
-
-
-    sc = SparkContext(conf=SparkConf().setAppName("producer_spark"))
-    executors = sc._conf.get("spark.executor.instances")
-    num_executors = int(executors) if executors is not None else 1
 
     # Set up argument parser
     parser = ArgumentParser()
@@ -457,7 +626,7 @@ if __name__ == '__main__':
     parser.add_argument("-l", "--label_name", help="images label", required=True)
     parser.add_argument("-lon", "--lon", help="longitude", required=True)
     parser.add_argument("-lat", "--lat", help="latitude", required=True)
-    parser.add_argument("-bid", "--batch_id", help="images batch id", required=True)
+    # parser.add_argument("-bid", "--batch_id", help="images batch id", required=True)
     parser.add_argument("-uid", "--user_id", help="supplier user id", required=True)
 
 
@@ -471,9 +640,13 @@ if __name__ == '__main__':
     label_name = args.label_name
     lon = float(args.lon)
     lat = float(args.lat)
-    bid = args.batch_id
-    uid = args.user_id
+    user_id = args.user_id
     prefix = args.src_prefix
+
+
+    # Set up geo points with geojson
+    geo_point = (lon,lat)
+
 
 
     # From
@@ -483,14 +656,12 @@ if __name__ == '__main__':
 
     # To
     destination_prefix = ""
-
     new_bucket = s3.Bucket(des_bucket_name)
 
-    # Temp Variables
+
+    # Variables
     final_label_name = ""
     parent_labels = []
-    batch_id = 1
-    user_id = 1
 
     # Verifying Label if exist
     isLabel = verify_label(label_name)
@@ -514,10 +685,11 @@ if __name__ == '__main__':
 
     place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
 
+
+
     image_info = { "destination_bucket" : des_bucket_name,
                    "destination_prefix" : destination_prefix,
                    "final_label_name" : final_label_name,
-                   "batch_id"   : batch_id,
                    "user_id"    : user_id,
                    "place_id"   : place_id,
                    "geo_licence"   : geo_licence,
@@ -525,6 +697,7 @@ if __name__ == '__main__':
                    "neighbourhood" : neighbourhood,
                    "city" : city,
                    "country" : country,
+                   "geo_point" : geo_point,
                    "lon" : lon,
                    "lat" : lat
 
@@ -533,14 +706,43 @@ if __name__ == '__main__':
     # Insert geoinfo into database if place_id is not already exist
     writeGeoinfo_into_DB(image_info)
 
+
     # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
     new_keys = []
 
+    # Initiate an empty list of numpy array representation the images
+    images_in_numpy_arrays = []
+
+    # Initiate image_counter
+    image_counter = 0
+
     # Processing images
-    processing_images(bucket,prefix,destination_prefix,image_info,new_keys)
+    import_images_from_source(bucket, prefix, destination_prefix, image_info, new_keys)
+
+    print("Added "+ str(image_counter) + " images.")
+    image_info['image_counter'] = image_counter
+
+
+    # Load Model and generate vector representation of images
+    model = load_headless_pretrained_model()
+    images_features = generate_features(images_in_numpy_arrays, model)
+
+
+    batch_id = generate_new_batch_id(user_id, place_id,image_counter)
+
+    print("batch_id:", batch_id)
+
+    image_info['batch_id'] = batch_id
+
+
 
     # Bulk upload image info to database
-    write_imageinfo_to_DB(new_keys, image_info)
+    write_imageinfo_to_DB(new_keys,images_features[0], image_info)
+
+
+
+
+
 
 
 
