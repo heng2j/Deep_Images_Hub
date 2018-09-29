@@ -32,24 +32,16 @@ The producer will perform the following tasks to process the images:
 
 """
 from __future__ import print_function
-import sys
+
 from argparse import ArgumentParser
 from configparser import ConfigParser
-import os
-import io
-import cv2
 import boto3
 from io import BytesIO
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
 import psycopg2
 from psycopg2 import extras
 from geopy.geocoders import Nominatim
-import json
-import time
 import datetime
 import random
-import math
 from os.path import dirname as up
 
 
