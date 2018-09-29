@@ -42,6 +42,8 @@ from psycopg2 import extras
 from geopy.geocoders import Nominatim
 import datetime
 import random
+# from geojson import Point
+# import geojson
 from os.path import dirname as up
 
 
@@ -56,7 +58,7 @@ from keras.preprocessing import image
 from keras.applications.vgg16 import VGG16
 from keras.models import Model
 from os.path import dirname as up
-from resizeimage import resizeimage
+# from resizeimage import resizeimage
 
 
 
@@ -385,15 +387,15 @@ def getGeoinfo(lon,lat):
 
     location = geolocator.reverse(lon_lat_str)
 
-    if location is None:
+    try:
+        location.raw['address']['neighbourhood']
+        return location.raw['place_id'], location.raw['licence'], location.raw['address']['postcode'], \
+               location.raw['address']['neighbourhood'], location.raw['address']['city'], location.raw['address'][
+                   'country']
 
-        # TODO Default raw values
-        return 1 , "UNKNOWN" , None , "UNKNOWN" ,"UNKNOWN","UNKNOWN"
-
-
-    else:
-        return location.raw['place_id'] , location.raw['licence'] , location.raw['address']['postcode'] , location.raw['address']['neighbourhood'],location.raw['address']['city'],location.raw['address']['country']
-
+    except KeyError as e:
+        print("Can not find this address from Nominatim")
+        return 1, "UNKNOWN", None, "UNKNOWN", "UNKNOWN", "UNKNOWN"
 
 def writeGeoinfo_into_DB(image_info):
     """ Connect to the PostgreSQL database server """
@@ -418,7 +420,7 @@ def writeGeoinfo_into_DB(image_info):
             image_info['postcode']) + \
               ", '" + image_info['neighbourhood'] + "', '" + image_info['city'] + \
               "', '" + image_info['country'] + "', " + str(image_info['lon']) + \
-              ", " + str(image_info['lat']) + ", NULL, (SELECT NOW()) ) \
+              ", " + str(image_info['lat']) + ", '" + str(image_info['geo_point']) +"', (SELECT NOW()) ) \
                        ON CONFLICT(place_id)\
                        DO NOTHING RETURNING place_id;"
 
@@ -532,7 +534,7 @@ def write_imageinfo_to_DB(obj_keys, images_features, image_info):
 
 
     sql_images_insert = """ INSERT INTO \
-     images(image_object_key, bucket_name, parent_labels, label_name, batch_id, submission_time, user_id, place_id, geometry, image_index, embeddings)\
+     images(image_object_key, bucket_name, full_hadoop_path, parent_labels, label_name, batch_id, submission_time, user_id, place_id, image_index, embeddings, verified)\
      VALUES %s
      """
 
@@ -552,22 +554,22 @@ def write_imageinfo_to_DB(obj_keys, images_features, image_info):
 
 
         # update label's count TODO - No need to update count at the moment Update when verified
-        # print('Updating the image counts for the label: ', image_info['final_label_name'])
-        #
-        # sql_update_counts_on_label = "UPDATE labels \
-        # SET image_count = image_count + %s \
-        # WHERE label_name = %s ; "
-        #
-        # values = (
-        #
-        #     str(image_info['image_counter']),
-        #     image_info['final_label_name']
-        #
-        # ,)
-        #
-        #
-        #
-        # cur.execute(sql_update_counts_on_label,values)
+        print('Updating the image counts for the label: ', image_info['final_label_name'])
+
+        sql_update_counts_on_label = "UPDATE labels \
+        SET image_count = image_count + %s \
+        WHERE label_name = %s ; "
+
+        values = (
+
+            str(image_info['image_counter']),
+            image_info['final_label_name']
+
+        ,)
+
+
+
+        cur.execute(sql_update_counts_on_label,values)
 
 
         # writing image info into the database
@@ -577,23 +579,24 @@ def write_imageinfo_to_DB(obj_keys, images_features, image_info):
         # create values list
         values_list = []
 
+        # hadoop s3a prefix
+        s3a_prefix = 's3a://'
+
         for i, obj_key in enumerate(obj_keys):
 
-
-            # print(images_features[i].astype(float).tolist())
-
             values = (obj_key,
-                      image_info['destination_bucket'],
-                      image_info['destination_prefix'],
-                      image_info['final_label_name'],
-                      image_info['batch_id'],
-                      datetime.datetime.now(),
-                      image_info['user_id'],
-                      image_info['place_id'],
-                      None,
-                      None,
-                      images_features[i].astype(float).tolist()
-                      )
+              image_info['destination_bucket'],
+              s3a_prefix + image_info['destination_bucket'] + '/' + obj_key,
+              image_info['destination_prefix'],
+              image_info['final_label_name'],
+              image_info['batch_id'],
+              datetime.datetime.now(),
+              image_info['user_id'],
+              image_info['place_id'],
+              None,
+              images_features[i].astype(float).tolist(),
+              True # TODO -- For now with out batch filtering
+              )
 
             values_list.append(values)
 
@@ -641,8 +644,10 @@ if __name__ == '__main__':
     prefix = args.src_prefix
 
 
-    # Set up this images batch_id
-    # batch_id = args.batch_id
+    # Set up geo points with geojson
+    geo_point = (lon,lat)
+
+
 
     # From
     s3 = boto3.resource('s3', region_name='us-east-1')
@@ -692,6 +697,7 @@ if __name__ == '__main__':
                    "neighbourhood" : neighbourhood,
                    "city" : city,
                    "country" : country,
+                   "geo_point" : geo_point,
                    "lon" : lon,
                    "lat" : lat
 

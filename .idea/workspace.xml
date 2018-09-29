@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/insert_sample_data" afterPath="$PROJECT_DIR$/sql/insert_sample_data" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/tabels_creations" afterPath="$PROJECT_DIR$/sql/tabels_creations" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/producer_local.py" afterPath="$PROJECT_DIR$/src/producer/producer_local.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,7 +21,7 @@
           <file leaf-file-name="producer.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="22">
+                <state relative-caret-position="0">
                   <caret line="441" column="0" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="449" selection-end-column="66" />
                   <folding>
                     <element signature="e#1239#1276#0" expanded="true" />
@@ -31,9 +33,11 @@
           <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="487">
-                  <caret line="41" column="37" lean-forward="false" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
-                  <folding />
+                <state relative-caret-position="343">
+                  <caret line="396" column="19" lean-forward="true" selection-start-line="396" selection-start-column="19" selection-end-line="396" selection-end-column="19" />
+                  <folding>
+                    <element signature="e#1239#1276#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -41,7 +45,7 @@
           <file leaf-file-name="image.py" pinned="false" current-in-tab="false">
             <entry file="file:///anaconda3/lib/python3.6/site-packages/matplotlib/image.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="399">
+                <state relative-caret-position="26400">
                   <caret line="1229" column="30" lean-forward="false" selection-start-line="1229" selection-start-column="30" selection-end-line="1229" selection-end-column="43" />
                   <folding />
                 </state>
@@ -73,7 +77,7 @@
           <file leaf-file-name="requester.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/consumer/requester.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-2305">
+                <state relative-caret-position="2332">
                   <caret line="123" column="28" lean-forward="false" selection-start-line="123" selection-start-column="27" selection-end-line="123" selection-end-column="28" />
                   <folding>
                     <element signature="e#1962#1999#0" expanded="true" />
@@ -105,7 +109,7 @@
           <file leaf-file-name="preprocessor.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/data_preprocessor/preprocessor.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="459">
+                <state relative-caret-position="2574">
                   <caret line="126" column="60" lean-forward="false" selection-start-line="126" selection-start-column="60" selection-end-line="126" selection-end-column="60" />
                   <folding>
                     <element signature="e#252#266#0" expanded="true" />
@@ -114,20 +118,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="server_controller.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/controller/server_controller.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="264">
-                  <caret line="12" column="10" lean-forward="false" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="preprocessor.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/data_preprocessor/preprocessor.py">
               <provider selected="true" editor-type-id="text-editor">
@@ -143,7 +137,7 @@
           <file leaf-file-name="image.py" pinned="false" current-in-tab="false">
             <entry file="file:///anaconda3/lib/python3.6/site-packages/keras_preprocessing/image.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="195">
+                <state relative-caret-position="9900">
                   <caret line="461" column="4" lean-forward="false" selection-start-line="461" selection-start-column="4" selection-end-line="461" selection-end-column="4" />
                   <folding />
                 </state>
@@ -167,7 +161,6 @@
       <find>prefix</find>
       <find>s3_bucket_name</find>
       <find>destination_prefix</find>
-      <find>neighbourhood</find>
       <find>generate_random_geo_point</find>
       <find>Put</find>
       <find>boto</find>
@@ -184,6 +177,11 @@
       <find>type</find>
       <find>time</find>
       <find>on_board_date</find>
+      <find>count</find>
+      <find>neighbourhood</find>
+      <find>process</find>
+      <find>new_keys</find>
+      <find>nei</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -214,9 +212,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1680" />
-    <option name="height" value="1050" />
+    <option name="height" value="1027" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -233,7 +232,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -241,28 +240,11 @@
               <item name="Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Project" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="data_preprocessor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="producer" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -369,13 +351,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <frame x="0" y="23" width="1680" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14407815" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14590965" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10644831" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -389,6 +370,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -420,19 +402,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/training/train_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/inferencing/inference.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="20" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="23" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -502,7 +475,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -510,7 +482,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="20" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="23" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -550,7 +521,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -558,7 +528,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="20" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="23" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -612,7 +581,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3969">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1239#1276#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -681,7 +652,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -689,7 +659,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="20" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="23" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -736,7 +705,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -744,7 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="20" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="23" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -784,7 +751,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/consumer/requester.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2305">
+        <state relative-caret-position="2332">
           <caret line="123" column="28" lean-forward="false" selection-start-line="123" selection-start-column="27" selection-end-line="123" selection-end-column="28" />
           <folding>
             <element signature="e#1962#1999#0" expanded="true" />
@@ -810,7 +777,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
+        <state relative-caret-position="0">
           <caret line="441" column="0" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="449" selection-end-column="66" />
           <folding>
             <element signature="e#1239#1276#0" expanded="true" />
@@ -820,7 +787,7 @@
     </entry>
     <entry file="file:///anaconda3/lib/python3.6/site-packages/keras_preprocessing/image.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
+        <state relative-caret-position="9900">
           <caret line="461" column="4" lean-forward="false" selection-start-line="461" selection-start-column="4" selection-end-line="461" selection-end-column="4" />
           <folding />
         </state>
@@ -828,7 +795,7 @@
     </entry>
     <entry file="file:///anaconda3/lib/python3.6/site-packages/matplotlib/image.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
+        <state relative-caret-position="26400">
           <caret line="1229" column="30" lean-forward="false" selection-start-line="1229" selection-start-column="30" selection-end-line="1229" selection-end-column="43" />
           <folding />
         </state>
@@ -836,7 +803,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/data_preprocessor/preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
+        <state relative-caret-position="2574">
           <caret line="126" column="60" lean-forward="false" selection-start-line="126" selection-start-column="60" selection-end-line="126" selection-end-column="60" />
           <folding>
             <element signature="e#252#266#0" expanded="true" />
@@ -844,11 +811,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///anaconda3/lib/python3.6/site-packages/keras/applications/imagenet_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="148" column="4" lean-forward="false" selection-start-line="148" selection-start-column="4" selection-end-line="148" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="41" column="37" lean-forward="false" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="343">
+          <caret line="396" column="19" lean-forward="true" selection-start-line="396" selection-start-column="19" selection-end-line="396" selection-end-column="19" />
+          <folding>
+            <element signature="e#1239#1276#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

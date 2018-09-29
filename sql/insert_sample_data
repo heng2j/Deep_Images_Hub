@@ -56,7 +56,7 @@ SELECT * FROM 	users;
 	 
 
 -- Insert place info into places table
-DELETE FROM places;
+DELETE FROM places ;
 INSERT INTO places (place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added ) VALUES
 
 	( 1 , 'UNKNOWN', 10038, 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', 0, 0 , NULL, (SELECT NOW()) )
