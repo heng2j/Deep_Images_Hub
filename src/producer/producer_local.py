@@ -49,6 +49,7 @@ from os.path import dirname as up
 
 
 import logging
+import keras
 from keras_preprocessing import image
 import time
 import os
