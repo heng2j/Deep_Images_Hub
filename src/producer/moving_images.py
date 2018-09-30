@@ -29,17 +29,44 @@ moving_images:
 
 
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
+
+
 
 
 from pyspark.ml.image import ImageSchema
 
+import keras
+from keras.preprocessing import image
+from io import BytesIO
 
-image_df = ImageSchema.readImages("/OID/Dataset/test/Accordion")
+# from sparkdl.image.imageIO import _decodeImage, imageSchema
 
-
+image_df = ImageSchema.readImages("hdfs://ec2-18-235-62-224.compute-1.amazonaws.com:9000/OID/Dataset/test/Accordion")
 image_df.show()
 
-from sparkdl.image.imageIO import _decodeImage, imageSchema
+def readFileFromDF(row):
+
+
+    filePath = row.image
+
+
+
+    if '.jpg' in filePath:
+
+        img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(224, 224))
+        new_key = obj.key.replace(prefix,
+                                  "data/images" + destination_prefix + "/" + image_info['final_label_name'] + "/")
+
+
+
+    import boto3
+    import os
+
+
 
 
 # this function will use boto3 on the workers directly to pull the image
@@ -79,7 +106,7 @@ def readFileFromS3(row):
 schema = StructType([StructField("filePath", StringType(), False), StructField("image", imageSchema)])
 
 image_df = (
-    rows_df
+    image_df
         .rdd
         .map(readFileFromS3)
         .toDF(schema)
