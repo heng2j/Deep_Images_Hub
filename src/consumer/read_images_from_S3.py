@@ -40,6 +40,14 @@ from pyspark.sql.functions import lit
 from sparkdl.image import imageIO as imageIO
 from sparkdl.image.imageIO import imageArrayToStruct
 
+from pyspark.context import SparkContext
+from pyspark.conf import SparkConf
+from tensorflowonspark import TFCluster
+import argparse
+
+sc = SparkContext(conf=SparkConf().setAppName("read images from S3"))
+executors = sc._conf.get("spark.executor.instances")
+num_executors = int(executors) if executors is not None else 1
 
 
 from pyspark.sql import SQLContext
