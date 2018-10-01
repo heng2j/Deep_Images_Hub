@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS images (
 	user_id					int references users(user_id),
 	place_id				int references places(place_id),
 	image_index				int,
-	embeddings				float,
+	embeddings				float[],
 	verified				boolean
 );
 
