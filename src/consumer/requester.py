@@ -69,6 +69,9 @@ import math
 from os.path import dirname as up
 
 
+import pandas as pd
+
+
 """
 Commonly Shared Statics
 
@@ -223,7 +226,7 @@ def verify_labels_quantities(label_list,user_info):
                 print("These labels will save into the requesting_label_watchlist table")
 
                 # TODO - Save labels into the requesting_label_watchlist table
-                save_to_requesting_label_watchlist(cur, results, user_id)
+                save_to_requesting_label_to_watchlist(cur, results, user_id)
 
                 # commit changes
                 conn.commit()
@@ -249,7 +252,7 @@ def verify_labels_quantities(label_list,user_info):
 
 
 # Save labels into the requesting_label_watchlist table
-def save_to_requesting_label_watchlist(cur,label_list,user_id):
+def save_to_requesting_label_to_watchlist(cur, label_list, user_id):
 
     print('Saving labels into the requesting_label_watchlist table...')
     for label_name in label_list:
@@ -268,6 +271,78 @@ def save_to_requesting_label_watchlist(cur,label_list,user_id):
         # verify if label exist in the database
         # execute a statement
         cur.execute(sql)
+
+
+
+
+"""
+
+retrieve image urls from database
+
+Temp workflow:
+
+
+"""
+
+
+def get_images_urls(label_list):
+
+
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        values_list = []
+
+        for label_name in label_list:
+
+            values_list.append(label_name)
+
+
+        print("values_list: ", values_list)
+
+        sql = "SELECT full_hadoop_path , label_name  FROM images WHERE label_name IN  %(values_list)s ;"
+
+        # execute a statement
+        print('Getting image urls for requesting labels ...')
+        cur.execute(sql,
+                    {
+                        'values_list': tuple(values_list),
+                    })
+
+        results = cur.fetchall()
+
+        results_df = pd.DataFrame(results, columns=['image_url', 'label_name'])
+
+        print(results_df)
+
+        # close the communication with the PostgreSQL
+        cur.close()
+
+        # All labels ready return True
+        return results_df
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
+
+
+
+
 
 
 
@@ -317,5 +392,8 @@ if __name__ == '__main__':
     }
 
 
-    verify_labels(label_list)
-    verify_labels_quantities(label_list,user_info)
+    # verify_labels(label_list)
+    # verify_labels_quantities(label_list,user_info)
+
+
+    get_images_urls(label_list)
