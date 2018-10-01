@@ -8,17 +8,23 @@ DROP TABLE IF EXISTS labels CASCADE;
 
 CREATE TABLE IF NOT EXISTS labels (
     label_name  text PRIMARY KEY ,
-    parent_name text references labels(label_name),
+    parent_name text  ,--references labels(label_name),
     children    varchar[],
 	image_count	int,
 	requested_count int,
 	updated_date 		timestamp
 );
+
+ALTER TABLE labels
+ADD FOREIGN KEY (parent_name)
+REFERENCES labels(label_name);
+
 	
+SELECT * FROM labels;
 
 -- Drop users table if exists;
 -- Create users table if not exists;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE IF NOT EXISTS users (
     user_id				SERIAL	PRIMARY KEY ,

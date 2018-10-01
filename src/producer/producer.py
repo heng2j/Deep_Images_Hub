@@ -49,6 +49,7 @@ from os.path import dirname as up
 
 
 import logging
+import keras
 from keras_preprocessing import image
 import time
 import os
@@ -480,9 +481,7 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 
 
 
-def import_images_from_source(bucket, prefix, destination_prefix, image_info, new_keys_list):
-
-
+def import_images_from_source(bucket, prefix, destination_prefix, label):
 
     for obj in bucket.objects.filter(Prefix=prefix).all():
 
@@ -491,24 +490,19 @@ def import_images_from_source(bucket, prefix, destination_prefix, image_info, ne
             # TODO - Processing Images
             img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(224, 224))
 
-
-            # plt.figure(0)
-            # plt.imshow(img)
-            # plt.title('Sample Image from S3')
-            # plt.pause(0.01)
-
             # Temp - Copy the the file from source bucket to destination bucekt
             old_source = {'Bucket': 'insight-data-images',
                           'Key': obj.key}
 
-            new_key = obj.key.replace(prefix, "data/images" + destination_prefix + "/" + image_info['final_label_name'] + "/")
+            new_key = obj.key.replace(prefix, "data/images" + destination_prefix + "/" + label+ "/")
 
 
             print("Put file in to: ", new_key)
             new_obj = new_bucket.Object(new_key)
             new_obj.copy(old_source)
 
-            new_keys_list.append(new_key)
+            global new_keys
+            new_keys.append(new_key)
 
             # increase image_counter by 1
             global image_counter
@@ -706,26 +700,22 @@ if __name__ == '__main__':
     # Insert geoinfo into database if place_id is not already exist
     writeGeoinfo_into_DB(image_info)
 
+    # TOOD - turn these into dataframes
 
     # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
     new_keys = []
 
-    # Initiate an empty list of numpy array representation the images
+    # Initiate an empty list of numpy array representation of images
     images_in_numpy_arrays = []
 
     # Initiate image_counter
     image_counter = 0
 
-    # Processing images
-    import_images_from_source(bucket, prefix, destination_prefix, image_info, new_keys)
+    # Import images from source
+    import_images_from_source(bucket, prefix, destination_prefix, image_info['final_label_name'])
 
     print("Added "+ str(image_counter) + " images.")
     image_info['image_counter'] = image_counter
-
-
-    # Load Model and generate vector representation of images
-    model = load_headless_pretrained_model()
-    images_features = generate_features(images_in_numpy_arrays, model)
 
 
     batch_id = generate_new_batch_id(user_id, place_id,image_counter)
@@ -735,6 +725,14 @@ if __name__ == '__main__':
     image_info['batch_id'] = batch_id
 
 
+
+
+    # Do this in a distributed manner
+
+
+    # Load Model and generate vector representation of images
+    model = load_headless_pretrained_model()
+    images_features = generate_features(images_in_numpy_arrays, model)
 
     # Bulk upload image info to database
     write_imageinfo_to_DB(new_keys,images_features[0], image_info)

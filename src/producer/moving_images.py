@@ -43,7 +43,7 @@ import keras
 from keras.preprocessing import image
 from io import BytesIO
 
-# from sparkdl.image.imageIO import _decodeImage, imageSchema
+from sparkdl.image.imageIO import _decodeImage, imageSchema
 
 image_df = ImageSchema.readImages("hdfs://ec2-18-235-62-224.compute-1.amazonaws.com:9000/OID/Dataset/test/Accordion")
 image_df.show()

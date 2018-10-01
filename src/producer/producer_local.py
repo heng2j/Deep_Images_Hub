@@ -383,10 +383,10 @@ def generate_random_geo_point(lon,lat):
 
 def getGeoinfo(lon,lat):
     geolocator = Nominatim(user_agent="specify_your_app_name_here")
-    lon_lat_str = str(lat) + ", " + str(lon)
-    print('lon_lat_str: ', lon_lat_str)
+    lat_lon_str = str(lat) + ", " + str(lon)
+    print('lat_lon_str: ', lat_lon_str)
 
-    location = geolocator.reverse(lon_lat_str)
+    location = geolocator.reverse(lat_lon_str)
 
     try:
         location.raw['address']['neighbourhood']
@@ -396,7 +396,7 @@ def getGeoinfo(lon,lat):
 
     except KeyError as e:
         print("Can not find this address from Nominatim")
-        return 1, "UNKNOWN", None, "UNKNOWN", "UNKNOWN", "UNKNOWN"
+        return 1, "UNKNOWN", 0 , "UNKNOWN", "UNKNOWN", "UNKNOWN"
 
 def writeGeoinfo_into_DB(image_info):
     """ Connect to the PostgreSQL database server """
@@ -623,11 +623,11 @@ if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument("-src_b", "--src_bucket_name", help="Source S3 bucket name", required=True)
     parser.add_argument("-src_p", "--src_prefix", help="Source S3 folder prefix", required=True)
+    parser.add_argument("-src_t", "--src_type", help="From train, test or validation folder *Not needed for production for phone submission")
     parser.add_argument("-des_b", "--des_bucket_name", help="Destination S3 bucket name", required=True)
     parser.add_argument("-l", "--label_name", help="images label", required=True)
     parser.add_argument("-lon", "--lon", help="longitude", required=True)
     parser.add_argument("-lat", "--lat", help="latitude", required=True)
-    # parser.add_argument("-bid", "--batch_id", help="images batch id", required=True)
     parser.add_argument("-uid", "--user_id", help="supplier user id", required=True)
 
 
@@ -638,11 +638,13 @@ if __name__ == '__main__':
     src_bucket_name = args.src_bucket_name
     des_bucket_name = args.des_bucket_name
 
+    src_type = args.src_type
+
     label_name = args.label_name
     lon = float(args.lon)
     lat = float(args.lat)
     user_id = args.user_id
-    prefix = args.src_prefix
+    prefix = args.src_prefix  + src_type + '/' + label_name + '/'
 
 
     # Set up geo points with geojson
@@ -685,7 +687,6 @@ if __name__ == '__main__':
     lon,lat = generate_random_geo_point(lon,lat)
 
     place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
-
 
 
     image_info = { "destination_bucket" : des_bucket_name,
