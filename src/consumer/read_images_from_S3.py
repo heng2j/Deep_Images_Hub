@@ -150,6 +150,8 @@ def get_images_urls(label_list):
         results_pdf = pd.DataFrame(results, columns=['image_url', 'label_name'])
 
 
+        print(results_pdf)
+
         spark_df = sqlContext.createDataFrame(results_pdf)
 
 
@@ -205,6 +207,8 @@ spark_df = get_images_urls(label_list)
 
 for row in spark_df.take(1):
     print (row)
+
+spark_df.show()
 
 # rows_df is a dataframe with a single string column called "image_url" that has the full s3a filePath
 # Running rows_df.rdd.take(2) gives the output
