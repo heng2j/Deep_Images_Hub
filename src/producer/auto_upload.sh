@@ -32,9 +32,3 @@ done
 echo "file is empty - Stop sending images "
 cat  ${FILE}
 
-
-
-
-
-
-
