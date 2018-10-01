@@ -38,7 +38,8 @@ import pandas as pd
 from pyspark.ml.image import ImageSchema
 from pyspark.sql.functions import lit
 from sparkdl.image import imageIO as imageIO
-from sparkdl.image.imageIO import _decodeImage, imageSchema
+from sparkdl.image.imageIO import imageArrayToStruct
+
 
 
 from pyspark.sql import SQLContext
@@ -180,7 +181,7 @@ def readFileFromS3(row):
 
     if len(contents):
         try:
-            decoded = _decodeImage(bytearray(contents))
+            decoded = imageArrayToStruct(bytearray(contents))
             return (filePath, decoded)
         except:
             return (filePath, {"mode": "RGB", "height": 378,
