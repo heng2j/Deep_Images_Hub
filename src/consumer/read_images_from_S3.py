@@ -40,6 +40,9 @@ from pyspark.sql.functions import lit
 from sparkdl.image import imageIO as imageIO
 from sparkdl.image.imageIO import imageArrayToStruct
 
+
+from pyspark.sql.types import StructType, StructField, IntegerType,StringType,LongType,DoubleType ,FloatType
+
 from pyspark.context import SparkContext
 from pyspark.conf import SparkConf
 from tensorflowonspark import TFCluster
@@ -180,9 +183,12 @@ def readFileFromS3(row):
     s3 = boto3.client('s3')
 
     filePath = row.image_url
+    label = row.label_name
+
     # strip off the starting s3a:// from the bucket
-    bucket = os.path.dirname(str(filePath))[6:]
-    key = os.path.basename(str(filePath))
+    bucket = os.path.dirname(str(filePath))[6:].split("/", 1)[0]
+    key = filePath[6:].split("/", 1)[1:][0]
+
 
     response = s3.get_object(Bucket=bucket, Key=key)
     body = response["Body"]
@@ -191,24 +197,30 @@ def readFileFromS3(row):
 
     if len(contents):
         try:
+            print("type: ", type(bytearray(contents)))
+            print ("bytearray(contents)")
+
             decoded = imageArrayToStruct(bytearray(contents))
             return (filePath, decoded)
         except:
-            return (filePath, {"mode": "RGB", "height": 378,
-                               "width": 378, "nChannels": 3,
-                               "data": bytearray("ERROR")})
+            return (filePath, None)
+            # return (filePath, {"mode": "RGB", "height": 378,
+            #                    "width": 378, "nChannels": 3,
+            #                    "data": bytearray("ERROR")})
+
+
+
+
 
 
 label_list = ['Table', 'Chair','Drawer']
 
 spark_df = get_images_urls(label_list)
 
+spark_df.printSchema()
 
+# spark_df.show()
 
-for row in spark_df.take(1):
-    print (row)
-
-spark_df.show()
 
 # rows_df is a dataframe with a single string column called "image_url" that has the full s3a filePath
 # Running rows_df.rdd.take(2) gives the output
@@ -216,17 +228,22 @@ spark_df.show()
 # Row(image_url=u's3a://mybucket/a47a9b32-a16e-4d04-bba0-cdc842c06052')]
 
 # farm out our images to the workers with a map and get back a dataframe
-# schema = StructType([StructField("filePath", StringType(), False), StructField("image", imageSchema)])
-#
-# image_df = (
-#     rows_df
-#         .rdd
-#         .map(readFileFromS3)
-#         .toDF(schema)
-# )
-#
-#
-# image_df.show()
+
+schema = StructType([StructField("filePath", StringType(), False), StructField("image", ImageSchema)])
+
+# schema = StructType([StructField("filePath", StringType(), False), StructField("label_name", StringType())])
+
+
+
+image_df = (
+    spark_df
+        .rdd
+        .map(readFileFromS3)
+        .toDF(schema)
+)
+
+
+image_df.show()
 
 # (
 #     image_df

@@ -14,6 +14,8 @@ FROM labels l
 WHERE l.label_name
 in ('Apple', 'protein_bar','Banana'));	
 	
+	
+	
 SELECT label_name 
 FROM labels
 WHERE label_name = 'Banana'
@@ -23,9 +25,42 @@ WHERE label_name = 'Banana'
 SELECT label_name
 FROM labels
 WHERE label_name in ('Apple', 'Banana','protein_bar')
-AND image_count < 100;
+AND image_count < 50;
+
+
 	
 	
+SELECT *
+FROM labels
+WHERE image_count > 100;
+	
+	
+
+-- Compose a list of images for training 
+SELECT label_name
+FROM labels
+WHERE label_name in ('Table', 'Chair','Drawer')
+AND image_count < 50;
+	
+	
+SELECT full_hadoop_path, label_name
+FROM images
+WHERE label_name in ('Table', 'Chair','Drawer');
+
+	
+	
+-- Select 100 most recent image batches are in New York
+	
+SELECT ib.batch_id, ib.place_id, ib.submitted_count, ib.on_board_date, pl.city, pl.neighbourhood, pl.geometry 
+FROM images_batches AS ib
+JOIN places as pl
+ON ib.place_id = pl.place_id 
+WHERE pl.city = 'NYC'
+ORDER BY ib.on_board_date  DESC
+LIMIT 100;
+
+	
+
 	
 
 SELECT column_name(s)

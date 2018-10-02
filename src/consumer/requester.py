@@ -323,8 +323,6 @@ def get_images_urls(label_list):
 
         results_df = pd.DataFrame(results, columns=['image_url', 'label_name'])
 
-        print(results_df)
-
         # close the communication with the PostgreSQL
         cur.close()
 
@@ -396,4 +394,18 @@ if __name__ == '__main__':
     # verify_labels_quantities(label_list,user_info)
 
 
-    get_images_urls(label_list)
+    image_urls_df = get_images_urls(label_list)
+
+    filePath = image_urls_df.image_url[0]
+
+
+    # strip off the starting s3a:// from the bucket
+    bucket = os.path.dirname(str(filePath))[6:].split("/", 1)[0]
+    key = os.path.basename(str(filePath))
+    path  = filePath[6:].split("/", 1)[1:][0]
+
+
+    print(bucket)
+    print(key)
+    print(path)
+
