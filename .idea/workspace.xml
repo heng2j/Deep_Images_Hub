@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/consumer/web_requests.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/training/train_model_TF.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/requester_test.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/requester_queries" afterPath="$PROJECT_DIR$/sql/requester_queries" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/consumer/read_images_from_S3.py" afterPath="$PROJECT_DIR$/src/consumer/read_images_from_S3.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/consumer/requester.py" afterPath="$PROJECT_DIR$/src/consumer/requester.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/.idea/workspace.xml" afterPath="$PROJECT_DIR$/webapp/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/index.html" afterPath="$PROJECT_DIR$/webapp/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/training/train_model.py" afterPath="$PROJECT_DIR$/src/training/train_model.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,14 +17,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10548">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="46" selection-end-column="33" />
-              <folding>
-                <element signature="e#1239#1276#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-926">
+              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="37" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -34,8 +30,8 @@
       <file leaf-file-name="producer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10093">
-              <caret line="490" column="12" lean-forward="true" selection-start-line="490" selection-start-column="12" selection-end-line="490" selection-end-column="91" />
+            <state relative-caret-position="269">
+              <caret line="490" column="28" lean-forward="true" selection-start-line="490" selection-start-column="28" selection-end-line="490" selection-end-column="28" />
               <folding>
                 <element signature="e#1239#1276#0" expanded="true" />
               </folding>
@@ -43,14 +39,34 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="image.py" pinned="false" current-in-tab="false">
+        <entry file="file:///anaconda3/lib/python3.6/site-packages/keras/preprocessing/image.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="317">
+              <caret line="360" column="4" lean-forward="false" selection-start-line="360" selection-start-column="4" selection-end-line="360" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="train_model.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/training/train_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+            <state relative-caret-position="2724">
+              <caret line="280" column="18" lean-forward="true" selection-start-line="280" selection-start-column="18" selection-end-line="280" selection-end-column="18" />
               <folding>
-                <element signature="e#250#288#0" expanded="true" />
+                <element signature="e#216#254#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="train_model_TF.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/training/train_model_TF.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-675">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -65,13 +81,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="requester.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="requester.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/consumer/requester.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="404" column="12" lean-forward="true" selection-start-line="404" selection-start-column="12" selection-end-line="404" selection-end-column="45" />
+            <state relative-caret-position="260">
+              <caret line="490" column="44" lean-forward="true" selection-start-line="490" selection-start-column="44" selection-end-line="490" selection-end-column="44" />
               <folding>
                 <element signature="e#1962#1999#0" expanded="true" />
+                <marker date="1538480582123" expanded="true" signature="12382:12398" ph="..." />
               </folding>
             </state>
           </provider>
@@ -80,8 +97,8 @@
       <file leaf-file-name="read_images_from_S3.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/consumer/read_images_from_S3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-46">
-              <caret line="202" column="61" lean-forward="true" selection-start-line="202" selection-start-column="11" selection-end-line="202" selection-end-column="61" />
+            <state relative-caret-position="518">
+              <caret line="196" column="0" lean-forward="true" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
               <folding>
                 <element signature="e#313#351#0" expanded="true" />
               </folding>
@@ -92,31 +109,11 @@
       <file leaf-file-name="web_requests.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/consumer/web_requests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-385">
-              <caret line="141" column="25" lean-forward="true" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+            <state relative-caret-position="2750">
+              <caret line="141" column="25" lean-forward="false" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
               <folding>
                 <element signature="e#1231#1268#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="run.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/producer/run.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sample_labels.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/producer/sample_labels.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -132,8 +129,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>psycopg2.extras.execute_values</find>
-      <find>uid</find>
       <find>bid</find>
       <find>Label existed</find>
       <find>INSERT INTO</find>
@@ -145,7 +140,6 @@
       <find>time</find>
       <find>on_board_date</find>
       <find>neighbourhood</find>
-      <find>process</find>
       <find>new_keys</find>
       <find>nei</find>
       <find>ini</find>
@@ -162,6 +156,9 @@
       <find>fetch</find>
       <find>sql.types</find>
       <find>s3</find>
+      <find>boto</find>
+      <find>process</find>
+      <find>image</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -189,14 +186,16 @@
         <option value="$PROJECT_DIR$/src/training/run.sh" />
         <option value="$PROJECT_DIR$/src/producer/run.sh" />
         <option value="$PROJECT_DIR$/src/producer/moving_images.py" />
-        <option value="$PROJECT_DIR$/src/training/train_model.py" />
         <option value="$PROJECT_DIR$/src/data_preprocessor/image_filter.py" />
         <option value="$PROJECT_DIR$/src/producer/producer_local.py" />
         <option value="$PROJECT_DIR$/src/producer/auto_upload.sh" />
         <option value="$PROJECT_DIR$/src/producer/producer.py" />
         <option value="$PROJECT_DIR$/src/consumer/web_requests.py" />
-        <option value="$PROJECT_DIR$/src/consumer/requester.py" />
         <option value="$PROJECT_DIR$/src/consumer/read_images_from_S3.py" />
+        <option value="/anaconda3/lib/python3.6/site-packages/keras_preprocessing/image.py" />
+        <option value="$PROJECT_DIR$/src/consumer/requester.py" />
+        <option value="$PROJECT_DIR$/src/training/train_model.py" />
+        <option value="$PROJECT_DIR$/test/requester_test.py" />
       </list>
     </option>
   </component>
@@ -219,7 +218,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -259,6 +258,11 @@
             <path>
               <item name="Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
               <item name="utilities" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -276,22 +280,22 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/training" />
-      <recent name="$PROJECT_DIR$/data/images" />
-      <recent name="$PROJECT_DIR$/src/producer" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/webapp/data" />
       <recent name="$PROJECT_DIR$/src/producer" />
       <recent name="$PROJECT_DIR$/src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/training" />
+      <recent name="$PROJECT_DIR$/data/images" />
+      <recent name="$PROJECT_DIR$/src/producer" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -386,11 +390,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14957266" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15140416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10644831" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -404,6 +408,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -435,30 +440,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/consumer/requester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="814">
-          <caret line="37" column="52" lean-forward="false" selection-start-line="37" selection-start-column="52" selection-end-line="37" selection-end-column="52" />
-          <folding>
-            <element signature="e#1962#1999#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sql/tabels_creations">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utilities/geographic/geoinfo.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="3" lean-forward="false" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/training/train_model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -503,6 +484,7 @@
           <caret line="20" column="36" lean-forward="false" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
           <folding>
             <element signature="e#1962#1999#0" expanded="true" />
+            <marker date="1538480582123" expanded="true" signature="12382:12398" ph="..." />
           </folding>
         </state>
       </provider>
@@ -518,9 +500,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3969">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#1239#1276#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -609,6 +589,7 @@
           <caret line="37" column="52" lean-forward="false" selection-start-line="37" selection-start-column="52" selection-end-line="37" selection-end-column="52" />
           <folding>
             <element signature="e#1962#1999#0" expanded="true" />
+            <marker date="1538480582123" expanded="true" signature="12382:12398" ph="..." />
           </folding>
         </state>
       </provider>
@@ -667,7 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="10" column="33" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -704,13 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///anaconda3/lib/python3.6/site-packages/keras_preprocessing/image.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="461" column="4" lean-forward="false" selection-start-line="461" selection-start-column="4" selection-end-line="461" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2017.2/python_stubs/1978755681/_io.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
@@ -730,9 +703,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1107">
           <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-          <folding>
-            <element signature="e#250#288#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -740,7 +710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2721">
           <caret line="239" column="4" lean-forward="false" selection-start-line="239" selection-start-column="4" selection-end-line="239" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -748,7 +717,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -756,41 +724,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="484">
           <caret line="22" column="36" lean-forward="false" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/run.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="484">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/training/train_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="e#250#288#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/sample_labels.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/data/map1.geojson">
+    <entry file="file://$PROJECT_DIR$/webapp/data/map1.geojson" />
+    <entry file="file://$PROJECT_DIR$/src/consumer/web_requests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="2750">
+          <caret line="141" column="25" lean-forward="false" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+          <folding>
+            <element signature="e#1231#1268#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -802,52 +762,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/consumer/web_requests.py">
+    <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-385">
-          <caret line="141" column="25" lean-forward="true" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+        <state relative-caret-position="-926">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/training/train_model_TF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-675">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///anaconda3/lib/python3.6/site-packages/keras/preprocessing/image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="360" column="4" lean-forward="false" selection-start-line="360" selection-start-column="4" selection-end-line="360" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="490" column="28" lean-forward="true" selection-start-line="490" selection-start-column="28" selection-end-line="490" selection-end-column="28" />
           <folding>
-            <element signature="e#1231#1268#0" expanded="true" />
+            <element signature="e#1239#1276#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/consumer/requester.py">
+    <entry file="file:///anaconda3/lib/python3.6/site-packages/keras_preprocessing/image.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="404" column="12" lean-forward="true" selection-start-line="404" selection-start-column="12" selection-end-line="404" selection-end-column="45" />
+        <state relative-caret-position="592">
+          <caret line="454" column="7" lean-forward="true" selection-start-line="454" selection-start-column="7" selection-end-line="454" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/training/train_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2724">
+          <caret line="280" column="18" lean-forward="true" selection-start-line="280" selection-start-column="18" selection-end-line="280" selection-end-column="18" />
           <folding>
-            <element signature="e#1962#1999#0" expanded="true" />
+            <element signature="e#216#254#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/requester_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1358">
+          <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+          <folding>
+            <element signature="e#1967#2004#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/consumer/read_images_from_S3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="202" column="61" lean-forward="true" selection-start-line="202" selection-start-column="11" selection-end-line="202" selection-end-column="61" />
+        <state relative-caret-position="518">
+          <caret line="196" column="0" lean-forward="true" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
           <folding>
             <element signature="e#313#351#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
+    <entry file="file://$PROJECT_DIR$/src/consumer/requester.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10093">
-          <caret line="490" column="12" lean-forward="true" selection-start-line="490" selection-start-column="12" selection-end-line="490" selection-end-column="91" />
+        <state relative-caret-position="260">
+          <caret line="490" column="44" lean-forward="true" selection-start-line="490" selection-start-column="44" selection-end-line="490" selection-end-column="44" />
           <folding>
-            <element signature="e#1239#1276#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10548">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="46" selection-end-column="33" />
-          <folding>
-            <element signature="e#1239#1276#0" expanded="true" />
+            <element signature="e#1962#1999#0" expanded="true" />
+            <marker date="1538480582123" expanded="true" signature="12382:12398" ph="..." />
           </folding>
         </state>
       </provider>
