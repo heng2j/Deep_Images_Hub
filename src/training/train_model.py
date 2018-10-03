@@ -2,12 +2,12 @@
 # train_model.py
 # ---------------
 # Author: Zhongheng Li
-# Init Date: 09-29-2018
-# Updated Date: 10-1-2018
+# Init Date: 09-18-2018
+# Updated Date: 09-18-2018
 
 """
 
-:
+Data preprocessor is used to ....:
 
  Temp: ...
  TODO: ...
@@ -29,272 +29,55 @@ from __future__ import print_function
 
 
 
-from argparse import ArgumentParser
-from configparser import ConfigParser
-import boto3
-from io import BytesIO
-import psycopg2
-from psycopg2 import extras
-import pandas as pd
-import os
-from os.path import dirname as up
-
 from pyspark.ml.image import ImageSchema
 from pyspark.sql.functions import lit
-from sparkdl.image import imageIO
-import pyspark.ml.linalg as spla
-import pyspark.sql.types as sptyp
-import numpy as np
-
-from pyspark.sql.types import StructType, StructField, IntegerType,StringType,LongType,DoubleType ,FloatType
-from pyspark.sql import SQLContext
-from pyspark.context import SparkContext
-from pyspark.conf import SparkConf
+from sparkdl.image import imageIO as imageIO
 
 
+banana_image_df = ImageSchema.readImages("hdfs://ec2-18-235-62-224.compute-1.amazonaws.com:9000/OID/Dataset/test/Banana").withColumn("label", lit(1))
 
-"""
-Commonly Shared Statics
 
-"""
+# banana_image_df = banana_image_df.withColumn("prefix", lit('Entity/data/food/fruit/'))
 
-sc = SparkContext(conf=SparkConf().setAppName("read images from S3"))
-executors = sc._conf.get("spark.executor.instances")
-num_executors = int(executors) if executors is not None else 1
+accordion_image_df = ImageSchema.readImages("hdfs://ec2-18-235-62-224.compute-1.amazonaws.com:9000/OID/Dataset/test/Accordion").withColumn("label", lit(0))
 
-sqlContext = SQLContext(sc)
+# accordion_image_df = accordion_image_df.withColumn("prefix", lit('Entity/data/food/fruit/'))
 
-# Set up project path
-projectPath = up(up(os.getcwd()))
 
-s3_bucket_name = "s3://insight-data-images/"
+banana_train, banana_test, _ = banana_image_df.randomSplit([0.99, 0.005, 0.005])  # use larger training sets (e.g. [0.6, 0.4] for non-community edition clusters)
+accordion_train, accordion_test, _ = accordion_image_df.randomSplit([0.99, 0.005, 0.005])     # use larger training sets (e.g. [0.6, 0.4] for non-community edition clusters)
 
-database_ini_file_path = "/utilities/database/database.ini"
+train_df = accordion_train.unionAll(banana_train)
+test_df = accordion_test.unionAll(accordion_train)
+
+# Under the hood, each of the partitions is fully loaded in memory, which may be expensive.
+# This ensure that each of the paritions has a small size.
+train_df = train_df.repartition(100)
+test_df = test_df.repartition(100)
 
 
 
+train_df.show()
+test_df.show()
 
-
-
-"""
-
-config Database
-
-"""
-
-def config(filename=projectPath+database_ini_file_path, section='postgresql'):
-    # create a parser
-    parser = ConfigParser()
-    # read config file
-    parser.read(filename)
-
-    # get section, default to postgresql
-    db = {}
-    if parser.has_section(section):
-        params = parser.items(section)
-        for param in params:
-            db[param[0]] = param[1]
-    else:
-        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-
-    return db
-
-
-"""
-
-retrieve image urls from database
-
-Temp workflow:
-
-
-"""
-
-
-
-def get_images_urls(label_list):
-
-
-    label_nums = list(range(len(label_list)))
-
-
-    """ Connect to the PostgreSQL database server """
-    conn = None
-    try:
-        # read connection parameters
-        params = config()
-
-        # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
-        conn = psycopg2.connect(**params)
-
-        # create a cursor
-        cur = conn.cursor()
-
-        values_list = []
-
-        # execute a statement
-        print('Getting image urls for requesting labels and append to train and test dfs ...')
-
-        for i, label_name in enumerate(label_list):
-
-            sql = "SELECT full_hadoop_path FROM images WHERE label_name =  %s ;"
-
-            cur.execute(sql,(label_name,))
-
-            results = [r[0] for r in cur.fetchall()]
-
-            uri_sdf = CreateTrainImageUriandLabels(results, i, label_cardinality)
-
-            local_train, local_test, _ = uri_sdf.randomSplit([0.005, 0.005, 0.99])
-
-            global train_df
-            global test_df
-
-            train_df = train_df.unionAll(local_train)
-            test_df = test_df.unionAll(local_test)
-
-        # close the communication with the PostgreSQL
-        cur.close()
-
-
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            print('Database connection closed.')
-
-
-
-
-
-def CreateTrainImageUriandLabels(image_uris, label, cardinality):
-  # Create image categorical labels (integer IDs)
-  local_rows = []
-  for uri in image_uris:
-    label_inds = np.zeros(cardinality)
-    label_inds[label] = 1.0
-    one_hot_vec = spla.Vectors.dense(label_inds.tolist())
-    _row_struct = {"uri": uri, "one_hot_label": one_hot_vec, "label": float(label)}
-    row = sptyp.Row(**_row_struct)
-    local_rows.append(row)
-
-  image_uri_df = sqlContext.createDataFrame(local_rows)
-  return image_uri_df
-
-
-
-# banana_image_df = ImageSchema.readImages("hdfs://ec2-18-235-62-224.compute-1.amazonaws.com:9000/OID/Dataset/test/Banana").withColumn("label", lit(1))
-#
-# # banana_image_df = banana_image_df.withColumn("prefix", lit('Entity/data/food/fruit/'))
-#
-# accordion_image_df = ImageSchema.readImages("hdfs://ec2-18-235-62-224.compute-1.amazonaws.com:9000/OID/Dataset/test/Accordion").withColumn("label", lit(0))
-#
-# # accordion_image_df = accordion_image_df.withColumn("prefix", lit('Entity/data/food/fruit/'))
-
-
-
-
+train_df.printSchema()
+test_df.printSchema()
 
 #
-# banana_train, banana_test, _ = banana_image_df.randomSplit([0.99, 0.005, 0.005])  # use larger training sets (e.g. [0.6, 0.4] for non-community edition clusters)
-# accordion_train, accordion_test, _ = accordion_image_df.randomSplit([0.99, 0.005, 0.005])     # use larger training sets (e.g. [0.6, 0.4] for non-community edition clusters)
 #
-# train_df = accordion_train.unionAll(banana_train)
-# test_df = accordion_test.unionAll(accordion_train)
+# from pyspark.ml.classification import LogisticRegression
+# from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+# from pyspark.ml import Pipeline
+# from sparkdl import DeepImageFeaturizer
 #
-# # Under the hood, each of the partitions is fully loaded in memory, which may be expensive.
-# # This ensure that each of the paritions has a small size.
-# train_df = train_df.repartition(100)
-# test_df = test_df.repartition(100)
-
-
-
-
-# # move to a permanent place for future use
-# dbfs_model_full_path = 'dbfs:/models/model-full.h5'
-# dbutils.fs.cp('file:/tmp/model-full.h5', dbfs_model_full_path)
-
-
-import PIL.Image
-from keras.applications.imagenet_utils import preprocess_input
-from keras_preprocessing import image
-
-def load_image_from_uri(local_uri):
-
-  img = (get_image_array_from_S3_file(local_uri))
-  img_arr = np.array(img).astype(np.float32)
-  img_tnsr = preprocess_input(img_arr[np.newaxis, :])
-  return img_tnsr
-
-
-
+# featurizer = DeepImageFeaturizer(inputCol="image", outputCol="features", modelName="InceptionV3")
+# lr = LogisticRegression(maxIter=20, regParam=0.05, elasticNetParam=0.3, labelCol="label")
+# p = Pipeline(stages=[featurizer, lr])
 #
-def get_image_array_from_S3_file(image_url):
-    import boto3
-    import os
-
-    # TODO - will need to implement exceptions handling
-
-    s3 = boto3.resource('s3')
-
-    # strip off the starting s3a:// from the bucket
-    bucket_name = os.path.dirname(str(image_url))[6:].split("/", 1)[0]
-    key = image_url[6:].split("/", 1)[1:][0]
-
-    bucket = s3.Bucket(bucket_name)
-    obj = bucket.Object(key)
-    img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299))
-
-    return img
-
-
-
-
-
-if __name__ == '__main__':
-
-
-    from keras.applications import InceptionV3
-
-    model = InceptionV3(weights="imagenet")
-    model.save('/tmp/model-full.h5')  # saves to the local filesystem
-
-    label_list = ['Table', 'Chair', 'Drawer']
-
-    label_cardinality = len(label_list)
-    label_nums = list(range(label_cardinality))
-    get_images_urls(label_list)
-
-
-    train_df = CreateTrainImageUriandLabels(['dummy'],None,None)
-    test_df = CreateTrainImageUriandLabels(['dummy'],None,None)
-
-
-
-    get_images_urls(label_list)
-
-    train_df = train_df.filter(train_df.label.isNotNull())
-    test_df = test_df.filter(test_df.label.isNotNull())
-
-    train_df.show()
-    test_df.show()
-
-    # Under the hood, each of the partitions is fully loaded in memory, which may be expensive.
-    # This ensure that each of the paritions has a small size.
-    train_df = train_df.repartition(100)
-    test_df = test_df.repartition(100)
-
-
-
-
-    # from sparkdl.estimators.keras_image_file_estimator import KerasImageFileEstimator
-    #
-    # dbutils.fs.cp(dbfs_model_small_path, 'file:/tmp/model-small-tmp.h5')
-    # estimator = KerasImageFileEstimator(inputCol="uri",
-    #                                     outputCol="prediction",
-    #                                     labelCol="one_hot_label",
-    #                                     imageLoader=load_image_from_uri,
-    #                                     kerasOptimizer='adam',
-    #                                     kerasLoss='categorical_crossentropy',
-    #                                     modelFile='/tmp/model-small-tmp.h5')
+# p_model = p.fit(train_df)
+#
+# # Inspect training error
+# tested_df = p_model.transform(test_df.limit(10))
+# predictionAndLabels = tested_df.select("prediction", "label")
+# evaluator = MulticlassClassificationEvaluator(metricName="accuracy")
+# print("Training set accuracy = " + str(evaluator.evaluate(predictionAndLabels)))

@@ -1,9 +1,9 @@
 #!/usr/bin/env python2
-# requester_test.py
+# requester.py
 # ---------------
 # Author: Zhongheng Li
-# Init Date: 10-01-2018
-# Updated Date: 10-02-2018
+# Init Date: 09-21-2018
+# Updated Date: 09-21-2018
 
 """
 
@@ -113,7 +113,247 @@ def config(filename=projectPath+database_ini_file_path, section='postgresql'):
     return db
 
 
+"""
+Verify Batch ID
 
+"""
+## TODO - Maybe not in this Scope
+
+
+"""
+Analysing Image Labels
+
+Temp workflow:
+1. Loop though the list of labels
+    1. Is the label existed?
+        1. If not, inform user and exit
+    2. Is the label currently have enough images?
+        1. If Yes, proceed
+        2. If No
+            1. Insert into label_watch_list table in the DB
+            2. Inform user label not ready
+                1. Either user can wait - show waiting message and constantly monitoring the jobs
+                2. or exist and execute the command again  
+    3. Return all labels ready Flag
+2. If all Labels ready kick start the training model training process
+
+"""
+## TODO
+def verify_labels(label_list):
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        print('Verifying if the labels existed in the database...')
+        for label_name in label_list:
+
+            #TODO -  augmented SQL statement
+            sql = "SELECT count(label_name)  FROM labels WHERE label_name = '" + label_name +"' ;"
+            print("sql: ", sql)
+
+            # verify if label exist in the database
+            # execute a statement
+            cur.execute(sql)
+
+            result_count = cur.fetchone()[0]
+
+            if result_count == 1:
+                print("Label " + label_name + " existed")
+
+            else:
+                print("Label '" + label_name +"' doesn't exist")
+                return False
+
+                # close the communication with the PostgreSQL
+        cur.close()
+
+        # All labels ready return True
+        return True
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+# Verify if the labels currently have enough images
+def verify_labels_quantities(label_list,user_info):
+
+    user_id = user_info['user_id']
+
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        print('Verifying if the labels has enough images...')
+        for label_name in label_list:
+
+            #TODO -  augmented SQL statement
+            sql = "SELECT label_name FROM labels WHERE label_name in ('Apple', 'Banana','protein_bar' ) AND image_count < 100;"
+
+                  # " '" + label_name +"' ;"
+            print("sql: ", sql)
+
+            # verify if label exist in the database
+            # execute a statement
+            cur.execute(sql)
+
+            results = cur.fetchall()
+
+            # The returning results are the labels that doesn't have enough images
+            if results:
+                print("The following labels does not have enough images:")
+                print (results)
+
+                print("These labels will save into the requesting_label_watchlist table")
+
+                # TODO - Save labels into the requesting_label_watchlist table
+                save_to_requesting_label_to_watchlist(cur, results, user_id)
+
+                # commit changes
+                conn.commit()
+
+                return False
+
+            else:
+                print("All labels are ready for training :) ")
+                return True
+
+                # close the communication with the PostgreSQL
+        cur.close()
+
+        # All labels ready return True
+        return True
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
+# Save labels into the requesting_label_watchlist table
+def save_to_requesting_label_to_watchlist(cur, label_list, user_id):
+
+    print('Saving labels into the requesting_label_watchlist table...')
+    for label_name in label_list:
+
+        # TODO -  augmented SQL statement
+
+        sql = " INSERT INTO requesting_label_watchlist (label_name, user_ids,last_requested_userid, new_requested_date ) VALUES \
+        ( '"+ label_name[0] +"',ARRAY[" + user_id + "], " + user_id + ", (SELECT NOW()) ) ON CONFLICT (label_name)\
+        DO UPDATE \
+        SET user_ids = array_append(requesting_label_watchlist.user_ids, "+ user_id +"),\
+        last_requested_userid = " + user_id + " \
+        WHERE requesting_label_watchlist.label_name = '" + label_name[0] + "';"
+
+        print("sql: ", sql)
+
+        # verify if label exist in the database
+        # execute a statement
+        cur.execute(sql)
+
+
+
+
+"""
+
+retrieve image urls from database
+
+Temp workflow:
+
+
+"""
+
+
+def get_images_urls(label_list):
+
+
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        values_list = []
+
+        for label_name in label_list:
+
+            values_list.append(label_name)
+
+
+        print("values_list: ", values_list)
+
+        sql = "SELECT full_hadoop_path , label_name  FROM images WHERE label_name IN  %(values_list)s ;"
+
+        # execute a statement
+        print('Getting image urls for requesting labels ...')
+        cur.execute(sql,
+                    {
+                        'values_list': tuple(values_list),
+                    })
+
+        results = cur.fetchall()
+
+        results_df = pd.DataFrame(results, columns=['image_url', 'label_name'])
+
+        # close the communication with the PostgreSQL
+        cur.close()
+
+        # All labels ready return True
+        return results_df
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
+
+
+
+
+
+
+
+"""
+
+Kick Start Traiing Process
+
+Temp workflow:
+    1. Get counts for total number of images 
+    2. Evaluate the number of slaves nodes 
+
+"""
 
 # Invoke model training script to train model in TensorflowOnSpark with the requesting labels
 def invoke_model_training(label_list,user_info):
@@ -246,7 +486,25 @@ def load_image_from_uri(local_uri):
 
 
   # img = (PIL.Image.open(local_uri).convert('RGB').resize((299, 299), PIL.Image.ANTIALIAS))
+
   img = (get_image_array_from_S3_file(local_uri))
+
+  img_arr = np.array(img).astype(np.float32)
+  img_tnsr = preprocess_input(img_arr[np.newaxis, :])
+  return img_tnsr
+
+
+
+def load_image_from_uri_local(local_uri):
+  img = (PIL.Image.open(local_uri).convert('RGB').resize((299, 299), PIL.Image.ANTIALIAS))
+
+
+  plt.figure(0)
+  plt.imshow(img)
+  plt.title('Sample Image from S3')
+  plt.pause(0.05)
+
+
 
   img_arr = np.array(img).astype(np.float32)
   img_tnsr = preprocess_input(img_arr[np.newaxis, :])
@@ -300,6 +558,7 @@ print(image_url)
 
 img = get_image_array_from_S3_file(image_url)
 
+print("img from s3 type: ", type(img))
 
 plt.figure(0)
 plt.imshow(img)
@@ -308,7 +567,13 @@ plt.pause(0.05)
 
 
 img_tnsr = load_image_from_uri(image_url)
+
 print (img_tnsr)
+
+local_image_path = projectPath + "/data/images/dummy_dataset_1000/car/2008_000085.jpg"
+
+
+load_image_from_uri_local(local_image_path)
 
 # for label in labels_urls_list:
 #     for url in label:

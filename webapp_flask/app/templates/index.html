@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for batch in features %}
+
+
+          <!-- Single Catagory -->
+                <!--<div class="single-products-catagory clearfix">-->
+                    <!--<a href="shop.html">-->
+                        <!--<img src={{ batch.sample_image }} alt="">-->
+                        <!--&lt;!&ndash; Hover Content &ndash;&gt;-->
+                        <!--<div class="hover-content">-->
+                            <!--<div class="line"></div>-->
+                            <!--<p>{{ batch.submitted_count }}</p>-->
+                            <!--<h4>{{ batch.label_name }}</h4>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                <!--</div>-->
+
+            <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="shop.html">
+                        <img src="https://s3.amazonaws.com/insight-deep-images-hub/data/images/Entity/Animal/Bird/004ebd2a35a7f4b3.jpg" alt="">
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>{{ batch.submitted_count }}</p>
+                            <h4>{{ batch.label_name }}</h4> <!-- label -->
+                        </div>
+                    </a>
+                </div>
+
+
+    {% endfor %}
+{% endblock %}

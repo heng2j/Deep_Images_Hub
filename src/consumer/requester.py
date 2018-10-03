@@ -483,11 +483,7 @@ from keras.applications.imagenet_utils import preprocess_input
 from keras_preprocessing import image
 
 def load_image_from_uri(local_uri):
-
-
-  # img = (PIL.Image.open(local_uri).convert('RGB').resize((299, 299), PIL.Image.ANTIALIAS))
   img = (get_image_array_from_S3_file(local_uri))
-
   img_arr = np.array(img).astype(np.float32)
   img_tnsr = preprocess_input(img_arr[np.newaxis, :])
   return img_tnsr
@@ -510,7 +506,7 @@ def get_image_array_from_S3_file(image_url):
 
     bucket = s3.Bucket(bucket_name)
     obj = bucket.Object(key)
-    img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299))
+    img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299, 3))
 
     return img
 
@@ -533,7 +529,6 @@ def get_image_array_from_S3_file(image_url):
 
 labels_urls_list = get_images_urls(label_list)
 
-
 image_url = labels_urls_list[0][0]
 
 print(image_url)
@@ -545,10 +540,6 @@ plt.figure(0)
 plt.imshow(img)
 plt.title('Sample Image from S3')
 plt.pause(0.05)
-
-
-img_tnsr = load_image_from_uri(image_url)
-print (img_tnsr)
 
 # for label in labels_urls_list:
 #     for url in label:

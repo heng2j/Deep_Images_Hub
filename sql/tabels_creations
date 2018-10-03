@@ -82,7 +82,7 @@ DROP TABLE IF EXISTS images CASCADE;
 CREATE TABLE IF NOT EXISTS images (
     image_id				SERIAL	PRIMARY KEY ,
     image_object_key		text,
-	image_thumel_object_key text,
+	image_thumbnail_object_key text,
 	bucket_name				text,
 	full_hadoop_path		text,
 	parent_labels			text, 

@@ -49,17 +49,21 @@ from os.path import dirname as up
 
 
 import logging
-import keras
-from keras_preprocessing import image
+# import keras
+# from keras_preprocessing import image
 import time
 import os
+import io
 import numpy as np
-from keras.applications.imagenet_utils import preprocess_input
-from keras.preprocessing import image
-from keras.applications.vgg16 import VGG16
-from keras.models import Model
+# from keras.applications.imagenet_utils import preprocess_input
+# from keras.preprocessing import image
+# from keras.applications.vgg16 import VGG16
+# from keras.models import Model
 from os.path import dirname as up
 # from resizeimage import resizeimage
+
+import PIL
+from PIL import Image
 
 
 
@@ -98,44 +102,44 @@ Need to be moved to be moduleize
 """
 
 
-def load_headless_pretrained_model():
-    """
-    Loads the pretrained version of VGG with the last layer cut off
-    :return: pre-trained headless VGG16 Keras Model
-    """
-    pretrained_vgg16 = VGG16(weights='imagenet', include_top=True)
-    model = Model(inputs=pretrained_vgg16.input,
-                  outputs=pretrained_vgg16.get_layer('fc2').output)
-    return model
+# def load_headless_pretrained_model():
+#     """
+#     Loads the pretrained version of VGG with the last layer cut off
+#     :return: pre-trained headless VGG16 Keras Model
+#     """
+#     pretrained_vgg16 = VGG16(weights='imagenet', include_top=True)
+#     model = Model(inputs=pretrained_vgg16.input,
+#                   outputs=pretrained_vgg16.get_layer('fc2').output)
+#     return model
 
 
-def generate_features(numpy_arrays, model):
-    """
-    Takes in an array of image paths, and a trained model.
-    Returns the activations of the last layer for each image
-    :param image_paths: array of image paths
-    :param model: pre-trained model
-    :return: array of last-layer activations, and mapping from array_index to file_path
-    """
-    start = time.time()
-    images = np.zeros(shape=(len(numpy_arrays), 224, 224, 3))
-    file_mapping = {i: f for i, f in enumerate(numpy_arrays)}
-
-    # We load all our dataset in memory because it is relatively small
-    for i, img in enumerate(numpy_arrays):
-        # img = image.load_img(f, target_size=(224, 224))
-
-        x_raw = image.img_to_array(img)
-        x_expand = np.expand_dims(x_raw, axis=0)
-        images[i, :, :, :] = x_expand
-
-    logger.info("%s images loaded" % len(images))
-    inputs = preprocess_input(images)
-    logger.info("Images preprocessed")
-    images_features = model.predict(inputs)
-    end = time.time()
-    logger.info("Inference done, %s Generation time" % (end - start))
-    return images_features, file_mapping
+# def generate_features(numpy_arrays, model):
+#     """
+#     Takes in an array of image paths, and a trained model.
+#     Returns the activations of the last layer for each image
+#     :param image_paths: array of image paths
+#     :param model: pre-trained model
+#     :return: array of last-layer activations, and mapping from array_index to file_path
+#     """
+#     start = time.time()
+#     images = np.zeros(shape=(len(numpy_arrays), 224, 224, 3))
+#     file_mapping = {i: f for i, f in enumerate(numpy_arrays)}
+#
+#     # We load all our dataset in memory because it is relatively small
+#     for i, img in enumerate(numpy_arrays):
+#         # img = image.load_img(f, target_size=(224, 224))
+#
+#         x_raw = image.img_to_array(img)
+#         x_expand = np.expand_dims(x_raw, axis=0)
+#         images[i, :, :, :] = x_expand
+#
+#     logger.info("%s images loaded" % len(images))
+#     inputs = preprocess_input(images)
+#     logger.info("Images preprocessed")
+#     images_features = model.predict(inputs)
+#     end = time.time()
+#     logger.info("Inference done, %s Generation time" % (end - start))
+#     return images_features, file_mapping
 
 
 
@@ -481,7 +485,7 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 
 
 
-def import_images_from_source(bucket, prefix, destination_prefix, image_info, new_keys_list):
+def import_images_from_source(bucket, prefix, destination_prefix, image_info):
 
 
 
@@ -490,8 +494,14 @@ def import_images_from_source(bucket, prefix, destination_prefix, image_info, ne
         if '.jpg' in obj.key:
 
             # TODO - Processing Images
-            img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(224, 224))
+            # img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299))
 
+            img = Image.open(BytesIO(obj.get()['Body'].read()))
+
+            img = img.resize((299, 299), PIL.Image.ANTIALIAS)
+
+            in_mem_file = io.BytesIO()
+            img.save(in_mem_file, format="JPEG")
 
             # plt.figure(0)
             # plt.imshow(img)
@@ -504,12 +514,36 @@ def import_images_from_source(bucket, prefix, destination_prefix, image_info, ne
 
             new_key = obj.key.replace(prefix, "data/images" + destination_prefix + "/" + image_info['final_label_name'] + "/")
 
+            filename = new_key.split('/')[-1].split('.')[0]
 
             print("Put file in to: ", new_key)
+            print("filename: ", filename)
+
             new_obj = new_bucket.Object(new_key)
             new_obj.copy(old_source)
 
-            new_keys_list.append(new_key)
+
+            global new_keys
+            new_keys.append(new_key)
+
+
+            # Create thumbnails for Web
+
+            new_thumbnail_key = obj.key.replace(prefix,
+                                      "data/images/thumbnail" + destination_prefix + "/" + image_info['final_label_name'] + "/")
+
+            thumbnail_path = "https://s3.amazonaws.com/insight-deep-images-hub/" + new_thumbnail_key
+            global new_thumbnail_keys
+            new_thumbnail_keys.append(thumbnail_path)
+
+            s3 = boto3.client('s3')
+            s3.put_object(Body=in_mem_file.getvalue(), Bucket=des_bucket_name, Key=new_thumbnail_key, ContentType='image/jpeg')
+
+
+
+
+
+
 
             # increase image_counter by 1
             global image_counter
@@ -531,11 +565,11 @@ Save metadata in DB
 """
 ## TODO
 
-def write_imageinfo_to_DB(obj_keys, images_features, image_info):
+def write_imageinfo_to_DB(obj_keys, thumbnail_keys, images_features, image_info):
 
 
     sql_images_insert = """ INSERT INTO \
-     images(image_object_key, bucket_name, full_hadoop_path, parent_labels, label_name, batch_id, submission_time, user_id, place_id, image_index, embeddings, verified)\
+     images(image_object_key,image_thumbnail_object_key, bucket_name, full_hadoop_path, parent_labels, label_name, batch_id, submission_time, user_id, place_id, image_index, embeddings, verified)\
      VALUES %s
      """
 
@@ -586,6 +620,7 @@ def write_imageinfo_to_DB(obj_keys, images_features, image_info):
         for i, obj_key in enumerate(obj_keys):
 
             values = (obj_key,
+              thumbnail_keys[i],
               image_info['destination_bucket'],
               s3a_prefix + image_info['destination_bucket'] + '/' + obj_key,
               image_info['destination_prefix'],
@@ -595,7 +630,8 @@ def write_imageinfo_to_DB(obj_keys, images_features, image_info):
               image_info['user_id'],
               image_info['place_id'],
               None,
-              images_features[i].astype(float).tolist(),
+              # images_features[i].astype(float).tolist(),
+              None,
               True # TODO -- For now with out batch filtering
               )
 
@@ -712,6 +748,10 @@ if __name__ == '__main__':
     # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
     new_keys = []
 
+    # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
+    new_thumbnail_keys = []
+
+
     # Initiate an empty list of numpy array representation the images
     images_in_numpy_arrays = []
 
@@ -719,15 +759,15 @@ if __name__ == '__main__':
     image_counter = 0
 
     # Processing images
-    import_images_from_source(bucket, prefix, destination_prefix, image_info, new_keys)
+    import_images_from_source(bucket, prefix, destination_prefix, image_info)
 
     print("Added "+ str(image_counter) + " images.")
     image_info['image_counter'] = image_counter
 
 
-    # Load Model and generate vector representation of images
-    model = load_headless_pretrained_model()
-    images_features = generate_features(images_in_numpy_arrays, model)
+    # # Load Model and generate vector representation of images
+    # model = load_headless_pretrained_model()
+    # images_features = generate_features(images_in_numpy_arrays, model)
 
 
     batch_id = generate_new_batch_id(user_id, place_id,image_counter)
@@ -739,7 +779,8 @@ if __name__ == '__main__':
 
 
     # Bulk upload image info to database
-    write_imageinfo_to_DB(new_keys,images_features[0], image_info)
+    # write_imageinfo_to_DB(new_keys,images_features[0], image_info)
+    write_imageinfo_to_DB(new_keys,new_thumbnail_keys,  None, image_info)
 
 
 

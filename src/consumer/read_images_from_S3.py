@@ -35,6 +35,7 @@ from configparser import ConfigParser
 import os
 import psycopg2
 import pandas as pd
+import numpy as np
 from pyspark.ml.image import ImageSchema
 from pyspark.sql.functions import lit
 from sparkdl.image import imageIO as imageIO
@@ -42,7 +43,7 @@ from sparkdl.image.imageIO import imageArrayToStruct
 
 
 from pyspark.sql.types import StructType, StructField, IntegerType,StringType,LongType,DoubleType ,FloatType
-
+import pyspark.sql.types as sptyp
 from pyspark.context import SparkContext
 from pyspark.conf import SparkConf
 from tensorflowonspark import TFCluster
@@ -179,36 +180,76 @@ def get_images_urls(label_list):
 def readFileFromS3(row):
     import boto3
     import os
+    from io import BytesIO
+    from keras_preprocessing import image
 
-    s3 = boto3.client('s3')
+    # TODO - will need to implement exceptions handling
 
-    filePath = row.image_url
-    label = row.label_name
+    s3 = boto3.resource('s3')
+
+    image_url = row.image_url
 
     # strip off the starting s3a:// from the bucket
-    bucket = os.path.dirname(str(filePath))[6:].split("/", 1)[0]
-    key = filePath[6:].split("/", 1)[1:][0]
+    bucket_name = os.path.dirname(str(image_url))[6:].split("/", 1)[0]
+    key = image_url[6:].split("/", 1)[1:][0]
+
+    bucket = s3.Bucket(bucket_name)
+    obj = bucket.Object(key)
+    img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299)).convert("RGB")
+
+    decoded = imageArrayToStruct(np.array(img) )
+    return (image_url, decoded)
+
+    # contents = bytearray(obj.get()['Body'].read())
 
 
-    response = s3.get_object(Bucket=bucket, Key=key)
-    body = response["Body"]
-    contents = bytearray(body.read())
-    body.close()
+    # s3 = boto3.client('s3')
+    #
+    #filePath = row.image_url
+    # label = row.label_name
+    #
+    # # strip off the starting s3a:// from the bucket
+    # bucket = os.path.dirname(str(filePath))[6:].split("/", 1)[0]
+    # key = filePath[6:].split("/", 1)[1:][0]
+    #
+    #
+    # response = s3.get_object(Bucket=bucket, Key=key)
+    # body = response["Body"]
+    # contents = bytearray(body.read())
+    # body.close()
+    #
+    # if len(contents):
+    #     try:
+    #         print("type: ", type(bytearray(contents)))
+    #         print ("bytearray(contents)")
+    #
+    #         decoded = imageArrayToStruct(bytearray(contents))
+    #         return (image_url, decoded)
+    #     except:
+    #         # return (image_url, None)
+    #         return (image_url, {"mode": "RGB", "height": 378,
+    #                            "width": 378, "nChannels": 3,
+    #                            "data": bytearray("ERROR")})
 
-    if len(contents):
-        try:
-            print("type: ", type(bytearray(contents)))
-            print ("bytearray(contents)")
 
-            decoded = imageArrayToStruct(bytearray(contents))
-            return (filePath, decoded)
-        except:
-            return (filePath, None)
-            # return (filePath, {"mode": "RGB", "height": 378,
-            #                    "width": 378, "nChannels": 3,
-            #                    "data": bytearray("ERROR")})
+#
+def get_image_array_from_S3_file(image_url):
+    import boto3
+    import os
 
+    # TODO - will need to implement exceptions handling
 
+    s3 = boto3.resource('s3')
+
+    # strip off the starting s3a:// from the bucket
+    bucket_name = os.path.dirname(str(image_url))[6:].split("/", 1)[0]
+    key = image_url[6:].split("/", 1)[1:][0]
+
+    bucket = s3.Bucket(bucket_name)
+    obj = bucket.Object(key)
+    img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299))
+
+    return img
 
 
 
@@ -222,6 +263,10 @@ spark_df.printSchema()
 # spark_df.show()
 
 
+
+# farm out our images to the workers with a map
+
+
 # rows_df is a dataframe with a single string column called "image_url" that has the full s3a filePath
 # Running rows_df.rdd.take(2) gives the output
 # [Row(image_url=u's3a://mybucket/14f89051-26b3-4bd9-88ad-805002e9a7c5'),
@@ -230,6 +275,9 @@ spark_df.printSchema()
 # farm out our images to the workers with a map and get back a dataframe
 
 schema = StructType([StructField("filePath", StringType(), False), StructField("image", ImageSchema)])
+
+
+
 
 # schema = StructType([StructField("filePath", StringType(), False), StructField("label_name", StringType())])
 
