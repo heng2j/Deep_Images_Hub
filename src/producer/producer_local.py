@@ -537,7 +537,7 @@ def import_images_from_source(bucket, prefix, destination_prefix, image_info):
             new_thumbnail_keys.append(thumbnail_path)
 
             s3 = boto3.client('s3')
-            s3.put_object(Body=in_mem_file.getvalue(), Bucket=des_bucket_name, Key=new_thumbnail_key, ContentType='image/jpeg')
+            s3.put_object(Body=in_mem_file.getvalue(), Bucket=des_bucket_name, Key=new_thumbnail_key, ContentType='image/jpeg', ACL='public-read')
 
 
 
