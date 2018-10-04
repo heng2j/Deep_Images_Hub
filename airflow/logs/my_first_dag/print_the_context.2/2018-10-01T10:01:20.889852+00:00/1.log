@@ -1,0 +1,21 @@
+[2018-10-01 10:01:37,650] {models.py:1335} INFO - Dependencies all met for <TaskInstance: my_first_dag.print_the_context.2 2018-10-01T10:01:20.889852+00:00 [queued]>
+[2018-10-01 10:01:37,655] {models.py:1335} INFO - Dependencies all met for <TaskInstance: my_first_dag.print_the_context.2 2018-10-01T10:01:20.889852+00:00 [queued]>
+[2018-10-01 10:01:37,655] {models.py:1547} INFO - 
+--------------------------------------------------------------------------------
+Starting attempt 1 of 1
+--------------------------------------------------------------------------------
+
+[2018-10-01 10:01:37,664] {models.py:1569} INFO - Executing <Task(PythonOperator): print_the_context.2> on 2018-10-01T10:01:20.889852+00:00
+[2018-10-01 10:01:37,664] {base_task_runner.py:124} INFO - Running: ['bash', '-c', 'airflow run my_first_dag print_the_context.2 2018-10-01T10:01:20.889852+00:00 --job_id 4 --raw -sd DAGS_FOLDER/my_first_dag.py --cfg_path /tmp/tmp34y5n_6s']
+[2018-10-01 10:01:38,186] {base_task_runner.py:107} INFO - Job 4: Subtask print_the_context.2 [2018-10-01 10:01:38,185] {__init__.py:51} INFO - Using executor SequentialExecutor
+[2018-10-01 10:01:38,297] {base_task_runner.py:107} INFO - Job 4: Subtask print_the_context.2 [2018-10-01 10:01:38,297] {models.py:258} INFO - Filling up the DagBag from /home/ubuntu/airflow/dags/my_first_dag.py
+[2018-10-01 10:01:38,327] {base_task_runner.py:107} INFO - Job 4: Subtask print_the_context.2 [2018-10-01 10:01:38,327] {example_kubernetes_operator.py:54} WARNING - Could not import KubernetesPodOperator: No module named 'kubernetes'
+[2018-10-01 10:01:38,327] {base_task_runner.py:107} INFO - Job 4: Subtask print_the_context.2 [2018-10-01 10:01:38,327] {example_kubernetes_operator.py:55} WARNING - Install kubernetes dependencies with:     pip install airflow['kubernetes']
+[2018-10-01 10:01:38,370] {base_task_runner.py:107} INFO - Job 4: Subtask print_the_context.2 [2018-10-01 10:01:38,370] {cli.py:492} INFO - Running <TaskInstance: my_first_dag.print_the_context.2 2018-10-01T10:01:20.889852+00:00 [running]> on host ip-10-0-0-14.ec2.internal
+[2018-10-01 10:01:38,379] {logging_mixin.py:95} INFO - 2
+
+[2018-10-01 10:01:38,380] {python_operator.py:96} INFO - Done. Returned value was: print_context has sucess 2
+[2018-10-01 10:01:38,400] {base_task_runner.py:107} INFO - Job 4: Subtask print_the_context.2 /home/ubuntu/shrink_venv/lib/python3.6/site-packages/airflow/utils/helpers.py:346: DeprecationWarning: Importing 'PythonOperator' directly from 'airflow.operators' has been deprecated. Please import from 'airflow.operators.[operator_module]' instead. Support for direct imports will be dropped entirely in Airflow 2.0.
+[2018-10-01 10:01:38,400] {base_task_runner.py:107} INFO - Job 4: Subtask print_the_context.2   DeprecationWarning)
+[2018-10-01 10:01:42,643] {logging_mixin.py:95} INFO - [2018-10-01 10:01:42,643] {jobs.py:2612} INFO - Task exited with return code 0
+
