@@ -66,6 +66,11 @@ import time
 import datetime
 import random
 import math
+
+from PIL import Image
+import requests
+import shutil
+
 import numpy as np
 from os.path import dirname as up
 
@@ -382,6 +387,8 @@ if __name__ == '__main__':
     label_list = args.label_List
     user_id = args.user_id
 
+    label_cardinality = len(label_list)
+
 
     user_info = { "destination_bucket" : des_bucket_name,
                    "destination_prefix" : prefix,
@@ -424,7 +431,7 @@ For Testing
 
 
 
-def get_images_urls(label_list):
+def get_images_urls_as_dataset(label_list):
 
 
     label_nums = list(range(len(label_list)))
@@ -453,15 +460,17 @@ def get_images_urls(label_list):
 
             results = [r[0] for r in cur.fetchall()]
 
-            print(results)
-
             results_list.append(results)
 
         # close the communication with the PostgreSQL
         cur.close()
 
+        # flatten the results_list
+        flattened_results_list = [y for x in results_list for y in x]
+
+
         # All labels ready return True
-        return results_list
+        return flattened_results_list
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -478,9 +487,9 @@ For testing purpose
 """
 
 import PIL.Image
-import keras
-from keras.applications.imagenet_utils import preprocess_input
-from keras_preprocessing import image
+# import keras
+# from keras.applications.imagenet_utils import preprocess_input
+# from keras_preprocessing import image
 
 def load_image_from_uri(local_uri):
   img = (get_image_array_from_S3_file(local_uri))
@@ -511,37 +520,173 @@ def get_image_array_from_S3_file(image_url):
     return img
 
 
-    # if contents:
-    #     try:
-    #
-    #         img = image.load_img(contents, target_size=(299, 299))
-    #
-    #         plt.figure(0)
-    #         plt.imshow(img)
-    #         plt.title('Sample Image from S3')
-    #         plt.pause(0.05)
-    #
-    #         return img
-    #     except:
-    #         return None
 
 
 
-labels_urls_list = get_images_urls(label_list)
+# this function will use boto3 on the workers directly to pull the image
+# and then decode it, all in this function
+def download_from_S3_img_thumbnail_urls(image_url,source_type ):
 
-image_url = labels_urls_list[0][0]
+    file_name = image_url.split('/')[-1]
+    label_name = image_url.split('/')[-2]
+    img = Image.open(requests.get(image_url, stream=True).raw)
 
-print(image_url)
+    image_path = '/tmp/Deep_image_hub/' + source_type + '/' + label_name + '/' + file_name
+    dir_name = os.path.dirname(image_path)
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+    response = requests.get(image_url, stream=True)
+    with open(image_path, 'wb') as out_file:
+        shutil.copyfileobj(response.raw, out_file)
+    del response
 
-img = get_image_array_from_S3_file(image_url)
+
+# Download images from URLs in dataset
+def process_image_url_dataset(url_dataset,src_type):
+
+        for url in url_dataset:
+            download_from_S3_img_thumbnail_urls(url,src_type)
 
 
-plt.figure(0)
-plt.imshow(img)
-plt.title('Sample Image from S3')
-plt.pause(0.05)
 
-# for label in labels_urls_list:
-#     for url in label:
-#         img_tnsr = load_image_from_uri(url)
-#         print(type(img_tnsr))
+
+
+
+labels_urls_list = get_images_urls_as_dataset(label_list)
+
+from sklearn.model_selection import train_test_split
+
+x_train ,x_test = train_test_split(labels_urls_list,test_size=0.2)
+
+
+print(x_test)
+
+
+source_type = 'test'
+
+process_image_url_dataset(x_test,source_type)
+
+
+
+temp_train_dir = '/tmp/Deep_image_hub/train'
+temp_validation_dir = '/tmp/Deep_image_hub/validation'
+
+
+# Kick start training
+
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+from __future__ import print_function
+import keras
+from keras.utils import to_categorical
+import os
+from keras.preprocessing.image import ImageDataGenerator, load_img
+
+from keras.applications import VGG16
+vgg_conv = VGG16(weights='imagenet',
+                 include_top=False,
+                 input_shape=(224, 224, 3))
+
+
+
+nTrain = len(x_train)
+nVal = len(x_test)
+
+
+
+print(nTrain)
+print(nVal)
+
+datagen = ImageDataGenerator(rescale=1. / 255)
+batch_size = 20
+
+train_features = np.zeros(shape=(nTrain, 7, 7, 512))
+train_labels = np.zeros(shape=(nTrain, label_cardinality))
+
+train_generator = datagen.flow_from_directory(
+    temp_train_dir,
+    target_size=(224, 224),
+    batch_size=batch_size,
+    class_mode='categorical',
+    shuffle=True)
+
+i = 0
+for inputs_batch, labels_batch in train_generator:
+    features_batch = vgg_conv.predict(inputs_batch)
+    train_features[i * batch_size: (i + 1) * batch_size] = features_batch
+    train_labels[i * batch_size: (i + 1) * batch_size] = labels_batch
+    i += 1
+    if i * batch_size >= nTrain:
+        break
+
+train_features = np.reshape(train_features, (nTrain, 7 * 7 * 512))
+
+
+
+
+validation_features = np.zeros(shape=(nVal, 7, 7, 512))
+validation_labels = np.zeros(shape=(nVal,label_cardinality))
+
+validation_generator = datagen.flow_from_directory(
+    temp_validation_dir,
+    target_size=(224, 224),
+    batch_size=batch_size,
+    class_mode='categorical',
+    shuffle=False)
+
+i = 0
+for inputs_batch, labels_batch in validation_generator:
+    features_batch = vgg_conv.predict(inputs_batch)
+    validation_features[i * batch_size : (i + 1) * batch_size] = features_batch
+    validation_labels[i * batch_size : (i + 1) * batch_size] = labels_batch
+    i += 1
+    if i * batch_size >= nVal:
+        break
+
+validation_features = np.reshape(validation_features, (nVal, 7 * 7 * 512))
+
+
+
+
+
+from keras import models
+from keras import layers
+from keras import optimizers
+
+model = models.Sequential()
+model.add(layers.Dense(512, activation='relu', input_dim=7 * 7 * 512))
+model.add(layers.Dropout(0.5))
+model.add(layers.Dense(label_cardinality, activation='softmax'))
+
+model.compile(optimizer=optimizers.RMSprop(lr=2e-4),
+              loss='categorical_crossentropy',
+              metrics=['acc'])
+
+history = model.fit(train_features,
+                    train_labels,
+                    epochs=20,
+                    batch_size=batch_size,
+                    validation_data=(validation_features,validation_labels))
+
+
+
+
+
+fnames = validation_generator.filenames
+
+ground_truth = validation_generator.classes
+
+label2index = validation_generator.class_indices
+
+# Getting the mapping from class index to class label
+idx2label = dict((v,k) for k,v in label2index.iteritems())
+
+
+predictions = model.predict_classes(validation_features)
+prob = model.predict(validation_features)
+
+
+errors = np.where(predictions != ground_truth)[0]
+print("No of errors = {}/{}".format(len(errors),nVal))
+
