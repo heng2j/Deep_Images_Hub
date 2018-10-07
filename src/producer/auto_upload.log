@@ -68181,3 +68181,816 @@ sed: 2: "${w/dev/stdout
 ": extra characters at the end of d command
 
 file is not empty pop one label for simulating image submission
+/Users/zhonghengli/shrink_venv/lib/python3.6/site-packages/psycopg2/__init__.py:144: UserWarning: The psycopg2 wheel package will be renamed from release 2.8; in order to keep installing from binary please use "pip install psycopg2-binary" instead. For details see: <http://initd.org/psycopg/docs/install.html#binary-install-from-pypi>.
+  """)
+projectPath+database_ini_file_path:  /Users/zhonghengli/Deep_Images_Hub/utilities/database/database.ini
+Connecting to the PostgreSQL database...
+Verifying if the label existed in the database...
+Label existed
+Database connection closed.
+final_label_name:  Juice
+Connecting to the PostgreSQL database...
+Recursively getting the labels' parents...
+Database connection closed.
+lat_lon_str:  37.76110479032946, -122.42726389847985
+Connecting to the PostgreSQL database...
+Inserting geoinfo into database if place_id is not already exist...
+Database connection closed.
+Put file in to:  data/images/Entity/Drink/Juice/034b773942ac4d12.jpg
+filename:  034b773942ac4d12
+Put file in to:  data/images/Entity/Drink/Juice/067ba183e531c8bb.jpg
+filename:  067ba183e531c8bb
+Put file in to:  data/images/Entity/Drink/Juice/076c246b24567c55.jpg
+filename:  076c246b24567c55
+Put file in to:  data/images/Entity/Drink/Juice/08c788b24c3e0557.jpg
+filename:  08c788b24c3e0557
+Put file in to:  data/images/Entity/Drink/Juice/094b2cf153b0b5d2.jpg
+filename:  094b2cf153b0b5d2
+Put file in to:  data/images/Entity/Drink/Juice/0d28a5a2d84b64d5.jpg
+filename:  0d28a5a2d84b64d5
+Put file in to:  data/images/Entity/Drink/Juice/0d9e2d4b930139ad.jpg
+filename:  0d9e2d4b930139ad
+Put file in to:  data/images/Entity/Drink/Juice/0ea8727f2589b843.jpg
+filename:  0ea8727f2589b843
+Put file in to:  data/images/Entity/Drink/Juice/0fbd0684ff5bd63b.jpg
+filename:  0fbd0684ff5bd63b
+Put file in to:  data/images/Entity/Drink/Juice/11cae5bd17e64c80.jpg
+filename:  11cae5bd17e64c80
+Put file in to:  data/images/Entity/Drink/Juice/1203abaae36e55f8.jpg
+filename:  1203abaae36e55f8
+Put file in to:  data/images/Entity/Drink/Juice/1261c57b41f2c742.jpg
+filename:  1261c57b41f2c742
+Put file in to:  data/images/Entity/Drink/Juice/14b3c3443623c614.jpg
+filename:  14b3c3443623c614
+Put file in to:  data/images/Entity/Drink/Juice/1576fae452091dc0.jpg
+filename:  1576fae452091dc0
+Put file in to:  data/images/Entity/Drink/Juice/15a0ec3f2dad6bbe.jpg
+filename:  15a0ec3f2dad6bbe
+Put file in to:  data/images/Entity/Drink/Juice/16de13993417cfd3.jpg
+filename:  16de13993417cfd3
+Put file in to:  data/images/Entity/Drink/Juice/17c78b4cf69200a4.jpg
+filename:  17c78b4cf69200a4
+Put file in to:  data/images/Entity/Drink/Juice/1a948f224e4e3474.jpg
+filename:  1a948f224e4e3474
+Put file in to:  data/images/Entity/Drink/Juice/1aa211b8a0667f5e.jpg
+filename:  1aa211b8a0667f5e
+Put file in to:  data/images/Entity/Drink/Juice/1dd27f488dd09ec1.jpg
+filename:  1dd27f488dd09ec1
+Put file in to:  data/images/Entity/Drink/Juice/1f3973a7dcbd559f.jpg
+filename:  1f3973a7dcbd559f
+Put file in to:  data/images/Entity/Drink/Juice/20aec071a8260aac.jpg
+filename:  20aec071a8260aac
+Put file in to:  data/images/Entity/Drink/Juice/21d6b23091a96c23.jpg
+filename:  21d6b23091a96c23
+Put file in to:  data/images/Entity/Drink/Juice/226ae54e39201f72.jpg
+filename:  226ae54e39201f72
+Put file in to:  data/images/Entity/Drink/Juice/22960fd608129a2f.jpg
+filename:  22960fd608129a2f
+Put file in to:  data/images/Entity/Drink/Juice/23cb50e7aad41054.jpg
+filename:  23cb50e7aad41054
+Put file in to:  data/images/Entity/Drink/Juice/24c772bd8b6911c9.jpg
+filename:  24c772bd8b6911c9
+Put file in to:  data/images/Entity/Drink/Juice/26d4daf45a795e94.jpg
+filename:  26d4daf45a795e94
+Put file in to:  data/images/Entity/Drink/Juice/2827f15f30cd38f9.jpg
+filename:  2827f15f30cd38f9
+Put file in to:  data/images/Entity/Drink/Juice/2958492015f43238.jpg
+filename:  2958492015f43238
+Put file in to:  data/images/Entity/Drink/Juice/296d9c6aefafc00e.jpg
+filename:  296d9c6aefafc00e
+Put file in to:  data/images/Entity/Drink/Juice/2c4be0eb5164059f.jpg
+filename:  2c4be0eb5164059f
+Put file in to:  data/images/Entity/Drink/Juice/2c79e49b5a8459f2.jpg
+filename:  2c79e49b5a8459f2
+Put file in to:  data/images/Entity/Drink/Juice/2d9463976bedb307.jpg
+filename:  2d9463976bedb307
+Put file in to:  data/images/Entity/Drink/Juice/2f81dbf8c2ac6568.jpg
+filename:  2f81dbf8c2ac6568
+Put file in to:  data/images/Entity/Drink/Juice/31bddee09a355d0c.jpg
+filename:  31bddee09a355d0c
+Put file in to:  data/images/Entity/Drink/Juice/34c53610dd626ab6.jpg
+filename:  34c53610dd626ab6
+Put file in to:  data/images/Entity/Drink/Juice/358caf289c3edc8d.jpg
+filename:  358caf289c3edc8d
+Put file in to:  data/images/Entity/Drink/Juice/37b9c09967af0565.jpg
+filename:  37b9c09967af0565
+Put file in to:  data/images/Entity/Drink/Juice/38e06934e38a2ed9.jpg
+filename:  38e06934e38a2ed9
+Put file in to:  data/images/Entity/Drink/Juice/39ee3b81672778d5.jpg
+filename:  39ee3b81672778d5
+Put file in to:  data/images/Entity/Drink/Juice/3a6c8c40dd649a45.jpg
+filename:  3a6c8c40dd649a45
+Put file in to:  data/images/Entity/Drink/Juice/3a756bb0f32528d0.jpg
+filename:  3a756bb0f32528d0
+Put file in to:  data/images/Entity/Drink/Juice/3e707be773350b3d.jpg
+filename:  3e707be773350b3d
+Put file in to:  data/images/Entity/Drink/Juice/3e8c6a646e87dae0.jpg
+filename:  3e8c6a646e87dae0
+Put file in to:  data/images/Entity/Drink/Juice/3e8f6c087df04fc3.jpg
+filename:  3e8f6c087df04fc3
+Put file in to:  data/images/Entity/Drink/Juice/3feef566fd20fbf8.jpg
+filename:  3feef566fd20fbf8
+Put file in to:  data/images/Entity/Drink/Juice/443c1a23093435a2.jpg
+filename:  443c1a23093435a2
+Put file in to:  data/images/Entity/Drink/Juice/451433389a7b9d06.jpg
+filename:  451433389a7b9d06
+Put file in to:  data/images/Entity/Drink/Juice/4617f620cb0f67dc.jpg
+filename:  4617f620cb0f67dc
+Put file in to:  data/images/Entity/Drink/Juice/4711d1564fce44ea.jpg
+filename:  4711d1564fce44ea
+Put file in to:  data/images/Entity/Drink/Juice/475b0ff9e1e7395a.jpg
+filename:  475b0ff9e1e7395a
+Put file in to:  data/images/Entity/Drink/Juice/48cc609a634d5912.jpg
+filename:  48cc609a634d5912
+Put file in to:  data/images/Entity/Drink/Juice/4a61f9b42c08d4a8.jpg
+filename:  4a61f9b42c08d4a8
+Put file in to:  data/images/Entity/Drink/Juice/4bac52a2d0a0f9bf.jpg
+filename:  4bac52a2d0a0f9bf
+Put file in to:  data/images/Entity/Drink/Juice/4d136d840730e3c8.jpg
+filename:  4d136d840730e3c8
+Put file in to:  data/images/Entity/Drink/Juice/4da4c77c4fe66422.jpg
+filename:  4da4c77c4fe66422
+Put file in to:  data/images/Entity/Drink/Juice/5052c209b428dbe7.jpg
+filename:  5052c209b428dbe7
+Put file in to:  data/images/Entity/Drink/Juice/51ac71d55e90be25.jpg
+filename:  51ac71d55e90be25
+Put file in to:  data/images/Entity/Drink/Juice/51ce19663603f96e.jpg
+filename:  51ce19663603f96e
+Put file in to:  data/images/Entity/Drink/Juice/530d3333dd68cc97.jpg
+filename:  530d3333dd68cc97
+Put file in to:  data/images/Entity/Drink/Juice/5314d8ad8213a49a.jpg
+filename:  5314d8ad8213a49a
+Put file in to:  data/images/Entity/Drink/Juice/55e830276e1eb7dd.jpg
+filename:  55e830276e1eb7dd
+Put file in to:  data/images/Entity/Drink/Juice/56f08b74b3450a61.jpg
+filename:  56f08b74b3450a61
+Put file in to:  data/images/Entity/Drink/Juice/585dccae418acf5b.jpg
+filename:  585dccae418acf5b
+Put file in to:  data/images/Entity/Drink/Juice/5a24f4819414a8b6.jpg
+filename:  5a24f4819414a8b6
+Put file in to:  data/images/Entity/Drink/Juice/5a266358010fd830.jpg
+filename:  5a266358010fd830
+Put file in to:  data/images/Entity/Drink/Juice/5cddf9126c3bf57c.jpg
+filename:  5cddf9126c3bf57c
+Put file in to:  data/images/Entity/Drink/Juice/5e31f4e88ff13df2.jpg
+filename:  5e31f4e88ff13df2
+Put file in to:  data/images/Entity/Drink/Juice/60336c078babf97b.jpg
+filename:  60336c078babf97b
+Put file in to:  data/images/Entity/Drink/Juice/60436b1ab733549e.jpg
+filename:  60436b1ab733549e
+Put file in to:  data/images/Entity/Drink/Juice/60ec73656116d279.jpg
+filename:  60ec73656116d279
+Put file in to:  data/images/Entity/Drink/Juice/666a1a066ee3d9e8.jpg
+filename:  666a1a066ee3d9e8
+Put file in to:  data/images/Entity/Drink/Juice/672caf76183a4c43.jpg
+filename:  672caf76183a4c43
+Put file in to:  data/images/Entity/Drink/Juice/697b8586aa15c71f.jpg
+filename:  697b8586aa15c71f
+Put file in to:  data/images/Entity/Drink/Juice/69b8baa963de35be.jpg
+filename:  69b8baa963de35be
+Put file in to:  data/images/Entity/Drink/Juice/6db73422946f5282.jpg
+filename:  6db73422946f5282
+Put file in to:  data/images/Entity/Drink/Juice/6e1858b3a6a28cfe.jpg
+filename:  6e1858b3a6a28cfe
+Put file in to:  data/images/Entity/Drink/Juice/701acc169c3571a4.jpg
+filename:  701acc169c3571a4
+Put file in to:  data/images/Entity/Drink/Juice/7090fec919a0f96d.jpg
+filename:  7090fec919a0f96d
+Put file in to:  data/images/Entity/Drink/Juice/70a01cc3cb165adf.jpg
+filename:  70a01cc3cb165adf
+Put file in to:  data/images/Entity/Drink/Juice/70ee322f609279f4.jpg
+filename:  70ee322f609279f4
+Put file in to:  data/images/Entity/Drink/Juice/710abd6b588dd036.jpg
+filename:  710abd6b588dd036
+Put file in to:  data/images/Entity/Drink/Juice/7275612648cab9b4.jpg
+filename:  7275612648cab9b4
+Put file in to:  data/images/Entity/Drink/Juice/74cc7fd3b2a04cdf.jpg
+filename:  74cc7fd3b2a04cdf
+Put file in to:  data/images/Entity/Drink/Juice/75f3547e656b55b1.jpg
+filename:  75f3547e656b55b1
+Put file in to:  data/images/Entity/Drink/Juice/770bcda0654ead5d.jpg
+filename:  770bcda0654ead5d
+Put file in to:  data/images/Entity/Drink/Juice/7b6cd7c10abed9aa.jpg
+filename:  7b6cd7c10abed9aa
+Put file in to:  data/images/Entity/Drink/Juice/7d0a7d3a1a9b6477.jpg
+filename:  7d0a7d3a1a9b6477
+Put file in to:  data/images/Entity/Drink/Juice/7d6327ed29141003.jpg
+filename:  7d6327ed29141003
+Put file in to:  data/images/Entity/Drink/Juice/7ed6de335ebb5f63.jpg
+filename:  7ed6de335ebb5f63
+Put file in to:  data/images/Entity/Drink/Juice/7f1fe1759e629add.jpg
+filename:  7f1fe1759e629add
+Put file in to:  data/images/Entity/Drink/Juice/7f506a9f2dbf7c9b.jpg
+filename:  7f506a9f2dbf7c9b
+Put file in to:  data/images/Entity/Drink/Juice/833fb2ad1c2de85e.jpg
+filename:  833fb2ad1c2de85e
+Put file in to:  data/images/Entity/Drink/Juice/83fe384a1f430d2e.jpg
+filename:  83fe384a1f430d2e
+Put file in to:  data/images/Entity/Drink/Juice/85cc410af47ca5e2.jpg
+filename:  85cc410af47ca5e2
+Put file in to:  data/images/Entity/Drink/Juice/8630ac34a5bb6a1a.jpg
+filename:  8630ac34a5bb6a1a
+Put file in to:  data/images/Entity/Drink/Juice/886b390afd37ac26.jpg
+filename:  886b390afd37ac26
+Put file in to:  data/images/Entity/Drink/Juice/89c6dbd97f8434a3.jpg
+filename:  89c6dbd97f8434a3
+Put file in to:  data/images/Entity/Drink/Juice/8aac35e6623abca3.jpg
+filename:  8aac35e6623abca3
+Put file in to:  data/images/Entity/Drink/Juice/8abdcea0613ddf9c.jpg
+filename:  8abdcea0613ddf9c
+Put file in to:  data/images/Entity/Drink/Juice/8bff8fda81ad41bc.jpg
+filename:  8bff8fda81ad41bc
+Put file in to:  data/images/Entity/Drink/Juice/8dbf3cccd396f7bc.jpg
+filename:  8dbf3cccd396f7bc
+Put file in to:  data/images/Entity/Drink/Juice/8e255d864f40a6cb.jpg
+filename:  8e255d864f40a6cb
+Put file in to:  data/images/Entity/Drink/Juice/8ea8d102f259f998.jpg
+filename:  8ea8d102f259f998
+Put file in to:  data/images/Entity/Drink/Juice/90b5e87396d98f91.jpg
+filename:  90b5e87396d98f91
+Put file in to:  data/images/Entity/Drink/Juice/90eb03bd7afc501b.jpg
+filename:  90eb03bd7afc501b
+Put file in to:  data/images/Entity/Drink/Juice/90f36d380c28e7f0.jpg
+filename:  90f36d380c28e7f0
+Put file in to:  data/images/Entity/Drink/Juice/9461fc0304883fe8.jpg
+filename:  9461fc0304883fe8
+Put file in to:  data/images/Entity/Drink/Juice/96f9acf42777082d.jpg
+filename:  96f9acf42777082d
+Put file in to:  data/images/Entity/Drink/Juice/96ffdcdf897e8820.jpg
+filename:  96ffdcdf897e8820
+Put file in to:  data/images/Entity/Drink/Juice/985ea818726a98a6.jpg
+filename:  985ea818726a98a6
+Put file in to:  data/images/Entity/Drink/Juice/98db3f5019ef1bab.jpg
+filename:  98db3f5019ef1bab
+Put file in to:  data/images/Entity/Drink/Juice/9c6fd475024fe967.jpg
+filename:  9c6fd475024fe967
+Put file in to:  data/images/Entity/Drink/Juice/9cb3c0a97d62f489.jpg
+filename:  9cb3c0a97d62f489
+Put file in to:  data/images/Entity/Drink/Juice/9dc12084fdb79ecf.jpg
+filename:  9dc12084fdb79ecf
+Put file in to:  data/images/Entity/Drink/Juice/9fc22846f13b6eeb.jpg
+filename:  9fc22846f13b6eeb
+Put file in to:  data/images/Entity/Drink/Juice/a0620646a2b9d6e7.jpg
+filename:  a0620646a2b9d6e7
+Put file in to:  data/images/Entity/Drink/Juice/a0d43db4be27a534.jpg
+filename:  a0d43db4be27a534
+Put file in to:  data/images/Entity/Drink/Juice/a15920b381149649.jpg
+filename:  a15920b381149649
+Put file in to:  data/images/Entity/Drink/Juice/a248a24af68a476c.jpg
+filename:  a248a24af68a476c
+Put file in to:  data/images/Entity/Drink/Juice/a4ee473798f7e6a0.jpg
+filename:  a4ee473798f7e6a0
+Put file in to:  data/images/Entity/Drink/Juice/a51cf76387f57506.jpg
+filename:  a51cf76387f57506
+Put file in to:  data/images/Entity/Drink/Juice/a562c337711aa8e5.jpg
+filename:  a562c337711aa8e5
+Put file in to:  data/images/Entity/Drink/Juice/a730fc0d83dee037.jpg
+filename:  a730fc0d83dee037
+Put file in to:  data/images/Entity/Drink/Juice/a964c3eea8eedba7.jpg
+filename:  a964c3eea8eedba7
+Put file in to:  data/images/Entity/Drink/Juice/aa348568c23b0007.jpg
+filename:  aa348568c23b0007
+Put file in to:  data/images/Entity/Drink/Juice/aad835d88727ed18.jpg
+filename:  aad835d88727ed18
+Put file in to:  data/images/Entity/Drink/Juice/abe7496931f18a64.jpg
+filename:  abe7496931f18a64
+Put file in to:  data/images/Entity/Drink/Juice/ae9e10ac0d392c0f.jpg
+filename:  ae9e10ac0d392c0f
+Put file in to:  data/images/Entity/Drink/Juice/aed02644a065d81e.jpg
+filename:  aed02644a065d81e
+Put file in to:  data/images/Entity/Drink/Juice/af006592ec841db0.jpg
+filename:  af006592ec841db0
+Put file in to:  data/images/Entity/Drink/Juice/af39e60b809e06c9.jpg
+filename:  af39e60b809e06c9
+Put file in to:  data/images/Entity/Drink/Juice/b08d0d59013eb634.jpg
+filename:  b08d0d59013eb634
+Put file in to:  data/images/Entity/Drink/Juice/b1ee6c8ab8dec31c.jpg
+filename:  b1ee6c8ab8dec31c
+Put file in to:  data/images/Entity/Drink/Juice/b292e9e4d61d0665.jpg
+filename:  b292e9e4d61d0665
+Put file in to:  data/images/Entity/Drink/Juice/b2a792ad8f9573fe.jpg
+filename:  b2a792ad8f9573fe
+Put file in to:  data/images/Entity/Drink/Juice/b4e4b992591a7b94.jpg
+filename:  b4e4b992591a7b94
+Put file in to:  data/images/Entity/Drink/Juice/b51c16c1fa4ad71e.jpg
+filename:  b51c16c1fa4ad71e
+Put file in to:  data/images/Entity/Drink/Juice/b6279d0d5d60c883.jpg
+filename:  b6279d0d5d60c883
+Put file in to:  data/images/Entity/Drink/Juice/b73e08f53d1d3697.jpg
+filename:  b73e08f53d1d3697
+Put file in to:  data/images/Entity/Drink/Juice/b7e85b4d1c68cbd8.jpg
+filename:  b7e85b4d1c68cbd8
+Put file in to:  data/images/Entity/Drink/Juice/b988dc334228a385.jpg
+filename:  b988dc334228a385
+Put file in to:  data/images/Entity/Drink/Juice/b9bd568b11b4468f.jpg
+filename:  b9bd568b11b4468f
+Put file in to:  data/images/Entity/Drink/Juice/bc977459cb5db223.jpg
+filename:  bc977459cb5db223
+Put file in to:  data/images/Entity/Drink/Juice/bdf3c2daf94872bc.jpg
+filename:  bdf3c2daf94872bc
+Put file in to:  data/images/Entity/Drink/Juice/be34174df996ba30.jpg
+filename:  be34174df996ba30
+Put file in to:  data/images/Entity/Drink/Juice/c1bb61e241bca845.jpg
+filename:  c1bb61e241bca845
+Put file in to:  data/images/Entity/Drink/Juice/c22bad0d115d5333.jpg
+filename:  c22bad0d115d5333
+Put file in to:  data/images/Entity/Drink/Juice/c40682ed55c4a49c.jpg
+filename:  c40682ed55c4a49c
+Put file in to:  data/images/Entity/Drink/Juice/c41be18f81df4466.jpg
+filename:  c41be18f81df4466
+Put file in to:  data/images/Entity/Drink/Juice/c5538eaa3320850f.jpg
+filename:  c5538eaa3320850f
+Put file in to:  data/images/Entity/Drink/Juice/c573e71485842463.jpg
+filename:  c573e71485842463
+Put file in to:  data/images/Entity/Drink/Juice/c764b0d64b56e876.jpg
+filename:  c764b0d64b56e876
+Put file in to:  data/images/Entity/Drink/Juice/c863bfd7f44f447e.jpg
+filename:  c863bfd7f44f447e
+Put file in to:  data/images/Entity/Drink/Juice/cb6c3cbd294624ae.jpg
+filename:  cb6c3cbd294624ae
+Put file in to:  data/images/Entity/Drink/Juice/d205771fed2a4baa.jpg
+filename:  d205771fed2a4baa
+Put file in to:  data/images/Entity/Drink/Juice/d38efa198b131c83.jpg
+filename:  d38efa198b131c83
+Put file in to:  data/images/Entity/Drink/Juice/d45e1e12ff81f8d5.jpg
+filename:  d45e1e12ff81f8d5
+Put file in to:  data/images/Entity/Drink/Juice/d5d22e8945e1db81.jpg
+filename:  d5d22e8945e1db81
+Put file in to:  data/images/Entity/Drink/Juice/d69622780c8efc9e.jpg
+filename:  d69622780c8efc9e
+Put file in to:  data/images/Entity/Drink/Juice/d91c15e588fc28cc.jpg
+filename:  d91c15e588fc28cc
+Put file in to:  data/images/Entity/Drink/Juice/d9a8a7c013ef780b.jpg
+filename:  d9a8a7c013ef780b
+Put file in to:  data/images/Entity/Drink/Juice/daca47abb5561d7c.jpg
+filename:  daca47abb5561d7c
+Put file in to:  data/images/Entity/Drink/Juice/db53a8a4b6ec013b.jpg
+filename:  db53a8a4b6ec013b
+Put file in to:  data/images/Entity/Drink/Juice/dc1fff20131a95c2.jpg
+filename:  dc1fff20131a95c2
+Put file in to:  data/images/Entity/Drink/Juice/dd2bddd81dc17c54.jpg
+filename:  dd2bddd81dc17c54
+Put file in to:  data/images/Entity/Drink/Juice/dd625869e6faf54e.jpg
+filename:  dd625869e6faf54e
+Put file in to:  data/images/Entity/Drink/Juice/ddb2047a165799b4.jpg
+filename:  ddb2047a165799b4
+Put file in to:  data/images/Entity/Drink/Juice/de09c6e5611c25ad.jpg
+filename:  de09c6e5611c25ad
+Put file in to:  data/images/Entity/Drink/Juice/df7e8f367fb9738a.jpg
+filename:  df7e8f367fb9738a
+Put file in to:  data/images/Entity/Drink/Juice/e10466859e89e832.jpg
+filename:  e10466859e89e832
+Put file in to:  data/images/Entity/Drink/Juice/e1da5c81a1a33f4d.jpg
+filename:  e1da5c81a1a33f4d
+Put file in to:  data/images/Entity/Drink/Juice/e1f206848ca2eb75.jpg
+filename:  e1f206848ca2eb75
+Put file in to:  data/images/Entity/Drink/Juice/e23a30ab524c1392.jpg
+filename:  e23a30ab524c1392
+Put file in to:  data/images/Entity/Drink/Juice/e4d00a32f0b758e5.jpg
+filename:  e4d00a32f0b758e5
+Put file in to:  data/images/Entity/Drink/Juice/e5571c80a3cf6225.jpg
+filename:  e5571c80a3cf6225
+Put file in to:  data/images/Entity/Drink/Juice/e87f05db42e44293.jpg
+filename:  e87f05db42e44293
+Put file in to:  data/images/Entity/Drink/Juice/e8981e8a221385e0.jpg
+filename:  e8981e8a221385e0
+Put file in to:  data/images/Entity/Drink/Juice/e9aea5f80bde1d53.jpg
+filename:  e9aea5f80bde1d53
+Put file in to:  data/images/Entity/Drink/Juice/f19d0383a22a6867.jpg
+filename:  f19d0383a22a6867
+Put file in to:  data/images/Entity/Drink/Juice/f41f1a33acc96801.jpg
+filename:  f41f1a33acc96801
+Put file in to:  data/images/Entity/Drink/Juice/f84c58c348ed3ae8.jpg
+filename:  f84c58c348ed3ae8
+Put file in to:  data/images/Entity/Drink/Juice/f871af0a9d66519e.jpg
+filename:  f871af0a9d66519e
+Put file in to:  data/images/Entity/Drink/Juice/faeda29ba3a7cfc1.jpg
+filename:  faeda29ba3a7cfc1
+Put file in to:  data/images/Entity/Drink/Juice/fe1a8d2e69be6d65.jpg
+filename:  fe1a8d2e69be6d65
+Added 186 images.
+Connecting to the PostgreSQL database...
+writing image batch info into the database...
+Database connection closed.
+batch_id: 515
+Connecting to the PostgreSQL database...
+Updating the image counts for the label:  Juice
+writing images info into the database...
+Database connection closed.
+
+real	1m10.158s
+user	0m16.029s
+sys	0m0.634s
+Done with the Label: 
+sed: 2: "${w/dev/stdout
+;d}
+": extra characters at the end of d command
+
+file is not empty pop one label for simulating image submission
+/Users/zhonghengli/shrink_venv/lib/python3.6/site-packages/psycopg2/__init__.py:144: UserWarning: The psycopg2 wheel package will be renamed from release 2.8; in order to keep installing from binary please use "pip install psycopg2-binary" instead. For details see: <http://initd.org/psycopg/docs/install.html#binary-install-from-pypi>.
+  """)
+projectPath+database_ini_file_path:  /Users/zhonghengli/Deep_Images_Hub/utilities/database/database.ini
+Connecting to the PostgreSQL database...
+Verifying if the label existed in the database...
+Label existed
+Database connection closed.
+final_label_name:  Juice
+Connecting to the PostgreSQL database...
+Recursively getting the labels' parents...
+Database connection closed.
+lat_lon_str:  40.755421423253296, -73.94323374837808
+Can not find this address from Nominatim
+Connecting to the PostgreSQL database...
+Inserting geoinfo into database if place_id is not already exist...
+Database connection closed.
+Put file in to:  data/images/Entity/Drink/Juice/034b773942ac4d12.jpg
+filename:  034b773942ac4d12
+Put file in to:  data/images/Entity/Drink/Juice/067ba183e531c8bb.jpg
+filename:  067ba183e531c8bb
+Put file in to:  data/images/Entity/Drink/Juice/076c246b24567c55.jpg
+filename:  076c246b24567c55
+Put file in to:  data/images/Entity/Drink/Juice/08c788b24c3e0557.jpg
+filename:  08c788b24c3e0557
+Put file in to:  data/images/Entity/Drink/Juice/094b2cf153b0b5d2.jpg
+filename:  094b2cf153b0b5d2
+Put file in to:  data/images/Entity/Drink/Juice/0d28a5a2d84b64d5.jpg
+filename:  0d28a5a2d84b64d5
+Put file in to:  data/images/Entity/Drink/Juice/0d9e2d4b930139ad.jpg
+filename:  0d9e2d4b930139ad
+Put file in to:  data/images/Entity/Drink/Juice/0ea8727f2589b843.jpg
+filename:  0ea8727f2589b843
+Put file in to:  data/images/Entity/Drink/Juice/0fbd0684ff5bd63b.jpg
+filename:  0fbd0684ff5bd63b
+Put file in to:  data/images/Entity/Drink/Juice/11cae5bd17e64c80.jpg
+filename:  11cae5bd17e64c80
+Put file in to:  data/images/Entity/Drink/Juice/1203abaae36e55f8.jpg
+filename:  1203abaae36e55f8
+Put file in to:  data/images/Entity/Drink/Juice/1261c57b41f2c742.jpg
+filename:  1261c57b41f2c742
+Put file in to:  data/images/Entity/Drink/Juice/14b3c3443623c614.jpg
+filename:  14b3c3443623c614
+Put file in to:  data/images/Entity/Drink/Juice/1576fae452091dc0.jpg
+filename:  1576fae452091dc0
+Put file in to:  data/images/Entity/Drink/Juice/15a0ec3f2dad6bbe.jpg
+filename:  15a0ec3f2dad6bbe
+Put file in to:  data/images/Entity/Drink/Juice/16de13993417cfd3.jpg
+filename:  16de13993417cfd3
+Put file in to:  data/images/Entity/Drink/Juice/17c78b4cf69200a4.jpg
+filename:  17c78b4cf69200a4
+Put file in to:  data/images/Entity/Drink/Juice/1a948f224e4e3474.jpg
+filename:  1a948f224e4e3474
+Put file in to:  data/images/Entity/Drink/Juice/1aa211b8a0667f5e.jpg
+filename:  1aa211b8a0667f5e
+Put file in to:  data/images/Entity/Drink/Juice/1dd27f488dd09ec1.jpg
+filename:  1dd27f488dd09ec1
+Put file in to:  data/images/Entity/Drink/Juice/1f3973a7dcbd559f.jpg
+filename:  1f3973a7dcbd559f
+Put file in to:  data/images/Entity/Drink/Juice/20aec071a8260aac.jpg
+filename:  20aec071a8260aac
+Put file in to:  data/images/Entity/Drink/Juice/21d6b23091a96c23.jpg
+filename:  21d6b23091a96c23
+Put file in to:  data/images/Entity/Drink/Juice/226ae54e39201f72.jpg
+filename:  226ae54e39201f72
+Put file in to:  data/images/Entity/Drink/Juice/22960fd608129a2f.jpg
+filename:  22960fd608129a2f
+Put file in to:  data/images/Entity/Drink/Juice/23cb50e7aad41054.jpg
+filename:  23cb50e7aad41054
+Put file in to:  data/images/Entity/Drink/Juice/24c772bd8b6911c9.jpg
+filename:  24c772bd8b6911c9
+Put file in to:  data/images/Entity/Drink/Juice/26d4daf45a795e94.jpg
+filename:  26d4daf45a795e94
+Put file in to:  data/images/Entity/Drink/Juice/2827f15f30cd38f9.jpg
+filename:  2827f15f30cd38f9
+Put file in to:  data/images/Entity/Drink/Juice/2958492015f43238.jpg
+filename:  2958492015f43238
+Put file in to:  data/images/Entity/Drink/Juice/296d9c6aefafc00e.jpg
+filename:  296d9c6aefafc00e
+Put file in to:  data/images/Entity/Drink/Juice/2c4be0eb5164059f.jpg
+filename:  2c4be0eb5164059f
+Put file in to:  data/images/Entity/Drink/Juice/2c79e49b5a8459f2.jpg
+filename:  2c79e49b5a8459f2
+Put file in to:  data/images/Entity/Drink/Juice/2d9463976bedb307.jpg
+filename:  2d9463976bedb307
+Put file in to:  data/images/Entity/Drink/Juice/2f81dbf8c2ac6568.jpg
+filename:  2f81dbf8c2ac6568
+Put file in to:  data/images/Entity/Drink/Juice/31bddee09a355d0c.jpg
+filename:  31bddee09a355d0c
+Put file in to:  data/images/Entity/Drink/Juice/34c53610dd626ab6.jpg
+filename:  34c53610dd626ab6
+Put file in to:  data/images/Entity/Drink/Juice/358caf289c3edc8d.jpg
+filename:  358caf289c3edc8d
+Put file in to:  data/images/Entity/Drink/Juice/37b9c09967af0565.jpg
+filename:  37b9c09967af0565
+Put file in to:  data/images/Entity/Drink/Juice/38e06934e38a2ed9.jpg
+filename:  38e06934e38a2ed9
+Put file in to:  data/images/Entity/Drink/Juice/39ee3b81672778d5.jpg
+filename:  39ee3b81672778d5
+Put file in to:  data/images/Entity/Drink/Juice/3a6c8c40dd649a45.jpg
+filename:  3a6c8c40dd649a45
+Put file in to:  data/images/Entity/Drink/Juice/3a756bb0f32528d0.jpg
+filename:  3a756bb0f32528d0
+Put file in to:  data/images/Entity/Drink/Juice/3e707be773350b3d.jpg
+filename:  3e707be773350b3d
+Put file in to:  data/images/Entity/Drink/Juice/3e8c6a646e87dae0.jpg
+filename:  3e8c6a646e87dae0
+Put file in to:  data/images/Entity/Drink/Juice/3e8f6c087df04fc3.jpg
+filename:  3e8f6c087df04fc3
+Put file in to:  data/images/Entity/Drink/Juice/3feef566fd20fbf8.jpg
+filename:  3feef566fd20fbf8
+Put file in to:  data/images/Entity/Drink/Juice/443c1a23093435a2.jpg
+filename:  443c1a23093435a2
+Put file in to:  data/images/Entity/Drink/Juice/451433389a7b9d06.jpg
+filename:  451433389a7b9d06
+Put file in to:  data/images/Entity/Drink/Juice/4617f620cb0f67dc.jpg
+filename:  4617f620cb0f67dc
+Put file in to:  data/images/Entity/Drink/Juice/4711d1564fce44ea.jpg
+filename:  4711d1564fce44ea
+Put file in to:  data/images/Entity/Drink/Juice/475b0ff9e1e7395a.jpg
+filename:  475b0ff9e1e7395a
+Put file in to:  data/images/Entity/Drink/Juice/48cc609a634d5912.jpg
+filename:  48cc609a634d5912
+Put file in to:  data/images/Entity/Drink/Juice/4a61f9b42c08d4a8.jpg
+filename:  4a61f9b42c08d4a8
+Put file in to:  data/images/Entity/Drink/Juice/4bac52a2d0a0f9bf.jpg
+filename:  4bac52a2d0a0f9bf
+Put file in to:  data/images/Entity/Drink/Juice/4d136d840730e3c8.jpg
+filename:  4d136d840730e3c8
+Put file in to:  data/images/Entity/Drink/Juice/4da4c77c4fe66422.jpg
+filename:  4da4c77c4fe66422
+Put file in to:  data/images/Entity/Drink/Juice/5052c209b428dbe7.jpg
+filename:  5052c209b428dbe7
+Put file in to:  data/images/Entity/Drink/Juice/51ac71d55e90be25.jpg
+filename:  51ac71d55e90be25
+Put file in to:  data/images/Entity/Drink/Juice/51ce19663603f96e.jpg
+filename:  51ce19663603f96e
+Put file in to:  data/images/Entity/Drink/Juice/530d3333dd68cc97.jpg
+filename:  530d3333dd68cc97
+Put file in to:  data/images/Entity/Drink/Juice/5314d8ad8213a49a.jpg
+filename:  5314d8ad8213a49a
+Put file in to:  data/images/Entity/Drink/Juice/55e830276e1eb7dd.jpg
+filename:  55e830276e1eb7dd
+Put file in to:  data/images/Entity/Drink/Juice/56f08b74b3450a61.jpg
+filename:  56f08b74b3450a61
+Put file in to:  data/images/Entity/Drink/Juice/585dccae418acf5b.jpg
+filename:  585dccae418acf5b
+Put file in to:  data/images/Entity/Drink/Juice/5a24f4819414a8b6.jpg
+filename:  5a24f4819414a8b6
+Put file in to:  data/images/Entity/Drink/Juice/5a266358010fd830.jpg
+filename:  5a266358010fd830
+Put file in to:  data/images/Entity/Drink/Juice/5cddf9126c3bf57c.jpg
+filename:  5cddf9126c3bf57c
+Put file in to:  data/images/Entity/Drink/Juice/5e31f4e88ff13df2.jpg
+filename:  5e31f4e88ff13df2
+Put file in to:  data/images/Entity/Drink/Juice/60336c078babf97b.jpg
+filename:  60336c078babf97b
+Put file in to:  data/images/Entity/Drink/Juice/60436b1ab733549e.jpg
+filename:  60436b1ab733549e
+Put file in to:  data/images/Entity/Drink/Juice/60ec73656116d279.jpg
+filename:  60ec73656116d279
+Put file in to:  data/images/Entity/Drink/Juice/666a1a066ee3d9e8.jpg
+filename:  666a1a066ee3d9e8
+Put file in to:  data/images/Entity/Drink/Juice/672caf76183a4c43.jpg
+filename:  672caf76183a4c43
+Put file in to:  data/images/Entity/Drink/Juice/697b8586aa15c71f.jpg
+filename:  697b8586aa15c71f
+Put file in to:  data/images/Entity/Drink/Juice/69b8baa963de35be.jpg
+filename:  69b8baa963de35be
+Put file in to:  data/images/Entity/Drink/Juice/6db73422946f5282.jpg
+filename:  6db73422946f5282
+Put file in to:  data/images/Entity/Drink/Juice/6e1858b3a6a28cfe.jpg
+filename:  6e1858b3a6a28cfe
+Put file in to:  data/images/Entity/Drink/Juice/701acc169c3571a4.jpg
+filename:  701acc169c3571a4
+Put file in to:  data/images/Entity/Drink/Juice/7090fec919a0f96d.jpg
+filename:  7090fec919a0f96d
+Put file in to:  data/images/Entity/Drink/Juice/70a01cc3cb165adf.jpg
+filename:  70a01cc3cb165adf
+Put file in to:  data/images/Entity/Drink/Juice/70ee322f609279f4.jpg
+filename:  70ee322f609279f4
+Put file in to:  data/images/Entity/Drink/Juice/710abd6b588dd036.jpg
+filename:  710abd6b588dd036
+Put file in to:  data/images/Entity/Drink/Juice/7275612648cab9b4.jpg
+filename:  7275612648cab9b4
+Put file in to:  data/images/Entity/Drink/Juice/74cc7fd3b2a04cdf.jpg
+filename:  74cc7fd3b2a04cdf
+Put file in to:  data/images/Entity/Drink/Juice/75f3547e656b55b1.jpg
+filename:  75f3547e656b55b1
+Put file in to:  data/images/Entity/Drink/Juice/770bcda0654ead5d.jpg
+filename:  770bcda0654ead5d
+Put file in to:  data/images/Entity/Drink/Juice/7b6cd7c10abed9aa.jpg
+filename:  7b6cd7c10abed9aa
+Put file in to:  data/images/Entity/Drink/Juice/7d0a7d3a1a9b6477.jpg
+filename:  7d0a7d3a1a9b6477
+Put file in to:  data/images/Entity/Drink/Juice/7d6327ed29141003.jpg
+filename:  7d6327ed29141003
+Put file in to:  data/images/Entity/Drink/Juice/7ed6de335ebb5f63.jpg
+filename:  7ed6de335ebb5f63
+Put file in to:  data/images/Entity/Drink/Juice/7f1fe1759e629add.jpg
+filename:  7f1fe1759e629add
+Put file in to:  data/images/Entity/Drink/Juice/7f506a9f2dbf7c9b.jpg
+filename:  7f506a9f2dbf7c9b
+Put file in to:  data/images/Entity/Drink/Juice/833fb2ad1c2de85e.jpg
+filename:  833fb2ad1c2de85e
+Put file in to:  data/images/Entity/Drink/Juice/83fe384a1f430d2e.jpg
+filename:  83fe384a1f430d2e
+Put file in to:  data/images/Entity/Drink/Juice/85cc410af47ca5e2.jpg
+filename:  85cc410af47ca5e2
+Put file in to:  data/images/Entity/Drink/Juice/8630ac34a5bb6a1a.jpg
+filename:  8630ac34a5bb6a1a
+Put file in to:  data/images/Entity/Drink/Juice/886b390afd37ac26.jpg
+filename:  886b390afd37ac26
+Put file in to:  data/images/Entity/Drink/Juice/89c6dbd97f8434a3.jpg
+filename:  89c6dbd97f8434a3
+Put file in to:  data/images/Entity/Drink/Juice/8aac35e6623abca3.jpg
+filename:  8aac35e6623abca3
+Put file in to:  data/images/Entity/Drink/Juice/8abdcea0613ddf9c.jpg
+filename:  8abdcea0613ddf9c
+Put file in to:  data/images/Entity/Drink/Juice/8bff8fda81ad41bc.jpg
+filename:  8bff8fda81ad41bc
+Put file in to:  data/images/Entity/Drink/Juice/8dbf3cccd396f7bc.jpg
+filename:  8dbf3cccd396f7bc
+Put file in to:  data/images/Entity/Drink/Juice/8e255d864f40a6cb.jpg
+filename:  8e255d864f40a6cb
+Put file in to:  data/images/Entity/Drink/Juice/8ea8d102f259f998.jpg
+filename:  8ea8d102f259f998
+Put file in to:  data/images/Entity/Drink/Juice/90b5e87396d98f91.jpg
+filename:  90b5e87396d98f91
+Put file in to:  data/images/Entity/Drink/Juice/90eb03bd7afc501b.jpg
+filename:  90eb03bd7afc501b
+Put file in to:  data/images/Entity/Drink/Juice/90f36d380c28e7f0.jpg
+filename:  90f36d380c28e7f0
+Put file in to:  data/images/Entity/Drink/Juice/9461fc0304883fe8.jpg
+filename:  9461fc0304883fe8
+Put file in to:  data/images/Entity/Drink/Juice/96f9acf42777082d.jpg
+filename:  96f9acf42777082d
+Put file in to:  data/images/Entity/Drink/Juice/96ffdcdf897e8820.jpg
+filename:  96ffdcdf897e8820
+Put file in to:  data/images/Entity/Drink/Juice/985ea818726a98a6.jpg
+filename:  985ea818726a98a6
+Put file in to:  data/images/Entity/Drink/Juice/98db3f5019ef1bab.jpg
+filename:  98db3f5019ef1bab
+Put file in to:  data/images/Entity/Drink/Juice/9c6fd475024fe967.jpg
+filename:  9c6fd475024fe967
+Put file in to:  data/images/Entity/Drink/Juice/9cb3c0a97d62f489.jpg
+filename:  9cb3c0a97d62f489
+Put file in to:  data/images/Entity/Drink/Juice/9dc12084fdb79ecf.jpg
+filename:  9dc12084fdb79ecf
+Put file in to:  data/images/Entity/Drink/Juice/9fc22846f13b6eeb.jpg
+filename:  9fc22846f13b6eeb
+Put file in to:  data/images/Entity/Drink/Juice/a0620646a2b9d6e7.jpg
+filename:  a0620646a2b9d6e7
+Put file in to:  data/images/Entity/Drink/Juice/a0d43db4be27a534.jpg
+filename:  a0d43db4be27a534
+Put file in to:  data/images/Entity/Drink/Juice/a15920b381149649.jpg
+filename:  a15920b381149649
+Put file in to:  data/images/Entity/Drink/Juice/a248a24af68a476c.jpg
+filename:  a248a24af68a476c
+Put file in to:  data/images/Entity/Drink/Juice/a4ee473798f7e6a0.jpg
+filename:  a4ee473798f7e6a0
+Put file in to:  data/images/Entity/Drink/Juice/a51cf76387f57506.jpg
+filename:  a51cf76387f57506
+Put file in to:  data/images/Entity/Drink/Juice/a562c337711aa8e5.jpg
+filename:  a562c337711aa8e5
+Put file in to:  data/images/Entity/Drink/Juice/a730fc0d83dee037.jpg
+filename:  a730fc0d83dee037
+Put file in to:  data/images/Entity/Drink/Juice/a964c3eea8eedba7.jpg
+filename:  a964c3eea8eedba7
+Put file in to:  data/images/Entity/Drink/Juice/aa348568c23b0007.jpg
+filename:  aa348568c23b0007
+Put file in to:  data/images/Entity/Drink/Juice/aad835d88727ed18.jpg
+filename:  aad835d88727ed18
+Put file in to:  data/images/Entity/Drink/Juice/abe7496931f18a64.jpg
+filename:  abe7496931f18a64
+Put file in to:  data/images/Entity/Drink/Juice/ae9e10ac0d392c0f.jpg
+filename:  ae9e10ac0d392c0f
+Put file in to:  data/images/Entity/Drink/Juice/aed02644a065d81e.jpg
+filename:  aed02644a065d81e
+Put file in to:  data/images/Entity/Drink/Juice/af006592ec841db0.jpg
+filename:  af006592ec841db0
+Put file in to:  data/images/Entity/Drink/Juice/af39e60b809e06c9.jpg
+filename:  af39e60b809e06c9
+Put file in to:  data/images/Entity/Drink/Juice/b08d0d59013eb634.jpg
+filename:  b08d0d59013eb634
+Put file in to:  data/images/Entity/Drink/Juice/b1ee6c8ab8dec31c.jpg
+filename:  b1ee6c8ab8dec31c
+Put file in to:  data/images/Entity/Drink/Juice/b292e9e4d61d0665.jpg
+filename:  b292e9e4d61d0665
+Put file in to:  data/images/Entity/Drink/Juice/b2a792ad8f9573fe.jpg
+filename:  b2a792ad8f9573fe
+Put file in to:  data/images/Entity/Drink/Juice/b4e4b992591a7b94.jpg
+filename:  b4e4b992591a7b94
+Put file in to:  data/images/Entity/Drink/Juice/b51c16c1fa4ad71e.jpg
+filename:  b51c16c1fa4ad71e
+Put file in to:  data/images/Entity/Drink/Juice/b6279d0d5d60c883.jpg
+filename:  b6279d0d5d60c883
+Put file in to:  data/images/Entity/Drink/Juice/b73e08f53d1d3697.jpg
+filename:  b73e08f53d1d3697
+Put file in to:  data/images/Entity/Drink/Juice/b7e85b4d1c68cbd8.jpg
+filename:  b7e85b4d1c68cbd8
+Put file in to:  data/images/Entity/Drink/Juice/b988dc334228a385.jpg
+filename:  b988dc334228a385
+Put file in to:  data/images/Entity/Drink/Juice/b9bd568b11b4468f.jpg
+filename:  b9bd568b11b4468f
+Put file in to:  data/images/Entity/Drink/Juice/bc977459cb5db223.jpg
+filename:  bc977459cb5db223
+Put file in to:  data/images/Entity/Drink/Juice/bdf3c2daf94872bc.jpg
+filename:  bdf3c2daf94872bc
+Put file in to:  data/images/Entity/Drink/Juice/be34174df996ba30.jpg
+filename:  be34174df996ba30
+Put file in to:  data/images/Entity/Drink/Juice/c1bb61e241bca845.jpg
+filename:  c1bb61e241bca845
+Put file in to:  data/images/Entity/Drink/Juice/c22bad0d115d5333.jpg
+filename:  c22bad0d115d5333
+Put file in to:  data/images/Entity/Drink/Juice/c40682ed55c4a49c.jpg
+filename:  c40682ed55c4a49c
+Put file in to:  data/images/Entity/Drink/Juice/c41be18f81df4466.jpg
+filename:  c41be18f81df4466
+Put file in to:  data/images/Entity/Drink/Juice/c5538eaa3320850f.jpg
+filename:  c5538eaa3320850f
+Put file in to:  data/images/Entity/Drink/Juice/c573e71485842463.jpg
+filename:  c573e71485842463
+Put file in to:  data/images/Entity/Drink/Juice/c764b0d64b56e876.jpg
+filename:  c764b0d64b56e876
+Put file in to:  data/images/Entity/Drink/Juice/c863bfd7f44f447e.jpg
+filename:  c863bfd7f44f447e
+Put file in to:  data/images/Entity/Drink/Juice/cb6c3cbd294624ae.jpg
+filename:  cb6c3cbd294624ae
+Put file in to:  data/images/Entity/Drink/Juice/d205771fed2a4baa.jpg
+filename:  d205771fed2a4baa
+Put file in to:  data/images/Entity/Drink/Juice/d38efa198b131c83.jpg
+filename:  d38efa198b131c83
+Put file in to:  data/images/Entity/Drink/Juice/d45e1e12ff81f8d5.jpg
+filename:  d45e1e12ff81f8d5
+Put file in to:  data/images/Entity/Drink/Juice/d5d22e8945e1db81.jpg
+filename:  d5d22e8945e1db81
+Put file in to:  data/images/Entity/Drink/Juice/d69622780c8efc9e.jpg
+filename:  d69622780c8efc9e
+Put file in to:  data/images/Entity/Drink/Juice/d91c15e588fc28cc.jpg
+filename:  d91c15e588fc28cc
+Put file in to:  data/images/Entity/Drink/Juice/d9a8a7c013ef780b.jpg
+filename:  d9a8a7c013ef780b
+Put file in to:  data/images/Entity/Drink/Juice/daca47abb5561d7c.jpg
+filename:  daca47abb5561d7c
+Put file in to:  data/images/Entity/Drink/Juice/db53a8a4b6ec013b.jpg
+filename:  db53a8a4b6ec013b
+Put file in to:  data/images/Entity/Drink/Juice/dc1fff20131a95c2.jpg
+filename:  dc1fff20131a95c2
+Put file in to:  data/images/Entity/Drink/Juice/dd2bddd81dc17c54.jpg
+filename:  dd2bddd81dc17c54
+Put file in to:  data/images/Entity/Drink/Juice/dd625869e6faf54e.jpg
+filename:  dd625869e6faf54e
+Put file in to:  data/images/Entity/Drink/Juice/ddb2047a165799b4.jpg
+filename:  ddb2047a165799b4
+Put file in to:  data/images/Entity/Drink/Juice/de09c6e5611c25ad.jpg
+filename:  de09c6e5611c25ad
+Put file in to:  data/images/Entity/Drink/Juice/df7e8f367fb9738a.jpg
+filename:  df7e8f367fb9738a
+Put file in to:  data/images/Entity/Drink/Juice/e10466859e89e832.jpg
+filename:  e10466859e89e832
+Put file in to:  data/images/Entity/Drink/Juice/e1da5c81a1a33f4d.jpg
+filename:  e1da5c81a1a33f4d
+Put file in to:  data/images/Entity/Drink/Juice/e1f206848ca2eb75.jpg
+filename:  e1f206848ca2eb75
+Put file in to:  data/images/Entity/Drink/Juice/e23a30ab524c1392.jpg
+filename:  e23a30ab524c1392
+Put file in to:  data/images/Entity/Drink/Juice/e4d00a32f0b758e5.jpg
+filename:  e4d00a32f0b758e5
+Put file in to:  data/images/Entity/Drink/Juice/e5571c80a3cf6225.jpg
+filename:  e5571c80a3cf6225
+Put file in to:  data/images/Entity/Drink/Juice/e87f05db42e44293.jpg
+filename:  e87f05db42e44293
+Put file in to:  data/images/Entity/Drink/Juice/e8981e8a221385e0.jpg
+filename:  e8981e8a221385e0
+Put file in to:  data/images/Entity/Drink/Juice/e9aea5f80bde1d53.jpg
+filename:  e9aea5f80bde1d53
+Put file in to:  data/images/Entity/Drink/Juice/f19d0383a22a6867.jpg
+filename:  f19d0383a22a6867
+Put file in to:  data/images/Entity/Drink/Juice/f41f1a33acc96801.jpg
+filename:  f41f1a33acc96801
+Put file in to:  data/images/Entity/Drink/Juice/f84c58c348ed3ae8.jpg
+filename:  f84c58c348ed3ae8
+Put file in to:  data/images/Entity/Drink/Juice/f871af0a9d66519e.jpg
+filename:  f871af0a9d66519e
+Put file in to:  data/images/Entity/Drink/Juice/faeda29ba3a7cfc1.jpg
+filename:  faeda29ba3a7cfc1
+Put file in to:  data/images/Entity/Drink/Juice/fe1a8d2e69be6d65.jpg
+filename:  fe1a8d2e69be6d65
+Added 186 images.
+Connecting to the PostgreSQL database...
+writing image batch info into the database...
+Database connection closed.
+batch_id: 516
+Connecting to the PostgreSQL database...
+Updating the image counts for the label:  Juice
+writing images info into the database...
+Database connection closed.
+
+real	1m17.135s
+user	0m17.207s
+sys	0m0.800s
+Done with the Label: 
+sed: 2: "${w/dev/stdout
+;d}
+": extra characters at the end of d command
+
+file is not empty pop one label for simulating image submission
