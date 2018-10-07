@@ -82,12 +82,13 @@ Commonly Shared Statics
 """
 
 # Set up project path
-projectPath = up(up(os.getcwd()))
+projectPath = os.getcwd()
 
 s3_bucket_name = "s3://insight-data-images/"
 
-database_ini_file_path = "/utilities/database/database.ini"
+database_ini_file_path = "/Deep_Images_Hub/utilities/database/database.ini"
 
+print("projectPath+database_ini_file_path: ", projectPath + database_ini_file_path)
 
 
 logger = logging.getLogger()
@@ -285,7 +286,7 @@ def verify_label(label_name):
             print('Database connection closed.')
 
 
-# Recursively getting the parents' labels using Common Table Expressions (CTEs)
+# Recursively getting the parents' labels using Common Table Expressions(CTEs)
 def getParent_labels(label_name):
     """ Connect to the PostgreSQL database server """
     conn = None
@@ -740,6 +741,8 @@ if __name__ == '__main__':
                    "lat" : lat
 
     }
+
+
 
     # Insert geoinfo into database if place_id is not already exist
     writeGeoinfo_into_DB(image_info)

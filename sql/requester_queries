@@ -29,10 +29,11 @@ AND image_count < 50;
 
 
 	
+-- Select Sample Images
 	
 SELECT *
-FROM labels
-WHERE image_count > 100;
+FROM images
+LIMIT 10;
 	
 	
 

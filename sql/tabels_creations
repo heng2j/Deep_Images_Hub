@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS images (
 	verified				boolean
 );
 
-SELECT * FROM images;
+SELECT * FROM images LIMIT 10;
 
 
 -- Drop requests table if exists;
@@ -122,6 +122,22 @@ CREATE TABLE IF NOT EXISTS requesting_label_watchlist (
     user_ids    int[],
 	last_requested_userid int ,
 	new_requested_date 		timestamp
+);
+	
+	
+	
+-- Drop requesting_label_watchlist table if exists;
+-- Create requesting_label_watchlist table if not exists;
+DROP TABLE IF EXISTS training_records;
+
+CREATE TABLE IF NOT EXISTS training_records (
+	model_id				SERIAL	PRIMARY KEY ,
+    label_names  			varchar[] ,
+	image_counts_for_labels	int[],		
+	saved_model_path text,
+	initial_requested_user_id int references users(user_id),
+    purchased_user_ids    int[],
+	creation_date 		timestamp
 );
 	
 	

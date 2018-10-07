@@ -133,9 +133,7 @@ def get_images_urls(label_list):
         values_list = []
 
         for label_name in label_list:
-
             values_list.append(label_name)
-
 
         print("values_list: ", values_list)
 
@@ -184,7 +182,6 @@ def readFileFromS3(row):
     from keras_preprocessing import image
 
     # TODO - will need to implement exceptions handling
-
     s3 = boto3.resource('s3')
 
     image_url = row.image_url
@@ -238,7 +235,6 @@ def get_image_array_from_S3_file(image_url):
     import os
 
     # TODO - will need to implement exceptions handling
-
     s3 = boto3.resource('s3')
 
     # strip off the starting s3a:// from the bucket

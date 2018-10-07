@@ -9,7 +9,8 @@ LOCATIONS=(" --lon -74.005974 --lat 40.712776 " " --lon -73.989879 --lat 40.7345
 # seed random generator
 RANDOM=$$$(date +%s)
 
-FILE=sample_labels.txt
+FILE="$1"
+src_type="$2"
 
 
 while [ -s ${FILE} ]; do
@@ -22,7 +23,7 @@ while [ -s ${FILE} ]; do
 
     LABEL=$(echo | tail -1  ${FILE})
 
-    time python producer_local.py --src_bucket_name "insight-data-images" --src_prefix "dataset/not_occluded/"  --src_type "test" --des_bucket_name "insight-deep-images-hub"  --label_name ${LABEL}  ${LON_LAT} --user_id $(( ( RANDOM % 10 )  + 1 ))
+    time python ~/Deep_Images_Hub/src/producer/producer_local.py --src_bucket_name "insight-data-images" --src_prefix "dataset/not_occluded/"  --src_type ${src_type} --des_bucket_name "insight-deep-images-hub"  --label_name ${LABEL}  ${LON_LAT} --user_id $(( ( RANDOM % 10 )  + 1 ))
 
     echo "Done with the Label: "
     DONE_LABEL=$(echo | sed -e \$$'{w/dev/stdout\n;d}' -i~ ${FILE})
