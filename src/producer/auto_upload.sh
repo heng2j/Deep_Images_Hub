@@ -21,7 +21,9 @@ LON_LAT=${LOCATIONS[$RANDOM % ${#LOCATIONS[@]}]}
 
 LABEL=$(echo | tail -1  ${FILE})
 
-time python producer_local.py --src_bucket_name "insight-data-images" --src_prefix "dataset/not_occluded/"  --src_type ${src_type} --des_bucket_name "insight-deep-images-hub"  --label_name ${LABEL}  ${LON_LAT} --user_id $(( ( RANDOM % 10 )  + 1 ))
+time python ~/Deep_Images_Hub/src/producer/producer_local.py --src_bucket_name "insight-data-images" --src_prefix "dataset/not_occluded/"  --src_type ${src_type} --des_bucket_name "insight-deep-images-hub"  --label_name ${LABEL}  ${LON_LAT} --user_id $(( ( RANDOM % 10 )  + 1 ))
+
+
 
 echo "Done with the Label: "
 DONE_LABEL=$(echo | sed -e \$$'{w/dev/stdout\n;d}' -i~ ${FILE})

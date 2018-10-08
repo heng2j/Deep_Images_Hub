@@ -1,4 +1,5 @@
 from __future__ import print_function
+from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators import PythonOperator
 from airflow.operators.bash_operator import BashOperator
 from airflow.models import DAG
@@ -10,7 +11,7 @@ args = {
 }
 
 dag = DAG(
-    dag_id='user_images_uploading', default_args=args,
+    dag_id='image_submission_simulation', default_args=args,
     schedule_interval=None)
 
 def print_context(i):
@@ -20,26 +21,42 @@ def print_context(i):
 templated_command = """
 
 
-sh /home/ubuntu/jupyter_config/Deep_Images_Hub/src/producer/auto_upload.sh  {{ src_lables_file }} {{ src_type }}  > /home/ubuntu/jupyter_config/Deep_Images_Hub/src/producer/auto_upload.log &
+
+
+
+peg scp to-rem pySpark-cluster 1 ~/sample_labelsaa /home/ubuntu/sample_labelsaa
+
+peg sshcmd-node pySpark-cluster 1 "touch dummy_from_airflow.txt" 
+
+
 
 """
 
 
 
-parent = None
-for i in range(500):
+# peg ssh pySpark-cluster {{ node_number }}
+#
+
+# sh /home/ubuntu/Deep_Images_Hub/src/producer/auto_upload.sh  {{ src_lables_file }} {{ src_type }}  > /home/ubuntu/Deep_Images_Hub/src/producer/auto_upload.log &
+
+dummy_operator = DummyOperator(task_id='dummy_task', retries=3, dag=dag)
+
+parent_on_node1 = None
+for i in range(10):
     '''
     Generating 10 sleeping task, sleeping from 0 to 9 seconds
     respectively
     '''
-    task = \
+    task_on_node1 = \
 	BashOperator(
     		task_id='templated',
     		bash_command=templated_command,
-    		params = {'src_lables_file' : '~/sample_labels.txt' , 'src_type' : 'test'   },	
+    		params = {'node_number': 1, 'sample_file' : 'sample_labelsaa' , 'src_lables_file' : '~/sample_labelsaa' , 'src_type' : 'test'   },
 		dag=dag)	
 	
-    if parent:
-        task.set_upstream(parent)
+    if parent_on_node1:
+        task_on_node1.set_upstream(parent_on_node1)
 
-    parent = task
+    parent_on_node1 = task_on_node1
+
+
