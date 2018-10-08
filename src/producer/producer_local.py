@@ -86,7 +86,7 @@ projectPath = os.getcwd()
 
 s3_bucket_name = "s3://insight-data-images/"
 
-database_ini_file_path = "/utilities/database/database.ini"
+database_ini_file_path = "/Deep_Images_Hub/utilities/database/database.ini"
 
 print("projectPath+database_ini_file_path: ", projectPath + database_ini_file_path)
 
@@ -784,6 +784,7 @@ if __name__ == '__main__':
     # Bulk upload image info to database
     # write_imageinfo_to_DB(new_keys,images_features[0], image_info)
     write_imageinfo_to_DB(new_keys,new_thumbnail_keys,  None, image_info)
+
 
 
 
