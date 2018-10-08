@@ -7,7 +7,7 @@
 
 # Deep Images Hub
 
-This project create a platform to automatically verify, preprocess and orangize cloudsourced labeled images as datasets for users to select and download by their choice. Additionally, the platform allow premium users to train a sample computer vision model with their choice of image subsets. 
+This project create a platform to automatically verify, preprocess and orangize crowdsourced labeled images as datasets for users to select and download by their choice. Additionally, the platform allow premium users to train a sample computer vision model with their choice of image subsets. 
 
 
 #### Motivation
@@ -35,33 +35,47 @@ More details can be found in this more indepth slides:
 
 <hr/>
 
-#### Problems to be Solved
+#### Painpoints to be Solved
 
-Where are the Datasets? 
-Do we have enough models to meet the demands from consumers?
-Are we effective enough to train our model for specific needs / domains ?
+There are not enough diversified image datasets and computer vision model to meet the demands from different consumer products and services use cases?
+
+There is not enough resource to collect large volume of diversified images for a single object. Especially for low budgeted startups.
 
 Real-world deep learning applications are complex big data pipelines, which require a lot of data processing (such as cleaning, transformation, augmentation, feature extraction, etc.) beyond model training/inference. Therefore, it is much simpler and more efficient (for development and workflow management) to seamlessly integrate deep learning functionalities into existing big data workflow running on the same infrastructure, especially given the recent improvements that reduce deep learning training time from weeks to hours or even minutes.
 
 Deep learning is increasingly adopted by the big data and data science community. Unfortunately, mainstream data engineers and data scientists are usually not deep learning experts; as the usages of deep learning expand and scale to larger deployment, it will be much more easier if these users can continue the use of familiar software tools and programming models (e.g., Spark or even SQL) and existing big data cluster infrastructures to build their deep learning applications.
 
+<hr/>
 
 #### Data
 
-* Open Images subset with Image-Level Labels (19,995 classes & 5,655,108 images).
-* Dataset will be loaded locally onto the nodes used for ingestion.
+* Open Images subset with Image-Level Labels (1.74 million images and 600 classes with hierarchies). [Source](https://storage.googleapis.com/openimages/web/factsfigures.html)
 
-<hr/>
-
-#### Model
-
-* Model is pre-trained ResNet_v1(num_classes=5000).
+* Dataset are stored in image source S3 bucket. An automated process will be copy the images from the source S3 bucket to Image Data Hub's bucket with preprocessings to simulate cloudsourced labled imges submissions. 
 
 <hr/>
 
 #### Pipeline
 
+![Alt text](README_images/Pipeline.png?raw=true "For Future Distributed Ready Training Pipeline")
+
+
 <hr/>
+
+#### Database Schema
+
+![Alt text](README_images/Database%20Schema.png?raw=true "Databae Schema")
+
+
+<hr/>
+
+#### Model
+
+* Model is pre-trained VGG16(num_classes=1000).
+
+<hr/>
+
+
 
 #### Data Flow
 
@@ -84,10 +98,12 @@ Deep learning is increasingly adopted by the big data and data science community
 
 #### Challenges
 
-1. Need to prepare the Open Images Dataset and group them into Image-Level Labels first.
-2. Create a pipeline to simulate data transferring between mobile to cloud distributed system at scale.
-3. Automate filtering, preprocessing and data organizing on the fly. 
-4. Automatically verifying and clustering images uploaded by users.
+1. How to simulate crowdsourced labeled image submission?
+2. How can we preprocess the crowdsourced images in our centralized data hub?
+3. How to design a platfrom that host image datasets that are ready for users to download and train with distributedly on demands?
+4. How to train deep learning model distributed with centralized data source?
+5. How to work with deep learning in Spark when it is still in it's infancy.
+6. Work flows to connect all the dots for the platform
 
 
 ###### Performance Optimizations:
