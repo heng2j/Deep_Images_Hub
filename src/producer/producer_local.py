@@ -86,7 +86,7 @@ projectPath = os.getcwd()
 
 s3_bucket_name = "s3://insight-data-images/"
 
-database_ini_file_path = "/Deep_Images_Hub/utilities/database/database.ini"
+database_ini_file_path = "/utilities/database/database.ini"
 
 print("projectPath+database_ini_file_path: ", projectPath + database_ini_file_path)
 
