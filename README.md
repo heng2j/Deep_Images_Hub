@@ -1,5 +1,5 @@
 
-![Alt text](README_images/Deep_image_hub_logo.png?raw=true "Optional Title")
+![Alt text](README_images/Deep_image_hub_logo_new.png?raw=true "Optional Title")
 
 
 -----------------
