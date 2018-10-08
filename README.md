@@ -66,6 +66,7 @@ Deep learning is increasingly adopted by the big data and data science community
 
 ![Alt text](README_images/Database%20Schema.png?raw=true "Databae Schema")
 
+ [All SQLs can be found here](/sql)
 
 <hr/>
 
@@ -98,7 +99,6 @@ documentations. Here are the table of contents of how to get start:
 * [Data Prepartion](../../wiki/Data-Preparation) 
   * Can also reference the Juypter Notebook for [Exploratory Data Analysis on the Pen Images classes](https://github.com/heng2j/Deep_Images_Hub/blob/master/doc/noteBooks/Exploratory%20Data%20Analysis%20on%20Open%20Images%20Classes.ipynb))
 * [Backend Design and Implementtation](../../wiki/Design-and-Planing)
-  * [Backend Design and Implementtation](/sql)
 * [Simulating Crowdsourcing Images Workflow](../../wiki/Image-Suppliers-Implementation)
 * [Business User Requests on Deep Image Hub Website Workflow](../../wiki/Business-Users-Requests-Implementation)
 * [Computer Vision Model Training Workflow](../../wiki/Premium-Business-Users-Requests-Implementation)
