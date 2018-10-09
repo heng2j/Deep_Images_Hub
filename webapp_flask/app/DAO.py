@@ -53,7 +53,7 @@ s3_bucket_name = "s3://insight-deep-images-hub/"
 
 # database_ini_file_path = "/app/util/database.ini"
 
-database_ini_file_path = "/Project/utilities/database/database.ini"
+database_ini_file_path = "/utilities/database/database.ini"
 
 s3_url_prefix = "http://s3.amazonaws.com/"
 
