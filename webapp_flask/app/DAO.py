@@ -47,7 +47,7 @@ Commonly Shared Statics
 """
 
 # Set up project path
-projectPath = up(up(os.getcwd()))
+projectPath = up(os.getcwd())
 
 s3_bucket_name = "s3://insight-deep-images-hub/"
 

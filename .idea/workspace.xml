@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/training/postTraining.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sql/insert_sample_data" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sql/producer_queries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sql/requester_queries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sql/tabels_creations" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sql/web_UI_queries" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/consumer/requester.py" afterPath="$PROJECT_DIR$/src/training/requester.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/training/cnn-keras/train.py" afterPath="$PROJECT_DIR$/src/training/cnn-keras/train.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp_flask/app/DAO.py" afterPath="$PROJECT_DIR$/webapp_flask/app/DAO.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -63,11 +55,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="web_requests.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="web_requests.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/consumer/web_requests.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2750">
               <caret line="141" column="25" lean-forward="false" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DAO.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webapp_flask/app/DAO.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="356">
+              <caret line="55" column="48" lean-forward="true" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -98,8 +100,8 @@
       <file leaf-file-name="Batch_Image_submissions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+            <state relative-caret-position="144">
+              <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
               <folding>
                 <element signature="e#144#181#0" expanded="true" />
               </folding>
@@ -189,7 +191,6 @@
         <option value="$PROJECT_DIR$/webapp_flask/app/templates/index.html" />
         <option value="$PROJECT_DIR$/webapp_flask/app/shop.py" />
         <option value="$PROJECT_DIR$/webapp_flask/app/routes.py" />
-        <option value="$PROJECT_DIR$/webapp_flask/app/DAO.py" />
         <option value="$PROJECT_DIR$/src/consumer/read_images_from_S3.py" />
         <option value="$PROJECT_DIR$/webapp_flask/app/templates/shop.html" />
         <option value="$PROJECT_DIR$/webapp_flask/app/templates/base.html" />
@@ -204,6 +205,7 @@
         <option value="$PROJECT_DIR$/src/training/requester.py" />
         <option value="$PROJECT_DIR$/src/training/cnn-keras/train.py" />
         <option value="$PROJECT_DIR$/src/training/postTraining.py" />
+        <option value="$PROJECT_DIR$/webapp_flask/app/DAO.py" />
       </list>
     </option>
   </component>
@@ -232,55 +234,6 @@
             <path>
               <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
               <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="airflow" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="doc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="doc" type="462c0819:PsiDirectoryNode" />
-              <item name="noteBooks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="sql" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="data_preprocessor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="training" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="utilities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="utilities" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -421,8 +374,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16056167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16056167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -620,13 +574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp_flask/app/DAO.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="96" column="216" lean-forward="false" selection-start-line="96" selection-start-column="190" selection-end-line="96" selection-end-column="216" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utilities/database/database.ini">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -708,16 +655,6 @@
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding>
-            <element signature="e#144#181#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -832,6 +769,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2750">
           <caret line="141" column="25" lean-forward="false" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding>
+            <element signature="e#144#181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp_flask/app/DAO.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="55" column="48" lean-forward="true" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="48" />
           <folding />
         </state>
       </provider>
