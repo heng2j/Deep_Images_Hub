@@ -33,11 +33,12 @@ Commonly Shared Statics
 """
 
 # Set up project path
-projectPath = up(up(up(os.getcwd())))
+# projectPath = up(up(up(os.getcwd())))
+projectPath = os.getcwd()
 
 s3_bucket_name = "s3://insight-data-images/"
 
-database_ini_file_path = "/utilities/database/database.ini"
+database_ini_file_path = "/Deep_Images_Hub/utilities/database/database.ini"
 
 
 
@@ -66,7 +67,7 @@ def config(filename=projectPath+database_ini_file_path, section='postgresql'):
 
 
 
-def save_results_to_db(request_number,save_path,final_acc,final_val_acc,final_loss,final_val_loss):
+def save_results_to_db(request_number,save_path,final_acc,final_val_acc,final_loss,final_val_loss,summary_note):
 
 
 
@@ -78,8 +79,9 @@ def save_results_to_db(request_number,save_path,final_acc,final_val_acc,final_lo
 	final_loss = %s,
 	final_validation_loss = %s,								  
     saved_model_path = %s,
-	creation_date	= %s			  
-    WHERE model_id = 1;								  
+	creation_date	= %s,
+	note = %s			  
+    WHERE model_id = %s;								  
 					
 
     """
@@ -101,7 +103,7 @@ def save_results_to_db(request_number,save_path,final_acc,final_val_acc,final_lo
 		# writing image info into the database
 		# execute a statement
 		print('writing image batch info into the database...')
-		cur.execute(sql,(final_acc,final_val_acc,final_loss,final_val_loss,save_path,datetime.datetime.now()))
+		cur.execute(sql,(final_acc,final_val_acc,final_loss,final_val_loss,save_path,datetime.datetime.now(),summary_note,request_number))
 
 		# commit the changes to the database
 		conn.commit()
@@ -222,7 +224,15 @@ save_path = "insight-deep-images-hub/trained_model/" + datetime.datetime.today()
 
 print(save_path)
 
-save_results_to_db(args["training_request_number"],save_path,final_acc,final_val_acc,final_loss,final_val_loss)
+summary_note = ""
+
+if final_acc < 0.85:
+	summary_note = "Final accuracy is below threshold 0.85. You may consider to re-train the model with more data or increase the epoch number"
+else:
+	summary_note = "Final accuracy is above threshold 0.85. This model can be a good baseline model"
+
+
+save_results_to_db(args["training_request_number"],save_path,final_acc,final_val_acc,final_loss,final_val_loss,summary_note)
 
 
 

@@ -131,13 +131,18 @@ CREATE TABLE IF NOT EXISTS requesting_label_watchlist (
 DROP TABLE IF EXISTS training_records;
 
 CREATE TABLE IF NOT EXISTS training_records (
-	model_id				SERIAL	PRIMARY KEY ,
-    label_names  			varchar[] ,
-	image_counts_for_labels	int[],		
+	model_id					SERIAL	PRIMARY KEY ,
+    label_names  				varchar[] ,
+	image_counts_for_labels		int[],
+	final_accuracy				float,		
+	final_validation_accuracy	float,
+	final_loss					float,
+	final_validation_loss		float,
 	saved_model_path text,
 	initial_requested_user_id int references users(user_id),
     purchased_user_ids    int[],
-	creation_date 		timestamp
+	creation_date 		timestamp,
+	note				text
 );
 	
 	

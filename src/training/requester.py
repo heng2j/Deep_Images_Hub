@@ -75,11 +75,12 @@ Commonly Shared Statics
 """
 
 # Set up project path
-projectPath = up(up(os.getcwd()))
+# projectPath = up(up(os.getcwd()))
+projectPath = os.getcwd()
 
 s3_bucket_name = "s3://insight-data-images/"
 
-database_ini_file_path = "/utilities/database/database.ini"
+database_ini_file_path = "/Deep_Images_Hub/utilities/database/database.ini"
 
 
 
@@ -182,10 +183,14 @@ def verify_labels(label_list):
             conn.close()
             print('Database connection closed.')
 
-# Verify if the labels currently have enough images
-def verify_labels_quantities(label_list,user_info):
 
-    user_id = user_info['user_id']
+
+
+
+# Verify if the labels currently have enough images
+def verify_labels_quantities(label_list,user_id):
+
+    # user_id = user_info['user_id']
 
     """ Connect to the PostgreSQL database server """
     conn = None
@@ -200,45 +205,55 @@ def verify_labels_quantities(label_list,user_info):
         # create a cursor
         cur = conn.cursor()
 
-        print('Verifying if the labels has enough images...')
+        values_list = []
+
         for label_name in label_list:
 
-            #TODO -  augmented SQL statement
-            sql = "SELECT label_name FROM labels WHERE label_name in ('Apple', 'Banana','protein_bar' ) AND image_count < 100;"
+            values_list.append(label_name)
 
-                  # " '" + label_name +"' ;"
-            print("sql: ", sql)
 
-            # verify if label exist in the database
-            # execute a statement
-            cur.execute(sql)
+        sql = "SELECT label_name FROM labels WHERE label_name IN %(values_list)s AND image_count < 100;"
 
-            results = cur.fetchall()
 
-            # The returning results are the labels that doesn't have enough images
-            if results:
-                print("The following labels does not have enough images:")
-                print (results)
 
-                print("These labels will save into the requesting_label_watchlist table")
+        # execute a statement
+        print('Getting image urls for requesting labels ...')
+        cur.execute(sql,
+                    {
+                        'values_list': tuple(values_list),
+                    })
 
-                # TODO - Save labels into the requesting_label_watchlist table
-                save_to_requesting_label_to_watchlist(cur, results, user_id)
+        results = cur.fetchall()
 
-                # commit changes
-                conn.commit()
+        # The returning results are the labels that doesn't have enough images
+        if results:
+            print("The following labels does not have enough images:")
+            print(results)
 
-                return False
+            print("These labels will save into the requesting_label_watchlist table")
 
-            else:
-                print("All labels are ready for training :) ")
-                return True
+            # TODO - Save labels into the requesting_label_watchlist table
+            save_to_requesting_label_to_watchlist(cur, results, user_id)
 
-                # close the communication with the PostgreSQL
-        cur.close()
+            # commit changes
+            conn.commit()
 
-        # All labels ready return True
-        return True
+            # close the communication with the PostgreSQL
+            cur.close()
+            print('Database connection closed.')
+
+            return False
+
+
+        else:
+            print("All labels are ready for training :) ")
+
+            # close the communication with the PostgreSQL
+            cur.close()
+            print('Database connection closed.')
+
+            return True
+
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -246,6 +261,9 @@ def verify_labels_quantities(label_list,user_info):
         if conn is not None:
             conn.close()
             print('Database connection closed.')
+
+
+
 
 
 # Save labels into the requesting_label_watchlist table
@@ -340,88 +358,6 @@ def get_images_urls(label_list):
 
 
 
-
-"""
-
-Kick Start Traiing Process
-
-Temp workflow:
-    1. Get counts for total number of images 
-    2. Evaluate the number of slaves nodes 
-
-"""
-
-# Invoke model training script to train model in TensorflowOnSpark with the requesting labels
-def invoke_model_training(label_list,user_info):
-
-    #TODO
-    print("Invoking model training process...")
-    print("Training started")
-
-
-
-
-if __name__ == '__main__':
-
-    # Set up argument parser
-    parser = ArgumentParser()
-    parser.add_argument("-des_b", "--des_bucket_name", help="Destination S3 bucket name", required=True)
-    parser.add_argument("-des_p", "--des_prefix", help="Destination S3 folder prefix", required=True)
-    parser.add_argument("-l", "--label_List", nargs='+', help="images label", required=True)
-    parser.add_argument("-uid", "--user_id", help="requester user id", required=True)
-
-    args = parser.parse_args()
-
-    # Assign input, output files and number of lines variables from command line arguments
-    des_bucket_name = args.des_bucket_name
-    prefix = args.des_prefix
-    label_list = args.label_List
-    user_id = args.user_id
-
-    label_cardinality = len(label_list)
-
-
-    user_info = { "destination_bucket" : des_bucket_name,
-                   "destination_prefix" : prefix,
-                   "user_id"    : user_id
-
-
-    }
-
-
-    # # verify_labels(label_list)
-    # # verify_labels_quantities(label_list,user_info)
-    #
-    #
-    # image_urls_df = get_images_urls(label_list)
-    #
-    # filePath = image_urls_df.image_url[0]
-    #
-    #
-    # # strip off the starting s3a:// from the bucket
-    # bucket = os.path.dirname(str(filePath))[6:].split("/", 1)[0]
-    # key = os.path.basename(str(filePath))
-    # path  = filePath[6:].split("/", 1)[1:][0]
-    #
-    #
-    # print(bucket)
-    # print(key)
-    # print(path)
-
-
-
-
-
-
-"""
-
-For Testing
-
-"""
-
-
-
-
 def get_images_urls_as_dataset(label_list):
 
 
@@ -471,44 +407,39 @@ def get_images_urls_as_dataset(label_list):
             print('Database connection closed.')
 
 
-
-"""
-For testing purpose
-
-"""
-
-import PIL.Image
-# import keras
-# from keras.applications.imagenet_utils import preprocess_input
-# from keras_preprocessing import image
-
-def load_image_from_uri(local_uri):
-  img = (get_image_array_from_S3_file(local_uri))
-  img_arr = np.array(img).astype(np.float32)
-  img_tnsr = preprocess_input(img_arr[np.newaxis, :])
-  return img_tnsr
+#
+# import PIL.Image
+# # import keras
+# # from keras.applications.imagenet_utils import preprocess_input
+# # from keras_preprocessing import image
+#
+# def load_image_from_uri(local_uri):
+#   img = (get_image_array_from_S3_file(local_uri))
+#   img_arr = np.array(img).astype(np.float32)
+#   img_tnsr = preprocess_input(img_arr[np.newaxis, :])
+#   return img_tnsr
 
 
 
-# this function will use boto3 on the workers directly to pull the image
-# and then decode it, all in this function
-def get_image_array_from_S3_file(image_url):
-    import boto3
-    import os
-
-    # TODO - will need to implement exceptions handling
-
-    s3 = boto3.resource('s3')
-
-    # strip off the starting s3a:// from the bucket
-    bucket_name = os.path.dirname(str(image_url))[6:].split("/", 1)[0]
-    key = image_url[6:].split("/", 1)[1:][0]
-
-    bucket = s3.Bucket(bucket_name)
-    obj = bucket.Object(key)
-    img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299, 3))
-
-    return img
+# # this function will use boto3 on the workers directly to pull the image
+# # and then decode it, all in this function
+# def get_image_array_from_S3_file(image_url):
+#     import boto3
+#     import os
+#
+#     # TODO - will need to implement exceptions handling
+#
+#     s3 = boto3.resource('s3')
+#
+#     # strip off the starting s3a:// from the bucket
+#     bucket_name = os.path.dirname(str(image_url))[6:].split("/", 1)[0]
+#     key = image_url[6:].split("/", 1)[1:][0]
+#
+#     bucket = s3.Bucket(bucket_name)
+#     obj = bucket.Object(key)
+#     img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299, 3))
+#
+#     return img
 
 
 
@@ -533,152 +464,222 @@ def download_from_S3_img_thumbnail_urls(image_url):
 
 
 # Download images from URLs in dataset
-def process_image_url_dataset(url_dataset):
+def download_image_dataset_from_image_urls(url_dataset):
 
         for url in url_dataset:
             download_from_S3_img_thumbnail_urls(url)
 
 
 
+def get_image_counters_for_labels(label_list):
+
+    label_nums = list(range(len(label_list)))
+
+
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        results_list = []
+
+        for i, label_name in enumerate(label_list):
+
+            sql = "SELECT image_thumbnail_object_key FROM images WHERE label_name =  %s ;"
+
+            cur.execute(sql,(label_name,))
+
+            results = [r[0] for r in cur.fetchall()]
+
+            results_list.append(results)
+
+        # close the communication with the PostgreSQL
+        cur.close()
+
+        # flatten the results_list
+        flattened_results_list = [y for x in results_list for y in x]
+
+
+        # All labels ready return True
+        return flattened_results_list
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
+"""
+
+Kick Start Traiing Process
+
+Temp workflow:
+    1. Get counts for total number of images 
+    2. Evaluate the number of slaves nodes 
+
+"""
+
+# Invoke model training script to train model in TensorflowOnSpark with the requesting labels
+def invoke_model_training(label_list,user_id):
+
+    print("Invoking model training process...")
+
+
+    import shutil
+
+    print("Removing old training data and model if exist...")
+
+    # Remove previous trained data if exist
+    if os.path.exists('/tmp/Deep_image_hub_Model_Training/model/'):
+        shutil.rmtree("/tmp/Deep_image_hub_Model_Training/model")
+
+    if os.path.exists('/tmp/Deep_image_hub_Model_Training/dataset/'):
+        shutil.rmtree("/tmp/Deep_image_hub_Model_Training/dataset")
 
 
 
-labels_urls_list = get_images_urls_as_dataset(label_list)
+    print ("Generating the list of urls from requesting lables...")
+    labels_urls_list = get_images_urls_as_dataset(label_list)
 
-# from sklearn.model_selection import train_test_split
-#
-# x_train ,x_test = train_test_split(labels_urls_list,test_size=0.2)
-#
-#
-# print(x_test)
-#
-#
-# source_type = 'test'
+    print ("Downloading images from url list...")
+    download_image_dataset_from_image_urls(labels_urls_list)
 
-process_image_url_dataset(labels_urls_list)
+    print ("Download Completed")
 
 
+    print("Inserting traiing records in database...")
 
-temp_train_dir = '/tmp/Deep_image_hub/train'
-temp_validation_dir = '/tmp/Deep_image_hub/validation'
 
-#
-# # Kick start training
-#
-# import numpy as np
-# import matplotlib.pyplot as plt
-#
-# from __future__ import print_function
-# import keras
-# from keras.utils import to_categorical
-# import os
-# from keras.preprocessing.image import ImageDataGenerator, load_img
-#
-# from keras.applications import VGG16
-# vgg_conv = VGG16(weights='imagenet',
-#                  include_top=False,
-#                  input_shape=(224, 224, 3))
-#
-#
-#
-# nTrain = len(x_train)
-# nVal = len(x_test)
-#
-#
-#
-# print(nTrain)
-# print(nVal)
-#
-# datagen = ImageDataGenerator(rescale=1. / 255)
-# batch_size = 20
-#
-# train_features = np.zeros(shape=(nTrain, 7, 7, 512))
-# train_labels = np.zeros(shape=(nTrain, label_cardinality))
-#
-# train_generator = datagen.flow_from_directory(
-#     temp_train_dir,
-#     target_size=(224, 224),
-#     batch_size=batch_size,
-#     class_mode='categorical',
-#     shuffle=True)
-#
-# i = 0
-# for inputs_batch, labels_batch in train_generator:
-#     features_batch = vgg_conv.predict(inputs_batch)
-#     train_features[i * batch_size: (i + 1) * batch_size] = features_batch
-#     train_labels[i * batch_size: (i + 1) * batch_size] = labels_batch
-#     i += 1
-#     if i * batch_size >= nTrain:
-#         break
-#
-# train_features = np.reshape(train_features, (nTrain, 7 * 7 * 512))
-#
-#
-#
-#
-# validation_features = np.zeros(shape=(nVal, 7, 7, 512))
-# validation_labels = np.zeros(shape=(nVal,label_cardinality))
-#
-# validation_generator = datagen.flow_from_directory(
-#     temp_validation_dir,
-#     target_size=(224, 224),
-#     batch_size=batch_size,
-#     class_mode='categorical',
-#     shuffle=False)
-#
-# i = 0
-# for inputs_batch, labels_batch in validation_generator:
-#     features_batch = vgg_conv.predict(inputs_batch)
-#     validation_features[i * batch_size : (i + 1) * batch_size] = features_batch
-#     validation_labels[i * batch_size : (i + 1) * batch_size] = labels_batch
-#     i += 1
-#     if i * batch_size >= nVal:
-#         break
-#
-# validation_features = np.reshape(validation_features, (nVal, 7 * 7 * 512))
-#
-#
-#
-#
-#
-# from keras import models
-# from keras import layers
-# from keras import optimizers
-#
-# model = models.Sequential()
-# model.add(layers.Dense(512, activation='relu', input_dim=7 * 7 * 512))
-# model.add(layers.Dropout(0.5))
-# model.add(layers.Dense(label_cardinality, activation='softmax'))
-#
-# model.compile(optimizer=optimizers.RMSprop(lr=2e-4),
-#               loss='categorical_crossentropy',
-#               metrics=['acc'])
-#
-# history = model.fit(train_features,
-#                     train_labels,
-#                     epochs=20,
-#                     batch_size=batch_size,
-#                     validation_data=(validation_features,validation_labels))
-#
-#
-#
-#
-#
-# fnames = validation_generator.filenames
-#
-# ground_truth = validation_generator.classes
-#
-# label2index = validation_generator.class_indices
-#
-# # Getting the mapping from class index to class label
-# idx2label = dict((v,k) for k,v in label2index.iteritems())
-#
-#
-# predictions = model.predict_classes(validation_features)
-# prob = model.predict(validation_features)
-#
-#
-# errors = np.where(predictions != ground_truth)[0]
-# print("No of errors = {}/{}".format(len(errors),nVal))
-#
+    sql = """
+
+    INSERT INTO training_records (label_names, image_counts_for_labels, initial_requested_user_id, creation_date ) 
+    VALUES 
+     
+    (ARRAY%s,
+     
+    (SELECT ARRAY(  
+    with x (id_list) as (
+      values (ARRAY%s)
+    )
+    select  image_count
+    from labels, x
+    where label_name = any (x.id_list)
+    order by array_position(x.id_list, label_name)
+    )
+    )
+     ,%s, (SELECT NOW()))
+     
+    RETURNING model_id;
+
+    """ % (label_list,label_list,user_id)
+
+
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        cur.execute(sql)
+
+        # commit the changes to the database
+        conn.commit()
+
+        model_id = cur.fetchone()[0]
+
+        # close the communication with the PostgreSQL
+        cur.close()
+
+        return model_id
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
+
+if __name__ == '__main__':
+
+    # Set up argument parser
+    parser = ArgumentParser()
+    parser.add_argument("-des_b", "--des_bucket_name", help="Destination S3 bucket name", required=True)
+    parser.add_argument("-des_p", "--des_prefix", help="Destination S3 folder prefix", required=True)
+    parser.add_argument("-l", "--label_List", nargs='+', help="images label", required=True)
+    parser.add_argument("-uid", "--user_id", help="requester user id", required=True)
+
+    args = parser.parse_args()
+
+    # Assign input, output files and number of lines variables from command line arguments
+    des_bucket_name = args.des_bucket_name
+    prefix = args.des_prefix
+    label_list = args.label_List
+    user_id = args.user_id
+
+    label_cardinality = len(label_list)
+
+
+    user_info = { "destination_bucket" : des_bucket_name,
+                   "destination_prefix" : prefix,
+                   "user_id"    : user_id
+
+
+    }
+
+
+
+    # Verify if the labels are existed in the Database
+    if not verify_labels(label_list):
+        exit()
+
+
+
+
+    # Verify if all the requesting labels are having enough images to train.
+    if not verify_labels_quantities(label_list,user_id):
+        exit()
+
+
+    invoke_model_training(label_list, user_id)
+
+    # image_urls_df = get_images_urls(label_list)
+    #
+    # filePath = image_urls_df.image_url[0]
+    #
+    #
+    # # strip off the starting s3a:// from the bucket
+    # bucket = os.path.dirname(str(filePath))[6:].split("/", 1)[0]
+    # key = os.path.basename(str(filePath))
+    # path  = filePath[6:].split("/", 1)[1:][0]
+    #
+    #
+    # print(bucket)
+    # print(key)
+    # print(path)
+
+
+
+
+
+
+
 

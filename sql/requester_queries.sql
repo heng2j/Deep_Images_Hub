@@ -41,7 +41,12 @@ LIMIT 10;
 SELECT label_name
 FROM labels
 WHERE label_name in ('Table', 'Chair','Drawer')
-AND image_count < 50;
+AND image_count > 0;
+	
+	
+SELECT label_name, image_count
+FROM labels
+WHERE image_count > 100 AND image_count < 500;
 	
 	
 SELECT full_hadoop_path, label_name
@@ -94,3 +99,72 @@ INSERT INTO requesting_label_watchlist (label_name, user_ids,last_requested_user
 SELECT * 
 FROM requesting_label_watchlist;
  
+ 
+ 
+-- Insert new training request into training_records
+DELETE FROM training_records;
+ALTER SEQUENCE training_records_model_id_seq RESTART WITH 1;
+
+    INSERT INTO training_records (label_names, image_counts_for_labels, initial_requested_user_id, creation_date ) 
+    VALUES 
+     
+    (ARRAY['Snack', 'Footwear', 'Vehicle'],
+     
+    (SELECT ARRAY(  
+    with x (id_list) as (
+      values (ARRAY['Snack', 'Footwear', 'Vehicle'])
+    )
+    select  image_count
+    from labels, x
+    where label_name = any (x.id_list)
+    order by array_position(x.id_list, label_name)
+    )
+    )
+     ,2, (SELECT NOW()))
+     
+    RETURNING model_id;
+
+		
+	 
+SELECT ARRAY(  
+with x (id_list) as (
+  values (array['Apple','Drawer'])
+)
+select  image_count
+from labels, x
+where label_name = any (x.id_list)
+order by array_position(x.id_list, label_name)
+);
+										  
+										  
+										  
+SELECT ARRAY(
+SELECT image_count
+FROM labels
+WHERE label_name IN ('Apple','Drawer','Chair')
+);									  
+										  
+SELECT label_name, image_count
+FROM labels
+WHERE label_name IN ('Apple','Drawer');										  
+										  
+										  
+										  
+										  
+-- Update training_records with training results
+UPDATE training_records
+SET final_accuracy = 0.8775,
+ 	final_validation_accuracy = 0.5643,
+	final_loss = 0.0394,
+	final_validation_loss = 0.0765,								  
+    saved_model_path = 'A path in in S3',
+	creation_date	= 	(SELECT NOW())			  
+WHERE model_id = 1;								  
+										  
+						
+										  
+select * from 	training_records;		
+						 
+						 
+
+select label_name from labels;
