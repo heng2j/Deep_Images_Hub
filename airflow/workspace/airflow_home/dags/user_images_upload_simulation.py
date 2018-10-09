@@ -21,14 +21,11 @@ def print_context(i):
 templated_command = """
 
 
-
-
-
 peg scp to-rem pySpark-cluster 1 ~/sample_labelsaa /home/ubuntu/sample_labelsaa
 
 peg sshcmd-node pySpark-cluster 1 "touch dummy_from_airflow.txt" 
 
-
+peg sshcmd-node pySpark-cluster 1 "nohup sh ~/Deep_Images_Hub/src/producer/auto_upload.sh ~/sample_labelsaa "test"  > ~/Deep_Images_Hub/src/producer/auto_upload.log &" 
 
 """
 
@@ -39,17 +36,25 @@ peg sshcmd-node pySpark-cluster 1 "touch dummy_from_airflow.txt"
 
 # sh /home/ubuntu/Deep_Images_Hub/src/producer/auto_upload.sh  {{ src_lables_file }} {{ src_type }}  > /home/ubuntu/Deep_Images_Hub/src/producer/auto_upload.log &
 
-dummy_operator = DummyOperator(task_id='dummy_task', retries=3, dag=dag)
+
+
+Labels_prep = \
+BashOperator(
+    task_id='Batch_Image_Submissions',
+    bash_command=templated_command,
+    params = {'node_number': 1, 'sample_file' : 'sample_labelsaa' , 'src_lables_file' : '~/sample_labelsaa' , 'src_type' : 'test'   },
+dag=dag)
+
 
 parent_on_node1 = None
-for i in range(10):
+for i in range(120):
     '''
     Generating 10 sleeping task, sleeping from 0 to 9 seconds
     respectively
     '''
     task_on_node1 = \
 	BashOperator(
-    		task_id='templated',
+    		task_id='Batch_Image_Submissions',
     		bash_command=templated_command,
     		params = {'node_number': 1, 'sample_file' : 'sample_labelsaa' , 'src_lables_file' : '~/sample_labelsaa' , 'src_type' : 'test'   },
 		dag=dag)	
