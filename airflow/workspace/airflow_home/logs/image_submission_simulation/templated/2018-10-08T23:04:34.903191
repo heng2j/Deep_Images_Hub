@@ -1,0 +1,57 @@
+[2018-10-08 23:04:36,140] {models.py:167} INFO - Filling up the DagBag from /home/ec2-user/Deep_Images_Hub/airflow/workspace/airflow_home/dags/images_submission_simulation.py
+[2018-10-08 23:04:36,375] {base_task_runner.py:112} INFO - Running: ['bash', '-c', u'airflow run image_submission_simulation templated 2018-10-08T23:04:34.903191 --job_id 13 --raw -sd DAGS_FOLDER/images_submission_simulation.py']
+[2018-10-08 23:04:36,587] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:36,587] {__init__.py:57} INFO - Using executor SequentialExecutor
+[2018-10-08 23:04:36,864] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:36,864] {models.py:167} INFO - Filling up the DagBag from /home/ec2-user/Deep_Images_Hub/airflow/workspace/airflow_home/dags/images_submission_simulation.py
+[2018-10-08 23:04:37,054] {base_task_runner.py:95} INFO - Subtask: /usr/local/lib/python2.7/site-packages/airflow/utils/helpers.py:406: DeprecationWarning: Importing PythonOperator directly from <module 'airflow.operators' from '/usr/local/lib/python2.7/site-packages/airflow/operators/__init__.pyc'> has been deprecated. Please import from '<module 'airflow.operators' from '/usr/local/lib/python2.7/site-packages/airflow/operators/__init__.pyc'>.[operator_module]' instead. Support for direct imports will be dropped entirely in Airflow 2.0.
+[2018-10-08 23:04:37,054] {base_task_runner.py:95} INFO - Subtask:   DeprecationWarning)
+[2018-10-08 23:04:37,092] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,092] {models.py:1126} INFO - Dependencies all met for <TaskInstance: image_submission_simulation.templated 2018-10-08 23:04:34.903191 [queued]>
+[2018-10-08 23:04:37,094] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,094] {models.py:1126} INFO - Dependencies all met for <TaskInstance: image_submission_simulation.templated 2018-10-08 23:04:34.903191 [queued]>
+[2018-10-08 23:04:37,094] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,094] {models.py:1318} INFO - 
+[2018-10-08 23:04:37,094] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-08 23:04:37,094] {base_task_runner.py:95} INFO - Subtask: Starting attempt 1 of 1
+[2018-10-08 23:04:37,094] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-08 23:04:37,094] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,105] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,105] {models.py:1342} INFO - Executing <Task(BashOperator): templated> on 2018-10-08 23:04:34.903191
+[2018-10-08 23:04:37,116] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,116] {bash_operator.py:71} INFO - tmp dir root location: 
+[2018-10-08 23:04:37,117] {base_task_runner.py:95} INFO - Subtask: /tmp
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,117] {bash_operator.py:80} INFO - Temporary script location :/tmp/airflowtmpdclDXz//tmp/airflowtmpdclDXz/templatedTyLkBk
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,118] {bash_operator.py:81} INFO - Running command: 
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: peg scp to-rem pySpark-cluster  ~/ /home/ubuntu/
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,118] {base_task_runner.py:95} INFO - Subtask: peg sshcmd-node pySpark-cluster  "touch dummy_from_airflow.txt" 
+[2018-10-08 23:04:37,119] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,119] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,119] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 23:04:37,122] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,121] {bash_operator.py:90} INFO - Output:
+[2018-10-08 23:04:37,133] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,132] {bash_operator.py:94} INFO - Invalid number of arguments
+[2018-10-08 23:04:37,133] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,133] {bash_operator.py:94} INFO - Usage: peg scp <to-local|to-rem|from-local|from-rem> <cluster-name> <node-number> <local-path> <remote-path>
+[2018-10-08 23:04:37,808] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,807] {bash_operator.py:94} INFO - sed: can't find label for jump to `ouchp'
+[2018-10-08 23:04:37,809] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,808] {bash_operator.py:97} INFO - Command exited with return code 4
+[2018-10-08 23:04:37,811] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,809] {models.py:1417} ERROR - Bash command failed
+[2018-10-08 23:04:37,811] {base_task_runner.py:95} INFO - Subtask: Traceback (most recent call last):
+[2018-10-08 23:04:37,811] {base_task_runner.py:95} INFO - Subtask:   File "/usr/local/lib/python2.7/site-packages/airflow/models.py", line 1374, in run
+[2018-10-08 23:04:37,811] {base_task_runner.py:95} INFO - Subtask:     result = task_copy.execute(context=context)
+[2018-10-08 23:04:37,811] {base_task_runner.py:95} INFO - Subtask:   File "/usr/local/lib/python2.7/site-packages/airflow/operators/bash_operator.py", line 100, in execute
+[2018-10-08 23:04:37,811] {base_task_runner.py:95} INFO - Subtask:     raise AirflowException("Bash command failed")
+[2018-10-08 23:04:37,811] {base_task_runner.py:95} INFO - Subtask: AirflowException: Bash command failed
+[2018-10-08 23:04:37,811] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,810] {models.py:1441} INFO - Marking task as FAILED.
+[2018-10-08 23:04:37,831] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 23:04:37,828] {models.py:1462} ERROR - Bash command failed
+[2018-10-08 23:04:37,831] {base_task_runner.py:95} INFO - Subtask: Traceback (most recent call last):
+[2018-10-08 23:04:37,831] {base_task_runner.py:95} INFO - Subtask:   File "/usr/local/bin/airflow", line 28, in <module>
+[2018-10-08 23:04:37,831] {base_task_runner.py:95} INFO - Subtask:     args.func(args)
+[2018-10-08 23:04:37,831] {base_task_runner.py:95} INFO - Subtask:   File "/usr/local/lib/python2.7/site-packages/airflow/bin/cli.py", line 422, in run
+[2018-10-08 23:04:37,831] {base_task_runner.py:95} INFO - Subtask:     pool=args.pool,
+[2018-10-08 23:04:37,831] {base_task_runner.py:95} INFO - Subtask:   File "/usr/local/lib/python2.7/site-packages/airflow/utils/db.py", line 53, in wrapper
+[2018-10-08 23:04:37,831] {base_task_runner.py:95} INFO - Subtask:     result = func(*args, **kwargs)
+[2018-10-08 23:04:37,831] {base_task_runner.py:95} INFO - Subtask:   File "/usr/local/lib/python2.7/site-packages/airflow/models.py", line 1374, in run
+[2018-10-08 23:04:37,832] {base_task_runner.py:95} INFO - Subtask:     result = task_copy.execute(context=context)
+[2018-10-08 23:04:37,832] {base_task_runner.py:95} INFO - Subtask:   File "/usr/local/lib/python2.7/site-packages/airflow/operators/bash_operator.py", line 100, in execute
+[2018-10-08 23:04:37,832] {base_task_runner.py:95} INFO - Subtask:     raise AirflowException("Bash command failed")
+[2018-10-08 23:04:37,832] {base_task_runner.py:95} INFO - Subtask: airflow.exceptions.AirflowException: Bash command failed
+[2018-10-08 23:04:41,382] {jobs.py:2083} INFO - Task exited with return code 1

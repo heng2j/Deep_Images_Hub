@@ -1,0 +1,54 @@
+[2018-10-08 22:46:43,007] {models.py:167} INFO - Filling up the DagBag from /home/ec2-user/Deep_Images_Hub/airflow/workspace/airflow_home/dags/images_submission_simulation.py
+[2018-10-08 22:46:43,259] {base_task_runner.py:112} INFO - Running: ['bash', '-c', u'airflow run image_submission_simulation templated 2018-10-08T22:44:47.295541 --job_id 5 --raw -sd DAGS_FOLDER/images_submission_simulation.py']
+[2018-10-08 22:46:43,491] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:43,490] {__init__.py:57} INFO - Using executor SequentialExecutor
+[2018-10-08 22:46:43,806] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:43,805] {models.py:167} INFO - Filling up the DagBag from /home/ec2-user/Deep_Images_Hub/airflow/workspace/airflow_home/dags/images_submission_simulation.py
+[2018-10-08 22:46:44,016] {base_task_runner.py:95} INFO - Subtask: /usr/local/lib/python2.7/site-packages/airflow/utils/helpers.py:406: DeprecationWarning: Importing PythonOperator directly from <module 'airflow.operators' from '/usr/local/lib/python2.7/site-packages/airflow/operators/__init__.pyc'> has been deprecated. Please import from '<module 'airflow.operators' from '/usr/local/lib/python2.7/site-packages/airflow/operators/__init__.pyc'>.[operator_module]' instead. Support for direct imports will be dropped entirely in Airflow 2.0.
+[2018-10-08 22:46:44,016] {base_task_runner.py:95} INFO - Subtask:   DeprecationWarning)
+[2018-10-08 22:46:44,053] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:44,053] {models.py:1126} INFO - Dependencies all met for <TaskInstance: image_submission_simulation.templated 2018-10-08 22:44:47.295541 [queued]>
+[2018-10-08 22:46:44,056] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:44,055] {models.py:1126} INFO - Dependencies all met for <TaskInstance: image_submission_simulation.templated 2018-10-08 22:44:47.295541 [queued]>
+[2018-10-08 22:46:44,056] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:44,056] {models.py:1318} INFO - 
+[2018-10-08 22:46:44,056] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-08 22:46:44,056] {base_task_runner.py:95} INFO - Subtask: Starting attempt 1 of 1
+[2018-10-08 22:46:44,056] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-08 22:46:44,056] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 22:46:44,067] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:44,067] {models.py:1342} INFO - Executing <Task(BashOperator): templated> on 2018-10-08 22:44:47.295541
+[2018-10-08 22:46:44,078] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:44,078] {bash_operator.py:71} INFO - tmp dir root location: 
+[2018-10-08 22:46:44,078] {base_task_runner.py:95} INFO - Subtask: /tmp
+[2018-10-08 22:46:44,079] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:44,079] {bash_operator.py:80} INFO - Temporary script location :/tmp/airflowtmpei_QUi//tmp/airflowtmpei_QUi/templatedyLScpb
+[2018-10-08 22:46:44,079] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:44,079] {bash_operator.py:81} INFO - Running command: 
+[2018-10-08 22:46:44,080] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 22:46:44,080] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 22:46:44,080] {base_task_runner.py:95} INFO - Subtask: peg ssh pySpark-cluster 1
+[2018-10-08 22:46:44,080] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 22:46:44,080] {base_task_runner.py:95} INFO - Subtask: peg scp to-rem pySpark-cluster 1 ~/sample_labelsaa /home/ubuntu/sample_labelsaa
+[2018-10-08 22:46:44,080] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 22:46:44,080] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-08 22:46:44,084] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:44,083] {bash_operator.py:90} INFO - Output:
+[2018-10-08 22:46:45,442] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,440] {bash_operator.py:94} INFO - Welcome to Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-1069-aws x86_64)
+[2018-10-08 22:46:45,442] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,440] {bash_operator.py:94} INFO - 
+[2018-10-08 22:46:45,442] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - * Documentation:  https://help.ubuntu.com
+[2018-10-08 22:46:45,442] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - * Management:     https://landscape.canonical.com
+[2018-10-08 22:46:45,442] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - * Support:        https://ubuntu.com/advantage
+[2018-10-08 22:46:45,442] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - 
+[2018-10-08 22:46:45,442] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - Get cloud support with Ubuntu Advantage Cloud Guest:
+[2018-10-08 22:46:45,442] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - http://www.ubuntu.com/business/services/cloud
+[2018-10-08 22:46:45,442] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - 
+[2018-10-08 22:46:45,443] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - 117 packages can be updated.
+[2018-10-08 22:46:45,443] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - 0 updates are security updates.
+[2018-10-08 22:46:45,443] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - 
+[2018-10-08 22:46:45,443] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - New release '18.04.1 LTS' available.
+[2018-10-08 22:46:45,443] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - Run 'do-release-upgrade' to upgrade to it.
+[2018-10-08 22:46:45,443] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - 
+[2018-10-08 22:46:45,443] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - 
+[2018-10-08 22:46:45,443] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:46:45,441] {bash_operator.py:94} INFO - Last login: Mon Oct  8 22:17:19 2018 from 10.0.0.7
+[2018-10-08 22:50:14,140] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:14,140] {bash_operator.py:94} INFO - ]0;ubuntu@ip-10-0-0-14: ~[01;32mubuntu@ip-10-0-0-14[00m:[01;34m~[00m$ ^C
+[2018-10-08 22:50:15,032] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:15,032] {bash_operator.py:94} INFO - ]0;ubuntu@ip-10-0-0-14: ~[01;32mubuntu@ip-10-0-0-14[00m:[01;34m~[00m$
+[2018-10-08 22:50:15,213] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:15,213] {bash_operator.py:94} INFO - ]0;ubuntu@ip-10-0-0-14: ~[01;32mubuntu@ip-10-0-0-14[00m:[01;34m~[00m$
+[2018-10-08 22:50:15,386] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:15,386] {bash_operator.py:94} INFO - ]0;ubuntu@ip-10-0-0-14: ~[01;32mubuntu@ip-10-0-0-14[00m:[01;34m~[00m$
+[2018-10-08 22:50:15,525] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:15,525] {bash_operator.py:94} INFO - ]0;ubuntu@ip-10-0-0-14: ~[01;32mubuntu@ip-10-0-0-14[00m:[01;34m~[00m$
+[2018-10-08 22:50:28,601] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:28,601] {bash_operator.py:94} INFO - ]0;ubuntu@ip-10-0-0-14: ~[01;32mubuntu@ip-10-0-0-14[00m:[01;34m~[00m$
+[2018-10-08 22:50:28,769] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:28,768] {bash_operator.py:94} INFO - ]0;ubuntu@ip-10-0-0-14: ~[01;32mubuntu@ip-10-0-0-14[00m:[01;34m~[00m$
+[2018-10-08 22:50:30,400] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:30,399] {bash_operator.py:94} INFO - ]0;ubuntu@ip-10-0-0-14: ~[01;32mubuntu@ip-10-0-0-14[00m:[01;34m~[00m$ ^C
+[2018-10-08 22:50:30,835] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:30,834] {bash_operator.py:94} INFO - ]0;ubuntu@ip-10-0-0-14: ~[01;32mubuntu@ip-10-0-0-14[00m:[01;34m~[00m$ logout
+[2018-10-08 22:50:30,838] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:30,838] {bash_operator.py:94} INFO - Connection to ec2-18-235-62-224.compute-1.amazonaws.com closed.
+[2018-10-08 22:50:31,831] {base_task_runner.py:95} INFO - Subtask: [2018-10-08 22:50:31,828] {bash_operator.py:97} INFO - Command exited with return code 0
