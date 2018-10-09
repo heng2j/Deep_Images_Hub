@@ -1,0 +1,31 @@
+[2018-10-09 01:21:23,645] {models.py:167} INFO - Filling up the DagBag from /home/ec2-user/Deep_Images_Hub/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py
+[2018-10-09 01:21:23,871] {base_task_runner.py:112} INFO - Running: ['bash', '-c', u'airflow run Batch_image_submission_simulation Data_file_prep 2018-10-09T01:21:20.740103 --job_id 9 --raw -sd DAGS_FOLDER/Batch_Image_submissions.py']
+[2018-10-09 01:21:24,080] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,080] {__init__.py:57} INFO - Using executor SequentialExecutor
+[2018-10-09 01:21:24,353] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,353] {models.py:167} INFO - Filling up the DagBag from /home/ec2-user/Deep_Images_Hub/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py
+[2018-10-09 01:21:24,568] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,568] {models.py:1126} INFO - Dependencies all met for <TaskInstance: Batch_image_submission_simulation.Data_file_prep 2018-10-09 01:21:20.740103 [queued]>
+[2018-10-09 01:21:24,570] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,570] {models.py:1126} INFO - Dependencies all met for <TaskInstance: Batch_image_submission_simulation.Data_file_prep 2018-10-09 01:21:20.740103 [queued]>
+[2018-10-09 01:21:24,570] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,570] {models.py:1318} INFO - 
+[2018-10-09 01:21:24,570] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-09 01:21:24,570] {base_task_runner.py:95} INFO - Subtask: Starting attempt 1 of 1
+[2018-10-09 01:21:24,570] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-09 01:21:24,570] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-09 01:21:24,581] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,581] {models.py:1342} INFO - Executing <Task(BashOperator): Data_file_prep> on 2018-10-09 01:21:20.740103
+[2018-10-09 01:21:24,591] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,591] {bash_operator.py:71} INFO - tmp dir root location: 
+[2018-10-09 01:21:24,592] {base_task_runner.py:95} INFO - Subtask: /tmp
+[2018-10-09 01:21:24,593] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,593] {bash_operator.py:80} INFO - Temporary script location :/tmp/airflowtmphwcYAc//tmp/airflowtmphwcYAc/Data_file_prepaT3oRY
+[2018-10-09 01:21:24,593] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,593] {bash_operator.py:81} INFO - Running command: 
+[2018-10-09 01:21:24,593] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-09 01:21:24,593] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-09 01:21:24,593] {base_task_runner.py:95} INFO - Subtask: split -l 160 ~/all_labels.txt ~/sample_labels_
+[2018-10-09 01:21:24,593] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-09 01:21:24,593] {base_task_runner.py:95} INFO - Subtask: peg scp to-rem pySpark-cluster 1 ~/sample_labels_aa /home/ubuntu/sample_labels_aa
+[2018-10-09 01:21:24,593] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-09 01:21:24,593] {base_task_runner.py:95} INFO - Subtask: peg scp to-rem pySpark-cluster 2 ~/sample_labels_ab /home/ubuntu/sample_labels_ab
+[2018-10-09 01:21:24,594] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-09 01:21:24,594] {base_task_runner.py:95} INFO - Subtask: peg scp to-rem pySpark-cluster 3 ~/sample_labels_ac /home/ubuntu/sample_labels_ac
+[2018-10-09 01:21:24,594] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-09 01:21:24,594] {base_task_runner.py:95} INFO - Subtask: peg scp to-rem pySpark-cluster 4 ~/sample_labels_ad /home/ubuntu/sample_labels_ad
+[2018-10-09 01:21:24,594] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-09 01:21:24,597] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:24,596] {bash_operator.py:90} INFO - Output:
+[2018-10-09 01:21:28,182] {base_task_runner.py:95} INFO - Subtask: [2018-10-09 01:21:28,180] {bash_operator.py:97} INFO - Command exited with return code 0
+[2018-10-09 01:21:28,878] {jobs.py:2083} INFO - Task exited with return code 0
