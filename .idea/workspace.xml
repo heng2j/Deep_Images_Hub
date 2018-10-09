@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp_flask/app/DAO.py" afterPath="$PROJECT_DIR$/webapp_flask/app/DAO.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp_flask/app/templates/base.html" afterPath="$PROJECT_DIR$/webapp_flask/app/templates/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp_flask/app/templates/index.html" afterPath="$PROJECT_DIR$/webapp_flask/app/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp_flask/app/templates/shop.html" afterPath="$PROJECT_DIR$/webapp_flask/app/templates/shop.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,38 +16,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="requester.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/training/requester.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="82" column="43" lean-forward="false" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="43" />
-              <folding>
-                <element signature="e#1962#1999#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="606">
-              <caret line="214" column="8" lean-forward="true" selection-start-line="214" selection-start-column="8" selection-end-line="217" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="train.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/training/cnn-keras/train.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="36" column="25" lean-forward="true" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="postTraining.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/training/postTraining.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -55,7 +26,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="web_requests.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="web_requests.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/consumer/web_requests.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2750">
@@ -65,11 +36,67 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DAO.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DAO.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webapp_flask/app/DAO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="55" column="26" lean-forward="false" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
+            <state relative-caret-position="518">
+              <caret line="137" column="40" lean-forward="false" selection-start-line="137" selection-start-column="27" selection-end-line="137" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="shop.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp_flask/app/shop.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="14" column="15" lean-forward="true" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp_flask/app/routes.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="704">
+              <caret line="32" column="31" lean-forward="false" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#33#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="shop.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/shop.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="701">
+              <caret line="311" column="0" lean-forward="true" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#2;n#div#1;n#body#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="4" column="26" lean-forward="false" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -85,23 +112,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_images_upload_simulation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airflow/workspace/airflow_home/dags/user_images_upload_simulation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Batch_Image_submissions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+            <state relative-caret-position="370">
+              <caret line="66" column="35" lean-forward="false" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="194" />
               <folding>
                 <element signature="e#144#181#0" expanded="true" />
               </folding>
@@ -121,8 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>shop</find>
-      <find>index.h</find>
       <find>static</find>
       <find>&lt;!-- Single Product Area --&gt;</find>
       <find>style</find>
@@ -149,8 +162,10 @@
       <find>100</find>
       <find>10</find>
       <find>epochs</find>
-      <find>Apple</find>
+      <find>Random</find>
       <find>500</find>
+      <find>Apple</find>
+      <find>get_all_labels</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -188,12 +203,9 @@
         <option value="$PROJECT_DIR$/webapp_flask/app/util/assets.py" />
         <option value="$PROJECT_DIR$/webapp_flask/app/templates/login.html" />
         <option value="$PROJECT_DIR$/webapp_flask/app/util/DAO.py" />
-        <option value="$PROJECT_DIR$/webapp_flask/app/templates/index.html" />
         <option value="$PROJECT_DIR$/webapp_flask/app/shop.py" />
         <option value="$PROJECT_DIR$/webapp_flask/app/routes.py" />
         <option value="$PROJECT_DIR$/src/consumer/read_images_from_S3.py" />
-        <option value="$PROJECT_DIR$/webapp_flask/app/templates/shop.html" />
-        <option value="$PROJECT_DIR$/webapp_flask/app/templates/base.html" />
         <option value="$PROJECT_DIR$/src/training/train_model.py" />
         <option value="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" />
         <option value="$PROJECT_DIR$/requirements.txt" />
@@ -206,6 +218,9 @@
         <option value="$PROJECT_DIR$/src/training/cnn-keras/train.py" />
         <option value="$PROJECT_DIR$/src/training/postTraining.py" />
         <option value="$PROJECT_DIR$/webapp_flask/app/DAO.py" />
+        <option value="$PROJECT_DIR$/webapp_flask/app/templates/shop.html" />
+        <option value="$PROJECT_DIR$/webapp_flask/app/templates/base.html" />
+        <option value="$PROJECT_DIR$/webapp_flask/app/templates/index.html" />
       </list>
     </option>
   </component>
@@ -234,6 +249,31 @@
             <path>
               <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
               <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp_flask" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp_flask" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp_flask" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp_flask" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -417,13 +457,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/webapp_flask/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="105" column="40" lean-forward="true" selection-start-line="105" selection-start-column="40" selection-end-line="105" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapp_flask/app/static/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -503,38 +536,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapp_flask/app/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp_flask/app/routes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="36" column="106" lean-forward="false" selection-start-line="36" selection-start-column="93" selection-end-line="36" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1936">
-          <caret line="88" column="72" lean-forward="false" selection-start-line="88" selection-start-column="72" selection-end-line="88" selection-end-column="72" />
         </state>
       </provider>
     </entry>
@@ -543,13 +548,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="11" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/shop.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2596">
-          <caret line="118" column="72" lean-forward="false" selection-start-line="118" selection-start-column="72" selection-end-line="118" selection-end-column="72" />
         </state>
       </provider>
     </entry>
@@ -564,13 +562,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp_flask/app/shop.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -654,7 +645,7 @@
         <state relative-caret-position="204">
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -765,28 +756,90 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/consumer/web_requests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2750">
-          <caret line="141" column="25" lean-forward="false" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+        <state relative-caret-position="370">
+          <caret line="66" column="35" lean-forward="false" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="194" />
           <folding>
             <element signature="e#144#181#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file:///anaconda3/lib/python3.6/site-packages/Cython/Compiler/Code.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3198">
+          <caret line="661" column="8" lean-forward="false" selection-start-line="661" selection-start-column="8" selection-end-line="661" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp_flask/app/routes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="32" column="31" lean-forward="false" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/shop.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="701">
+          <caret line="311" column="0" lean-forward="true" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#2;n#div#1;n#body#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="26" lean-forward="false" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp_flask/app/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp_flask/app/shop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="15" lean-forward="true" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/webapp_flask/app/DAO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="55" column="26" lean-forward="false" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
+        <state relative-caret-position="518">
+          <caret line="137" column="40" lean-forward="false" selection-start-line="137" selection-start-column="27" selection-end-line="137" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/consumer/web_requests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2750">
+          <caret line="141" column="25" lean-forward="false" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
           <folding />
         </state>
       </provider>

@@ -165,11 +165,10 @@ def get_all_labels():
 
     sql_get_all_labels = """
 
-        SELECT l.label_name, l.parent_name,l.image_count, l.updated_date, (SELECT image_thumbnail_object_key FROM images WHERE label_name in (l.label_name) ORDER BY random() LIMIT 1 ) AS sample_image
+        SELECT l.label_name, l.parent_name,l.image_count, l.updated_date, (SELECT image_thumbnail_object_key FROM images WHERE label_name in (l.label_name) LIMIT 1 ) AS sample_image
         FROM labels AS l
         WHERE l.image_count > 0
         ORDER BY l.label_name ; 
-
 
 	
     """
