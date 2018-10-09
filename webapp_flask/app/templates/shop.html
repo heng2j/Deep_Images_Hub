@@ -302,7 +302,15 @@
                         {% for label in all_labels %}
 
 
-                          <div class="filterDiv {{ label.parent_name }}"  style="background-image: url({{ label.sample_image }}); background-repeat: no-repeat;background-position: center; height:100 px; width:100 px;" >{{ label.label_name }}</div>
+                          <div class="filterDiv {{ label.parent_name }}"  style="background-image: url({{ label.sample_image }}); background-repeat: no-repeat;background-position: center; height:100 px; width:100 px;" >
+
+
+                              {{ label.label_name }}
+
+                              <p style="color:white;">{{ label.image_count }}</p>
+
+
+                          </div>
 
 
                         {% endfor %}
