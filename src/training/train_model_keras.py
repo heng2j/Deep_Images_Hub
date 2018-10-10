@@ -320,32 +320,37 @@ if __name__ == '__main__':
                                         kerasOptimizer='adam',
                                         kerasLoss='categorical_crossentropy',
                                         modelFile='/tmp/model-full-tmp.h5')
+
+    from pyspark.ml.evaluation import BinaryClassificationEvaluator
+    from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
+
+    paramGrid = (
+        ParamGridBuilder()
+            .addGrid(estimator.kerasFitParams, [{"batch_size": 16, "verbose": 0},
+                                                {"batch_size": 16, "verbose": 0}])
+            .build()
+    )
+    mc = BinaryClassificationEvaluator(rawPredictionCol="prediction", labelCol="label")
+    cv = CrossValidator(estimator=estimator, estimatorParamMaps=paramGrid, evaluator=mc, numFolds=2)
+
+    cvModel = cv.fit(train_df)
+    mc.evaluate(cvModel.transform(test_df))
+
+
+
+    # stringIndexer = StringIndexer(inputCol="label_name", outputCol="categoryIndex")
+    # indexed_dateset = stringIndexer.fit(train_df).transform(train_df)
     #
-    # from pyspark.ml.evaluation import BinaryClassificationEvaluator
-    # from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
     #
-    # paramGrid = (
-    #     ParamGridBuilder()
-    #         .addGrid(estimator.kerasFitParams, [{"batch_size": 16, "verbose": 0},
-    #                                             {"batch_size": 16, "verbose": 0}])
-    #         .build()
-    # )
-    # mc = BinaryClassificationEvaluator(rawPredictionCol="prediction", labelCol="label")
-    # cv = CrossValidator(estimator=estimator, estimatorParamMaps=paramGrid, evaluator=mc, numFolds=2)
+    # # encoder = OneHotEncoder(inputCol="categoryIndex", outputCol="categoryVec")
     #
-
-
-
-    stringIndexer = StringIndexer(inputCol="label_name", outputCol="categoryIndex")
-    indexed_dateset = stringIndexer.fit(train_df).transform(train_df)
-
-
-    # encoder = OneHotEncoder(inputCol="categoryIndex", outputCol="categoryVec")
-
-    encoder = OneHotEncoderEstimator(inputCols=["categoryIndex"], outputCols=["categoryVec"])
-
-    encoder_model = encoder.fit(indexed_dateset)
-
-    image_dataset = encoder_model.transform(indexed_dateset)
-
-    transformers = estimator.fit(image_dataset)
+    # encoder = OneHotEncoderEstimator(inputCols=["categoryIndex"], outputCols=["categoryVec"])
+    #
+    # encoder_model = encoder.fit(indexed_dateset)
+    #
+    # image_dataset = encoder_model.transform(indexed_dateset)
+    #
+    # image_dataset.show()
+    #
+    #
+    # transformers = estimator.fit(image_dataset)
