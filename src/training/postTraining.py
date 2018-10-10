@@ -98,7 +98,7 @@ def upload_files(path,des_prefix):
             with open(full_path, 'rb') as data:
                 if not '.DS_Store' in full_path:
                     print("Putting file ", des_prefix + full_path[len(path) + 1:])
-                    bucket.put_object(Key=des_prefix+full_path[len(path) + 1:], Body=data)
+                    bucket.put_object(Key=des_prefix+full_path[len(path) + 1:], Body=data, ACL='public-read')
 
 def copy_training_results_to_S3(user_id,model_id,source_path,des_prefix,user_des_prefix):
 

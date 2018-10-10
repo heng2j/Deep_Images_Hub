@@ -217,17 +217,22 @@ def CreateTrainImageUriandLabels(image_uris, label, label_name, cardinality, isD
 # dbfs_model_full_path = 'dbfs:/models/model-full.h5'
 # dbutils.fs.cp('file:/tmp/model-full.h5', dbfs_model_full_path)
 
+from PIL import Image
 
-import PIL.Image
+import requests
+from io import BytesIO
 from keras.applications.imagenet_utils import preprocess_input
 from keras_preprocessing import image
 
 def load_image_from_uri(local_uri):
 
-  img = (get_image_array_from_S3_file(local_uri))
-  img_arr = np.array(img).astype(np.float32)
-  img_tnsr = preprocess_input(img_arr[np.newaxis, :])
-  return img_tnsr
+    response = requests.get(local_uri)
+    img = Image.open(BytesIO(response.content).convert('RGB').resize((299, 299), Image.ANTIALIAS))
+
+
+    img_arr = np.array(img).astype(np.float32)
+    img_tnsr = preprocess_input(img_arr[np.newaxis, :])
+    return img_tnsr
 
 
 
