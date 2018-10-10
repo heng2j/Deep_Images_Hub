@@ -24,4 +24,3 @@ producer_distributed.py \
 --src_type "test"  \
 --des_bucket_name "insight-deep-images-hub" \
 --source_file "/home/ubuntu/sample.txt"
-

@@ -67,7 +67,7 @@ def config(filename=projectPath+database_ini_file_path, section='postgresql'):
 
 
 
-def save_results_to_db(request_number,save_path,final_acc,final_val_acc,final_loss,final_val_loss,summary_note):
+def save_results_to_db(request_number,final_acc,final_val_acc,final_loss,final_val_loss,summary_note):
 
 
 
@@ -78,7 +78,6 @@ def save_results_to_db(request_number,save_path,final_acc,final_val_acc,final_lo
  	final_validation_accuracy = %s,
 	final_loss = %s,
 	final_validation_loss = %s,								  
-    saved_model_path = %s,
 	creation_date	= %s,
 	note = %s			  
     WHERE model_id = %s;								  
@@ -103,7 +102,7 @@ def save_results_to_db(request_number,save_path,final_acc,final_val_acc,final_lo
 		# writing image info into the database
 		# execute a statement
 		print('writing image batch info into the database...')
-		cur.execute(sql,(final_acc,final_val_acc,final_loss,final_val_loss,save_path,datetime.datetime.now(),summary_note,request_number))
+		cur.execute(sql,(final_acc,final_val_acc,final_loss,final_val_loss,datetime.datetime.now(),summary_note,request_number))
 
 		# commit the changes to the database
 		conn.commit()
@@ -220,10 +219,6 @@ print("Final Validation Loss: ", final_val_loss)
 
 # save results to DB
 
-save_path = "insight-deep-images-hub/trained_model/" + datetime.datetime.today().strftime('%Y-%m-%d') + '/' + args["model"].split('/')[-1]
-
-print(save_path)
-
 summary_note = ""
 
 if final_acc < 0.85:
@@ -232,7 +227,7 @@ else:
 	summary_note = "Final accuracy is above threshold 0.85. This model can be a good baseline model"
 
 
-save_results_to_db(args["training_request_number"],save_path,final_acc,final_val_acc,final_loss,final_val_loss,summary_note)
+save_results_to_db(args["training_request_number"],final_acc,final_val_acc,final_loss,final_val_loss,summary_note)
 
 
 
@@ -264,3 +259,8 @@ plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend(loc="upper left")
 plt.savefig(args["plot"])
+
+
+# delete tmp dataset
+import shutil
+shutil.rmtree("/tmp/Deep_image_hub_Model_Training/dataset")

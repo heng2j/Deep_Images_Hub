@@ -137,7 +137,7 @@ def get_images_urls(label_list):
 
         for i, label_name in enumerate(label_list):
 
-            sql = "SELECT full_hadoop_path FROM images WHERE label_name =  %s ;"
+            sql = "SELECT image_thumbnail_object_key FROM images WHERE label_name =  %s ;"
 
             cur.execute(sql,(label_name,))
 

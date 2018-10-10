@@ -42,23 +42,16 @@ from psycopg2 import extras
 from geopy.geocoders import Nominatim
 import datetime
 import random
-# from geojson import Point
-# import geojson
 from os.path import dirname as up
 
 
 
 import logging
-# import keras
-# from keras_preprocessing import image
 import time
 import os
 import io
 import numpy as np
-# from keras.applications.imagenet_utils import preprocess_input
-# from keras.preprocessing import image
-# from keras.applications.vgg16 import VGG16
-# from keras.models import Model
+
 from os.path import dirname as up
 # from resizeimage import resizeimage
 
@@ -80,14 +73,6 @@ from pyspark.conf import SparkConf
 
 
 
-#
-#
-# from data_preprocessor import preprocessor load_headless_pretrained_model
-#
-#
-#
-# model = load_headless_pretrained_model()
-
 
 """
 Commonly Shared Statics
@@ -95,7 +80,7 @@ Commonly Shared Statics
 """
 
 
-sc = SparkContext(conf=SparkConf().setAppName("training inception model with user selected labels"))
+sc = SparkContext(conf=SparkConf().setAppName("Build initial Imges dataset"))
 executors = sc._conf.get("spark.executor.instances")
 num_executors = int(executors) if executors is not None else 1
 
@@ -103,11 +88,11 @@ sqlContext = SQLContext(sc)
 
 
 # Set up project path
-projectPath = os.getcwd()
+projectPath = up(up(os.getcwd()))
 
 s3_bucket_name = "s3://insight-data-images/"
 
-database_ini_file_path = "/Deep_Images_Hub/utilities/database/database.ini"
+database_ini_file_path = "/utilities/database/database.ini"
 
 print("projectPath+database_ini_file_path: ", projectPath + database_ini_file_path)
 
@@ -116,52 +101,12 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-"""
 
-Need to be moved to be moduleize
+lon_list = [-73.935242,-74.005974,-73.989879,-73.984058,-122.419454,-122.470988,-122.448507]
 
-
-"""
+lat_list = [40.730610,40.712776,40.734504,40.693165,37.780579,37.758063,37.791922]
 
 
-# def load_headless_pretrained_model():
-#     """
-#     Loads the pretrained version of VGG with the last layer cut off
-#     :return: pre-trained headless VGG16 Keras Model
-#     """
-#     pretrained_vgg16 = VGG16(weights='imagenet', include_top=True)
-#     model = Model(inputs=pretrained_vgg16.input,
-#                   outputs=pretrained_vgg16.get_layer('fc2').output)
-#     return model
-
-
-# def generate_features(numpy_arrays, model):
-#     """
-#     Takes in an array of image paths, and a trained model.
-#     Returns the activations of the last layer for each image
-#     :param image_paths: array of image paths
-#     :param model: pre-trained model
-#     :return: array of last-layer activations, and mapping from array_index to file_path
-#     """
-#     start = time.time()
-#     images = np.zeros(shape=(len(numpy_arrays), 224, 224, 3))
-#     file_mapping = {i: f for i, f in enumerate(numpy_arrays)}
-#
-#     # We load all our dataset in memory because it is relatively small
-#     for i, img in enumerate(numpy_arrays):
-#         # img = image.load_img(f, target_size=(224, 224))
-#
-#         x_raw = image.img_to_array(img)
-#         x_expand = np.expand_dims(x_raw, axis=0)
-#         images[i, :, :, :] = x_expand
-#
-#     logger.info("%s images loaded" % len(images))
-#     inputs = preprocess_input(images)
-#     logger.info("Images preprocessed")
-#     images_features = model.predict(inputs)
-#     end = time.time()
-#     logger.info("Inference done, %s Generation time" % (end - start))
-#     return images_features, file_mapping
 
 
 
@@ -507,8 +452,9 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 
 
 
-def import_images_from_source(bucket, prefix, destination_prefix, image_info):
+def import_images_from_source(bucket, prefix, destination_prefix, image_info,new_keys,new_thumbnail_keys,images_in_numpy_arrays):
 
+    image_counter = 0
 
 
     for obj in bucket.objects.filter(Prefix=prefix).all():
@@ -545,7 +491,7 @@ def import_images_from_source(bucket, prefix, destination_prefix, image_info):
             new_obj.copy(old_source)
 
 
-            global new_keys
+
             new_keys.append(new_key)
 
 
@@ -555,7 +501,7 @@ def import_images_from_source(bucket, prefix, destination_prefix, image_info):
                                       "data/images/thumbnail" + destination_prefix + "/" + image_info['final_label_name'] + "/")
 
             thumbnail_path = "https://s3.amazonaws.com/insight-deep-images-hub/" + new_thumbnail_key
-            global new_thumbnail_keys
+
             new_thumbnail_keys.append(thumbnail_path)
 
             s3 = boto3.client('s3')
@@ -568,15 +514,13 @@ def import_images_from_source(bucket, prefix, destination_prefix, image_info):
 
 
             # increase image_counter by 1
-            global image_counter
             image_counter+=1
 
-            # append image numpy arrays
-            global images_in_numpy_arrays
-            images_in_numpy_arrays.append(img)
+            # # append image numpy arrays
+            # images_in_numpy_arrays.append(img)
 
 
-
+    return image_counter
 
 
 
@@ -688,6 +632,110 @@ def create_spark_dataframe_from_list(label_list):
 
 
 
+
+
+def process_label(label_name):
+
+    random_index = random.randint(0,5)
+    user_id = random.randint(1,5)
+
+    lon = lon_list[random_index]
+    lat = lat_list[random_index]
+
+    # Set up geo points with geojson
+    geo_point = (lon,lat)
+
+
+
+    print("Current label: ", label_name)
+
+    # Variables
+    final_label_name = ""
+    parent_labels = []
+
+    # Verifying Label if exist
+    isLabel = verify_label(label_name)
+
+    if isLabel == False:
+        print("Sorry the supplying label doesn't exist in database")
+        return None
+
+
+    final_label_name = label_name
+    print("final_label_name: ", final_label_name)
+
+
+    # Setting up the path for the prefix to save the images to the S3 bucket
+    parent_labels = getParent_labels(label_name)
+    destination_prefix = construct_bucket_prefix(parent_labels)
+
+
+    # Analyzing geo info
+    lon,lat = generate_random_geo_point(lon,lat)
+
+    place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
+
+
+    image_info = { "destination_bucket" : des_bucket_name,
+                   "destination_prefix" : destination_prefix,
+                   "final_label_name" : final_label_name,
+                   "user_id"    : user_id,
+                   "place_id"   : place_id,
+                   "geo_licence"   : geo_licence,
+                   "postcode"   : postcode,
+                   "neighbourhood" : neighbourhood,
+                   "city" : city,
+                   "country" : country,
+                   "geo_point" : geo_point,
+                   "lon" : lon,
+                   "lat" : lat
+
+    }
+
+
+
+    # Insert geoinfo into database if place_id is not already exist
+    writeGeoinfo_into_DB(image_info)
+
+
+    # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
+    new_keys = []
+
+    # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
+    new_thumbnail_keys = []
+
+
+    # Initiate an empty list of numpy array representation the images
+    images_in_numpy_arrays = []
+
+    # # Initiate image_counter
+    # image_counter = 0
+
+    # Processing images
+    image_counter = import_images_from_source(bucket, prefix + label_name + '/' , destination_prefix, image_info ,new_keys,new_thumbnail_keys,images_in_numpy_arrays)
+
+    print("Added "+ str(image_counter) + " images.")
+    image_info['image_counter'] = image_counter
+
+
+    # # Load Model and generate vector representation of images
+    # model = load_headless_pretrained_model()
+    # images_features = generate_features(images_in_numpy_arrays, model)
+
+
+    batch_id = generate_new_batch_id(user_id, place_id,image_counter)
+
+    print("batch_id:", batch_id)
+
+    image_info['batch_id'] = batch_id
+
+
+    # Bulk upload image info to database
+    # write_imageinfo_to_DB(new_keys,images_features[0], image_info)
+    write_imageinfo_to_DB(new_keys,new_thumbnail_keys,  None, image_info)
+
+
+
 if __name__ == '__main__':
 
     # Set up argument parser
@@ -699,8 +747,6 @@ if __name__ == '__main__':
     parser.add_argument("-sf", "--source_file", help="source labels file path", required=True)
 
 
-
-
     args = parser.parse_args()
 
     # Assign input, output files and number of lines variables from command line arguments
@@ -708,37 +754,6 @@ if __name__ == '__main__':
     des_bucket_name = args.des_bucket_name
 
     src_type = args.src_type
-
-    lon = float(args.lon)
-    lat = float(args.lat)
-
-
-    # prefix = args.src_prefix  + src_type + '/' + label_name + '/'
-    prefix = args.src_prefix + src_type + '/'
-
-    source_file_path = args.source_file
-
-
-    label_list = []
-
-    with open(source_file_path) as file:
-        label_list.append(file.readline())
-
-
-    labels_sdf = create_spark_dataframe_from_list(label_list)
-
-    labels_sdf.show()
-
-
-    labels_sdf = labels_sdf.repartition(100)
-
-
-
-
-    # Set up geo points with geojson
-    geo_point = (lon,lat)
-
-
 
     # From
     s3 = boto3.resource('s3', region_name='us-east-1')
@@ -751,96 +766,44 @@ if __name__ == '__main__':
 
 
 
+    # prefix = args.src_prefix  + src_type + '/' + label_name + '/'
+    prefix = args.src_prefix + src_type + '/'
+
+    source_file_path = args.source_file
+
+    label_list = []
+
+    from pathlib import Path
+
+    path = Path(source_file_path)
+
+    with path.open() as f:
+        label_list = list(f)
+
+    #
+    # with open(source_file_path) as file:
+    #     for i, line in enumerate(file):
+    #         label_list.append(file.readlines())
+
+    print("label_list: ", label_list)
+    labels_sdf = create_spark_dataframe_from_list(label_list)
+
+    labels_sdf.show()
 
 
-    # # Variables
-    # final_label_name = ""
-    # parent_labels = []
+    labels_sdf = labels_sdf.repartition(100)
     #
-    # # Verifying Label if exist
-    # isLabel = verify_label(label_name)
-    #
-    # if isLabel == False:
-    #     print("Sorry the supplying label doesn't exist in database")
-    #     exit()
-    #
-    #
-    # final_label_name = label_name
-    # print("final_label_name: ", final_label_name)
-    #
-    #
-    # # Setting up the path for the prefix to save the images to the S3 bucket
-    # parent_labels = getParent_labels(label_name)
-    # destination_prefix = construct_bucket_prefix(parent_labels)
-    #
-    #
-    # # Analyzing geo info
-    # lon,lat = generate_random_geo_point(lon,lat)
-    #
-    # place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
-    #
-    #
-    # image_info = { "destination_bucket" : des_bucket_name,
-    #                "destination_prefix" : destination_prefix,
-    #                "final_label_name" : final_label_name,
-    #                "user_id"    : user_id,
-    #                "place_id"   : place_id,
-    #                "geo_licence"   : geo_licence,
-    #                "postcode"   : postcode,
-    #                "neighbourhood" : neighbourhood,
-    #                "city" : city,
-    #                "country" : country,
-    #                "geo_point" : geo_point,
-    #                "lon" : lon,
-    #                "lat" : lat
-    #
-    # }
-    #
-    #
-    #
-    # # Insert geoinfo into database if place_id is not already exist
-    # writeGeoinfo_into_DB(image_info)
-    #
-    #
-    # # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
-    # new_keys = []
-    #
-    # # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
-    # new_thumbnail_keys = []
-    #
-    #
-    # # Initiate an empty list of numpy array representation the images
-    # images_in_numpy_arrays = []
-    #
-    # # Initiate image_counter
-    # image_counter = 0
-    #
-    # # Processing images
-    # import_images_from_source(bucket, prefix, destination_prefix, image_info)
-    #
-    # print("Added "+ str(image_counter) + " images.")
-    # image_info['image_counter'] = image_counter
-    #
-    #
-    # # # Load Model and generate vector representation of images
-    # # model = load_headless_pretrained_model()
-    # # images_features = generate_features(images_in_numpy_arrays, model)
-    #
-    #
-    # batch_id = generate_new_batch_id(user_id, place_id,image_counter)
-    #
-    # print("batch_id:", batch_id)
-    #
-    # image_info['batch_id'] = batch_id
-    #
-    #
-    #
-    # # Bulk upload image info to database
-    # # write_imageinfo_to_DB(new_keys,images_features[0], image_info)
-    # write_imageinfo_to_DB(new_keys,new_thumbnail_keys,  None, image_info)
-    #
-    #
-    #
+    # labels_sdf.rdd.map(process_label)
+
+    for row in labels_sdf.rdd.collect():
+        print("row: ", row.label.strip())
+        process_label(row.label.strip())
+
+
+
+
+
+
 
 
 
