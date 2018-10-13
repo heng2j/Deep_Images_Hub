@@ -70,7 +70,7 @@ Deep learning is increasingly adopted by the big data and data science community
 
 <hr/>
 
-#### Database Schema
+#### Data Modeling and Database Schema
 
 ![Alt text](README_images/Database%20Schema.png?raw=true "Databae Schema")
 
