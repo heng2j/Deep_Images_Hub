@@ -23,6 +23,10 @@ The performance of Computer Vision is now closest to human eyes thanks to the re
 
 The major bottleneck is lack of image dataset to train CV models.To train a good quality computer vision model required a lot of image data. For example if a we want to train a computer vision model to recognize this Lemon Flavor of LaCroix Sparkling Water. The data scientist will need approximately 1000+ images of the sparkling water under all kind of lighting and background environment. The problem is, where can the we find these many of images? Even the internet does have these many of images of the same product.
 
+
+![Alt text](README_images/problem_statement.png?raw=true "Problem Statement")
+
+
 Can’t imagine to train a model to recognize different soft drinks on the market. 
 
 Without image datasets, model can’t be train and new business can’t be create. As a data engineer with a heart of an entrepreneur. I spotted this problem and try to come up with a solution with Deep Images Hub. 
