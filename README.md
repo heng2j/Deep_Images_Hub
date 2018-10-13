@@ -17,20 +17,19 @@ This project create a platform to automatically verify, preprocess and orangize 
 
 #### Motivation
 
-![Alt text](README_images/MealPic_App_at_NYC_Media_Lab_Summit_2017_Demo%20(1).gif?raw=true "MealPic App at NYC Media Lab Summit 2017 Demo")
+![Alt text](README_images/Motivation_2.png?raw=true "Motivation")
 
-![Alt text](README_images/Motivation_1.png?raw=true "Motivation")
+The performance of Computer Vision is now closest to human eyes thanks to the recent achievements from computer vision researchers. At the same time, the demands for Computer Vision is all time high. Especially for classifying and recognizing consumer products since it can create new business use cases and opportunities for IoT, mobile apps and Augmented Reality companies. But how come, computer Vision is still not a household name? 
 
-Deep Images Hub. It is a platform that inspired by my previous venture MealPic. MealPic was a startup to try to use computer vision, augmented reality and personalized recommendation to help pregnant women to identify packaged food that meet both their craving and personal health. During our customer discovery and market researching, we discovered that consumer products and services use cases for using computer vision to recognize objects on mobile and IoT is on great demands. Even Amazon is trying to tap into this market by pushing their AWS Deeplens with their cloud services.
+The major bottleneck is lack of image dataset to train CV models.To train a good quality computer vision model required a lot of image data. For example if a we want to train a computer vision model to recognize this Lemon Flavor of LaCroix Sparkling Water. The data scientist will need approximately 1000+ images of the sparkling water under all kind of lighting and background environment. The problem is, where can the we find these many of images? Even the internet does have these many of images of the same product.
 
+Can’t imagine to train a model to recognize different soft drinks on the market. 
 
-However, in order to train a computer vision model that can correctly recognize the object under all kind of condition of lighting and background environment, we need a large volume of diversified images for a single object. So for computer vision startups like MealPic we just couldn't afford the resources to collect all kind of images for different objects.
+Without image datasets, model can’t be train and new business can’t be create. As a data engineer with a heart of an entrepreneur. I spotted this problem and try to come up with a solution with Deep Images Hub. 
 
-For example, we need many Barack Obama's images to reconize him!
-![Alt text](README_images/Example%20for%20reason%20of%20diversified%20images.jpg?raw=true "For example we need many Barack Obama's images to reconize him")
+Deep Images Hub is the centralized image data hub that provides crowdsourced labeled images from images suppliers to data scientist. Data Scientist can download the images by their choices of labels. 
 
-
-So! I want to create a platform that can artificial the artificial intelligence training process just like Amazon’s Mechanical Turk, and here I am introducing the Deep Images Hub
+Additionally for premium users, they can request to train a baseline model. So Deep Image Hub is the automated platform for computer vision. We envisoned to be the artificial the computer vison platform just like Amazon's Mechanical Turk.
 
 ![Alt text](README_images/Simple%20Platform%20Blueprint.png?raw=true "Motivation")
 
