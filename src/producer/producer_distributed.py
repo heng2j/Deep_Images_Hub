@@ -798,17 +798,3 @@ if __name__ == '__main__':
     for row in labels_sdf.rdd.collect():
         print("row: ", row.label.strip())
         process_label(row.label.strip())
-
-
-
-
-
-
-
-
-
-
-
-
-
-

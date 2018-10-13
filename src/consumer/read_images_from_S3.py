@@ -41,7 +41,8 @@ from pyspark.sql.functions import lit
 from sparkdl.image import imageIO as imageIO
 from sparkdl.image.imageIO import imageArrayToStruct
 
-
+from pyspark.ml.feature import StringIndexer
+from pyspark.ml.feature import OneHotEncoderEstimator
 from pyspark.sql.types import StructType, StructField, IntegerType,StringType,LongType,DoubleType ,FloatType
 import pyspark.sql.types as sptyp
 from pyspark.context import SparkContext

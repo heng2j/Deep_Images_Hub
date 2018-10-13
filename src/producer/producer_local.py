@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python2
+# !/usr/bin/env python2
 # producer.py
 # ---------------
 # Author: Zhongheng Li
@@ -42,38 +42,16 @@ from psycopg2 import extras
 from geopy.geocoders import Nominatim
 import datetime
 import random
-# from geojson import Point
-# import geojson
 from os.path import dirname as up
-
-
 
 import logging
-# import keras
-# from keras_preprocessing import image
-import time
 import os
 import io
-import numpy as np
-# from keras.applications.imagenet_utils import preprocess_input
-# from keras.preprocessing import image
-# from keras.applications.vgg16 import VGG16
-# from keras.models import Model
-from os.path import dirname as up
-# from resizeimage import resizeimage
 
 import PIL
 from PIL import Image
 
 
-
-#
-#
-# from data_preprocessor import preprocessor load_headless_pretrained_model
-#
-#
-#
-# model = load_headless_pretrained_model()
 
 
 """
@@ -90,10 +68,8 @@ database_ini_file_path = "/Deep_Images_Hub/utilities/database/database.ini"
 
 print("projectPath+database_ini_file_path: ", projectPath + database_ini_file_path)
 
-
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
 
 """
 
@@ -101,7 +77,6 @@ Need to be moved to be moduleize
 
 
 """
-
 
 # def load_headless_pretrained_model():
 #     """
@@ -150,7 +125,8 @@ config Database
 
 """
 
-def config(filename=projectPath+database_ini_file_path, section='postgresql'):
+
+def config(filename=projectPath + database_ini_file_path, section='postgresql'):
     # create a parser
     parser = ConfigParser()
     # read config file
@@ -174,13 +150,11 @@ Create Batch ID
 1. Add batch ID 
 
 """
-# TODO
-
-def generate_new_batch_id(user_id,place_id,image_counter):
 
 
+
+def generate_new_batch_id(user_id, place_id, image_counter):
     sql = "INSERT INTO images_batches (user_id, ready, place_id, submitted_count, on_board_date ) VALUES %s RETURNING batch_id;"
-
 
     """ Connect to the PostgreSQL database server """
     conn = None
@@ -195,16 +169,15 @@ def generate_new_batch_id(user_id,place_id,image_counter):
         # create a cursor
         cur = conn.cursor()
 
-        # TODO -  augmented SQL statement
         values_list = []
 
         values = (
-                      user_id,
-                      False,
-                      place_id,
-                      image_counter,
-                      datetime.datetime.now()
-                      )
+            user_id,
+            False,
+            place_id,
+            image_counter,
+            datetime.datetime.now()
+        )
 
         values_list.append(values)
 
@@ -228,8 +201,6 @@ def generate_new_batch_id(user_id,place_id,image_counter):
             print('Database connection closed.')
 
 
-
-
 """
 Analysing Image Label
 
@@ -240,7 +211,6 @@ Analysing Image Label
 2. Is the label 
 
 """
-## TODO
 
 
 def verify_label(label_name):
@@ -257,15 +227,14 @@ def verify_label(label_name):
         # create a cursor
         cur = conn.cursor()
 
-        #TODO -  augmented SQL statement
+        # TODO -  augmented SQL statement
         sql = "SELECT count(label_name)  FROM labels WHERE label_name = %s ;"
-
 
         # verify if label exist in the database
 
         # execute a statement
         print('Verifying if the label existed in the database...')
-        cur.execute(sql,(label_name,))
+        cur.execute(sql, (label_name,))
 
         result_count = cur.fetchone()[0]
 
@@ -301,7 +270,7 @@ def getParent_labels(label_name):
         # create a cursor
         cur = conn.cursor()
 
-        #TODO -  augmented SQL statement
+        # TODO -  augmented SQL statement
         sql = "WITH RECURSIVE labeltree AS ( \
                 SELECT parent_name \
                 FROM labels \
@@ -315,23 +284,20 @@ def getParent_labels(label_name):
                 SELECT * \
                 FROM labeltree;"
 
-
-
         # recursively split out the parent's label one by one to construct the path for the bucket's prefix
         # execute a statement
         print('Recursively getting the labels\' parents...')
-        cur.execute(sql,(label_name,))
+        cur.execute(sql, (label_name,))
 
         row = cur.fetchone()
 
         parent_labels = []
 
         while row is not None:
-            parent_labels.insert(0,row[0])
+            parent_labels.insert(0, row[0])
             row = cur.fetchone()
 
         return parent_labels
-
 
         # close the communication with the PostgreSQL
         cur.close()
@@ -345,7 +311,6 @@ def getParent_labels(label_name):
 
 # Construct the path for the bucket's prefix
 def construct_bucket_prefix(parent_labels):
-
     prefix = ""
 
     for label in parent_labels:
@@ -358,7 +323,6 @@ def construct_bucket_prefix(parent_labels):
 Analysing geoinfo
 
 """
-## TODO
 
 
 """
@@ -373,20 +337,19 @@ Generating geoinfo
     #              'country_code': 'us'}, 'boundingbox': ['40.7362729', '40.7365456', '-73.9340831', '-73.9338454']}
 
 """
-## TODO
 
-def generate_random_geo_point(lon,lat):
 
+def generate_random_geo_point(lon, lat):
     dec_lat = random.random() / 20
     dec_lon = random.random() / 20
 
     new_lon = lon + dec_lon
     new_lat = lat + dec_lat
 
-    return new_lon , new_lat
+    return new_lon, new_lat
 
 
-def getGeoinfo(lon,lat):
+def getGeoinfo(lon, lat):
     geolocator = Nominatim(user_agent="specify_your_app_name_here")
     lat_lon_str = str(lat) + ", " + str(lon)
     print('lat_lon_str: ', lat_lon_str)
@@ -401,7 +364,8 @@ def getGeoinfo(lon,lat):
 
     except KeyError as e:
         print("Can not find this address from Nominatim")
-        return 1, "UNKNOWN", 0 , "UNKNOWN", "UNKNOWN", "UNKNOWN"
+        return 1, "UNKNOWN", 0, "UNKNOWN", "UNKNOWN", "UNKNOWN"
+
 
 def writeGeoinfo_into_DB(image_info):
     """ Connect to the PostgreSQL database server """
@@ -417,41 +381,18 @@ def writeGeoinfo_into_DB(image_info):
         # create a cursor
         cur = conn.cursor()
 
-        #TODO -  augmented SQL statement
+        # TODO -  augmented SQL statement
 
         sql = "INSERT \
                        INTO \
                        places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, geometry, time_added) VALUES \
-                       (" + str(image_info['place_id']) + ", '" + image_info['geo_licence'] + "', " + str(
-            image_info['postcode']) + \
+                       (" + str(image_info['place_id']) + ", '" + image_info['geo_licence'] + \
+              "', " + str(image_info['postcode']) + \
               ", '" + image_info['neighbourhood'] + "', '" + image_info['city'] + \
               "', '" + image_info['country'] + "', " + str(image_info['lon']) + \
-              ", " + str(image_info['lat']) + ", '" + str(image_info['geo_point']) +"', (SELECT NOW()) ) \
+              ", " + str(image_info['lat']) + ", '" + str(image_info['geo_point']) + "', (SELECT NOW()) ) \
                        ON CONFLICT(place_id)\
                        DO NOTHING RETURNING place_id;"
-
-
-        # sql = "INSERT \
-        #         INTO \
-        #         places(place_id, licence, postcode, neighbourhood, city, country, lon, lat, time_added) \
-        #         VALUES (%s) \
-        #         ON CONFLICT(place_id)\
-        #         DO NOTHING RETURNING place_id;"
-        #
-        #
-        # values = (    str(image_info['place_id']),
-        #               image_info['geo_licence'],
-        #               str(image_info['postcode']),
-        #               image_info['neighbourhood'],
-        #               image_info['city'],
-        #               image_info['country'],
-        #               str(image_info['lon']),
-        #               str(image_info['lat']),
-        #               str(datetime.datetime.now()),
-        #
-        #               )
-
-
 
         # Insert geoinfo into database if place_id is not already exist
 
@@ -475,25 +416,15 @@ def writeGeoinfo_into_DB(image_info):
             print('Database connection closed.')
 
 
-
-
-
 """
 Fetch images, *compare image embeddings and put image to the proper folder in the AWS bucket
 
 """
-## TODO
-
-
 
 def import_images_from_source(bucket, prefix, destination_prefix, image_info):
-
-
-
     for obj in bucket.objects.filter(Prefix=prefix).all():
 
         if '.jpg' in obj.key:
-
             # TODO - Processing Images
             # img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299))
 
@@ -513,7 +444,8 @@ def import_images_from_source(bucket, prefix, destination_prefix, image_info):
             old_source = {'Bucket': 'insight-data-images',
                           'Key': obj.key}
 
-            new_key = obj.key.replace(prefix, "data/images" + destination_prefix + "/" + image_info['final_label_name'] + "/")
+            new_key = obj.key.replace(prefix,
+                                      "data/images" + destination_prefix + "/" + image_info['final_label_name'] + "/")
 
             filename = new_key.split('/')[-1].split('.')[0]
 
@@ -523,57 +455,42 @@ def import_images_from_source(bucket, prefix, destination_prefix, image_info):
             new_obj = new_bucket.Object(new_key)
             new_obj.copy(old_source)
 
-
             global new_keys
             new_keys.append(new_key)
-
 
             # Create thumbnails for Web
 
             new_thumbnail_key = obj.key.replace(prefix,
-                                      "data/images/thumbnail" + destination_prefix + "/" + image_info['final_label_name'] + "/")
+                                                "data/images/thumbnail" + destination_prefix + "/" + image_info[
+                                                    'final_label_name'] + "/")
 
             thumbnail_path = "https://s3.amazonaws.com/insight-deep-images-hub/" + new_thumbnail_key
             global new_thumbnail_keys
             new_thumbnail_keys.append(thumbnail_path)
 
             s3 = boto3.client('s3')
-            s3.put_object(Body=in_mem_file.getvalue(), Bucket=des_bucket_name, Key=new_thumbnail_key, ContentType='image/jpeg', ACL='public-read')
-
-
-
-
-
-
+            s3.put_object(Body=in_mem_file.getvalue(), Bucket=des_bucket_name, Key=new_thumbnail_key,
+                          ContentType='image/jpeg', ACL='public-read')
 
             # increase image_counter by 1
             global image_counter
-            image_counter+=1
+            image_counter += 1
 
             # append image numpy arrays
             global images_in_numpy_arrays
             images_in_numpy_arrays.append(img)
 
 
-
-
-
-
-
 """
 Save metadata in DB
 
 """
-## TODO
 
 def write_imageinfo_to_DB(obj_keys, thumbnail_keys, images_features, image_info):
-
-
     sql_images_insert = """ INSERT INTO \
      images(image_object_key,image_thumbnail_object_key, bucket_name, full_hadoop_path, parent_labels, label_name, batch_id, submission_time, user_id, place_id, image_index, embeddings, verified)\
      VALUES %s
      """
-
 
     """ Connect to the PostgreSQL database server """
     conn = None
@@ -588,7 +505,6 @@ def write_imageinfo_to_DB(obj_keys, thumbnail_keys, images_features, image_info)
         # create a cursor
         cur = conn.cursor()
 
-
         # update label's count TODO - No need to update count at the moment Update when verified
         print('Updating the image counts for the label: ', image_info['final_label_name'])
 
@@ -601,12 +517,9 @@ def write_imageinfo_to_DB(obj_keys, thumbnail_keys, images_features, image_info)
             str(image_info['image_counter']),
             image_info['final_label_name']
 
-        ,)
+            ,)
 
-
-
-        cur.execute(sql_update_counts_on_label,values)
-
+        cur.execute(sql_update_counts_on_label, values)
 
         # writing image info into the database
         # execute a statement
@@ -619,25 +532,23 @@ def write_imageinfo_to_DB(obj_keys, thumbnail_keys, images_features, image_info)
         s3a_prefix = 's3a://'
 
         for i, obj_key in enumerate(obj_keys):
-
             values = (obj_key,
-              thumbnail_keys[i],
-              image_info['destination_bucket'],
-              s3a_prefix + image_info['destination_bucket'] + '/' + obj_key,
-              image_info['destination_prefix'],
-              image_info['final_label_name'],
-              image_info['batch_id'],
-              datetime.datetime.now(),
-              image_info['user_id'],
-              image_info['place_id'],
-              None,
-              # images_features[i].astype(float).tolist(),
-              None,
-              True # TODO -- For now with out batch filtering
-              )
+                      thumbnail_keys[i],
+                      image_info['destination_bucket'],
+                      s3a_prefix + image_info['destination_bucket'] + '/' + obj_key,
+                      image_info['destination_prefix'],
+                      image_info['final_label_name'],
+                      image_info['batch_id'],
+                      datetime.datetime.now(),
+                      image_info['user_id'],
+                      image_info['place_id'],
+                      None,
+                      # images_features[i].astype(float).tolist(),
+                      None,
+                      True  # TODO -- For now with out batch filtering
+                      )
 
             values_list.append(values)
-
 
         psycopg2.extras.execute_values(cur, sql_images_insert, values_list)
         # commit the changes to the database
@@ -653,21 +564,19 @@ def write_imageinfo_to_DB(obj_keys, thumbnail_keys, images_features, image_info)
             print('Database connection closed.')
 
 
-
 if __name__ == '__main__':
 
     # Set up argument parser
     parser = ArgumentParser()
     parser.add_argument("-src_b", "--src_bucket_name", help="Source S3 bucket name", required=True)
     parser.add_argument("-src_p", "--src_prefix", help="Source S3 folder prefix", required=True)
-    parser.add_argument("-src_t", "--src_type", help="From train, test or validation folder *Not needed for production for phone submission")
+    parser.add_argument("-src_t", "--src_type",
+                        help="From train, test or validation folder *Not needed for production for phone submission")
     parser.add_argument("-des_b", "--des_bucket_name", help="Destination S3 bucket name", required=True)
     parser.add_argument("-l", "--label_name", help="images label", required=True)
     parser.add_argument("-lon", "--lon", help="longitude", required=True)
     parser.add_argument("-lat", "--lat", help="latitude", required=True)
     parser.add_argument("-uid", "--user_id", help="supplier user id", required=True)
-
-
 
     args = parser.parse_args()
 
@@ -681,23 +590,18 @@ if __name__ == '__main__':
     lon = float(args.lon)
     lat = float(args.lat)
     user_id = args.user_id
-    prefix = args.src_prefix  + src_type + '/' + label_name + '/'
-
+    prefix = args.src_prefix + src_type + '/' + label_name + '/'
 
     # Set up geo points with geojson
-    geo_point = (lon,lat)
-
-
+    geo_point = (lon, lat)
 
     # From
     s3 = boto3.resource('s3', region_name='us-east-1')
     bucket = s3.Bucket(src_bucket_name)
 
-
     # To
     destination_prefix = ""
     new_bucket = s3.Bucket(des_bucket_name)
-
 
     # Variables
     final_label_name = ""
@@ -710,50 +614,42 @@ if __name__ == '__main__':
         print("Sorry the supplying label doesn't exist in database")
         exit()
 
-
     final_label_name = label_name
     print("final_label_name: ", final_label_name)
-
 
     # Setting up the path for the prefix to save the images to the S3 bucket
     parent_labels = getParent_labels(label_name)
     destination_prefix = construct_bucket_prefix(parent_labels)
 
-
     # Analyzing geo info
-    lon,lat = generate_random_geo_point(lon,lat)
+    lon, lat = generate_random_geo_point(lon, lat)
 
-    place_id, geo_licence, postcode, neighbourhood, city, country  =  getGeoinfo(lon,lat)
+    place_id, geo_licence, postcode, neighbourhood, city, country = getGeoinfo(lon, lat)
 
+    image_info = {"destination_bucket": des_bucket_name,
+                  "destination_prefix": destination_prefix,
+                  "final_label_name": final_label_name,
+                  "user_id": user_id,
+                  "place_id": place_id,
+                  "geo_licence": geo_licence,
+                  "postcode": postcode,
+                  "neighbourhood": neighbourhood,
+                  "city": city,
+                  "country": country,
+                  "geo_point": geo_point,
+                  "lon": lon,
+                  "lat": lat
 
-    image_info = { "destination_bucket" : des_bucket_name,
-                   "destination_prefix" : destination_prefix,
-                   "final_label_name" : final_label_name,
-                   "user_id"    : user_id,
-                   "place_id"   : place_id,
-                   "geo_licence"   : geo_licence,
-                   "postcode"   : postcode,
-                   "neighbourhood" : neighbourhood,
-                   "city" : city,
-                   "country" : country,
-                   "geo_point" : geo_point,
-                   "lon" : lon,
-                   "lat" : lat
-
-    }
-
-
+                  }
 
     # Insert geoinfo into database if place_id is not already exist
     writeGeoinfo_into_DB(image_info)
-
 
     # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
     new_keys = []
 
     # Initiate an empty list of new object keys (as string) of where the image object locate at destinated S3 bucket
     new_thumbnail_keys = []
-
 
     # Initiate an empty list of numpy array representation the images
     images_in_numpy_arrays = []
@@ -764,34 +660,20 @@ if __name__ == '__main__':
     # Processing images
     import_images_from_source(bucket, prefix, destination_prefix, image_info)
 
-    print("Added "+ str(image_counter) + " images.")
+    print("Added " + str(image_counter) + " images.")
     image_info['image_counter'] = image_counter
-
 
     # # Load Model and generate vector representation of images
     # model = load_headless_pretrained_model()
     # images_features = generate_features(images_in_numpy_arrays, model)
 
 
-    batch_id = generate_new_batch_id(user_id, place_id,image_counter)
+    batch_id = generate_new_batch_id(user_id, place_id, image_counter)
 
     print("batch_id:", batch_id)
 
     image_info['batch_id'] = batch_id
 
-
-
     # Bulk upload image info to database
     # write_imageinfo_to_DB(new_keys,images_features[0], image_info)
-    write_imageinfo_to_DB(new_keys,new_thumbnail_keys,  None, image_info)
-
-
-
-
-
-
-
-
-
-
-
+    write_imageinfo_to_DB(new_keys, new_thumbnail_keys, None, image_info)

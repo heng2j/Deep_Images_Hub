@@ -19,4 +19,4 @@ ${SPARK_HOME}/bin/spark-submit \
 --conf spark.executorEnv.JAVA_HOME="$JAVA_HOME" \
 --conf spark.executorEnv.AWS_REGION=${AWS_REGION} \
 --executor-memory 3g \
-train_model_keras.py
+train_model_TF.py

@@ -43,7 +43,6 @@ from os.path import dirname as up
 
 import pandas as pd
 
-
 """
   Commonly Shared Statics
 
@@ -87,8 +86,9 @@ def config(filename=projectPath + database_ini_file_path, section='postgresql'):
 
 """
 
+
 # This upload files in directory to S3 code is referenced from https://www.developerfiles.com/upload-files-to-s3-with-python-keeping-the-original-folder-structure/
-def upload_files(path,des_prefix):
+def upload_files(path, des_prefix):
     s3 = boto3.resource('s3', region_name='us-east-1')
     bucket = s3.Bucket(s3_bucket_name)
 
@@ -98,16 +98,16 @@ def upload_files(path,des_prefix):
             with open(full_path, 'rb') as data:
                 if not '.DS_Store' in full_path:
                     print("Putting file ", des_prefix + full_path[len(path) + 1:])
-                    bucket.put_object(Key=des_prefix+full_path[len(path) + 1:], Body=data, ACL='public-read')
+                    bucket.put_object(Key=des_prefix + full_path[len(path) + 1:], Body=data, ACL='public-read')
 
-def copy_training_results_to_S3(user_id,model_id,source_path,des_prefix,user_des_prefix):
 
+def copy_training_results_to_S3(user_id, model_id, source_path, des_prefix, user_des_prefix):
     print("Copying training results to S3...")
     # upload results to model pool
-    upload_files(source_path,des_prefix)
+    upload_files(source_path, des_prefix)
 
     # upload results to user's S3 bucket
-    upload_files(source_path,user_des_prefix)
+    upload_files(source_path, user_des_prefix)
 
 
 def save_results_to_db(request_number, save_path):
@@ -116,7 +116,7 @@ def save_results_to_db(request_number, save_path):
     UPDATE training_records
 	SET 							  
     saved_model_path = %s,
-	creation_date	= %s,			  
+	creation_date	= %s			  
     WHERE model_id = %s;								  
 
 
@@ -156,11 +156,10 @@ def save_results_to_db(request_number, save_path):
 
 
 if __name__ == '__main__':
-
     # Set up argument parser
     parser = ArgumentParser()
     parser.add_argument("-tn", "--training_request_number", required=True,
-                    help="this model training request number")
+                        help="this model training request number")
     parser.add_argument("-uid", "--user_id", help="requester user id", required=True)
 
     args = parser.parse_args()
@@ -173,17 +172,12 @@ if __name__ == '__main__':
 
     user_des_prefix = "user/" + user_id + '/training_results/' + datetime.datetime.today().strftime('%Y-%m-%d') + '/'
 
-
     source_path = '/tmp/Deep_image_hub_Model_Training'
 
-
     copy_training_results_to_S3(user_id, model_id, source_path, des_prefix, user_des_prefix)
-
 
     # Save results to database
     print("Saving results to database...")
     save_results_to_db(model_id, des_prefix)
 
     print("Post training process completed")
-
-

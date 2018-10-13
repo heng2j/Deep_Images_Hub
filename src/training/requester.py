@@ -53,21 +53,16 @@ from __future__ import print_function
 from argparse import ArgumentParser
 from configparser import ConfigParser
 import os
-from io import BytesIO
 import psycopg2
-from psycopg2 import extras
-
-
 from PIL import Image
 import requests
 import shutil
-
-import numpy as np
-from os.path import dirname as up
-
-
+import logging
 import pandas as pd
+import sys
 
+
+log = logging.getLogger(__name__)
 
 """
 Commonly Shared Statics
@@ -144,18 +139,21 @@ def verify_labels(label_list):
         params = config()
 
         # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        # print('Connecting to the PostgreSQL database...')
+        log.info('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
 
-        print('Verifying if the labels existed in the database...')
+        #print('Verifying if the labels existed in the database...')
+        log.info('Verifying if the labels existed in the database...')
         for label_name in label_list:
 
             #TODO -  augmented SQL statement
             sql = "SELECT count(label_name)  FROM labels WHERE label_name = '" + label_name +"' ;"
-            print("sql: ", sql)
+            # print("sql: ", sql)
+            log.info("sql: ", sql)
 
             # verify if label exist in the database
             # execute a statement
@@ -164,10 +162,12 @@ def verify_labels(label_list):
             result_count = cur.fetchone()[0]
 
             if result_count == 1:
-                print("Label " + label_name + " existed")
+                # print("Label " + label_name + " existed")
+                log.info("Label " + label_name + " existed")
 
             else:
-                print("Label '" + label_name +"' doesn't exist")
+                #print("Label '" + label_name +"' doesn't exist")
+                log.info("Label '" + label_name +"' doesn't exist")
                 return False
 
                 # close the communication with the PostgreSQL
@@ -181,7 +181,8 @@ def verify_labels(label_list):
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
+            #print('Database connection closed.')
+            log.info('Database connection closed.')
 
 
 
@@ -199,7 +200,8 @@ def verify_labels_quantities(label_list,user_id):
         params = config()
 
         # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        #print('Connecting to the PostgreSQL database...')
+        log.info('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
 
         # create a cursor
@@ -217,7 +219,9 @@ def verify_labels_quantities(label_list,user_id):
 
 
         # execute a statement
-        print('Getting image urls for requesting labels ...')
+        #print('Getting image urls for requesting labels ...')
+        log.info('Getting image urls for requesting labels ...')
+
         cur.execute(sql,
                     {
                         'values_list': tuple(values_list),
@@ -227,10 +231,13 @@ def verify_labels_quantities(label_list,user_id):
 
         # The returning results are the labels that doesn't have enough images
         if results:
-            print("The following labels does not have enough images:")
-            print(results)
+            #print("The following labels does not have enough images:")
+            log.info("The following labels does not have enough images:")
+            #print(results)
+            log.info(results)
 
-            print("These labels will save into the requesting_label_watchlist table")
+            #print("These labels will save into the requesting_label_watchlist table")
+            log.info("These labels will save into the requesting_label_watchlist table")
 
             # TODO - Save labels into the requesting_label_watchlist table
             save_to_requesting_label_to_watchlist(cur, results, user_id)
@@ -240,17 +247,20 @@ def verify_labels_quantities(label_list,user_id):
 
             # close the communication with the PostgreSQL
             cur.close()
-            print('Database connection closed.')
+            #print('Database connection closed.')
+            log.info('Database connection closed.')
 
             return False
 
 
         else:
-            print("All labels are ready for training :) ")
+            #print("All labels are ready for training :) ")
+            log.info("All labels are ready for training :) ")
 
             # close the communication with the PostgreSQL
             cur.close()
-            print('Database connection closed.')
+            #print('Database connection closed.')
+            log.info('Database connection closed.')
 
             return True
 
@@ -260,7 +270,8 @@ def verify_labels_quantities(label_list,user_id):
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
+            #print('Database connection closed.')
+            log.info('Database connection closed.')
 
 
 
@@ -269,7 +280,8 @@ def verify_labels_quantities(label_list,user_id):
 # Save labels into the requesting_label_watchlist table
 def save_to_requesting_label_to_watchlist(cur, label_list, user_id):
 
-    print('Saving labels into the requesting_label_watchlist table...')
+    #print('Saving labels into the requesting_label_watchlist table...')
+    log.info('Saving labels into the requesting_label_watchlist table...')
     for label_name in label_list:
 
         # TODO -  augmented SQL statement
@@ -281,7 +293,8 @@ def save_to_requesting_label_to_watchlist(cur, label_list, user_id):
         last_requested_userid = " + user_id + " \
         WHERE requesting_label_watchlist.label_name = '" + label_name[0] + "';"
 
-        print("sql: ", sql)
+        #print("sql: ", sql)
+        log.info("sql: ", sql)
 
         # verify if label exist in the database
         # execute a statement
@@ -310,7 +323,8 @@ def get_images_urls(label_list):
         params = config()
 
         # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        # print('Connecting to the PostgreSQL database...')
+        log.info('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
 
         # create a cursor
@@ -324,11 +338,13 @@ def get_images_urls(label_list):
 
 
         print("values_list: ", values_list)
+        log.info("values_list: ", values_list)
 
         sql = "SELECT full_hadoop_path , label_name  FROM images WHERE label_name IN  %(values_list)s ;"
 
         # execute a statement
-        print('Getting image urls for requesting labels ...')
+        #print('Getting image urls for requesting labels ...')
+        log.info('Getting image urls for requesting labels ...')
         cur.execute(sql,
                     {
                         'values_list': tuple(values_list),
@@ -349,7 +365,8 @@ def get_images_urls(label_list):
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
+            #print('Database connection closed.')
+            log.info('Database connection closed.')
 
 
 
@@ -371,7 +388,8 @@ def get_images_urls_as_dataset(label_list):
         params = config()
 
         # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        #print('Connecting to the PostgreSQL database...')
+        log.info('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
 
         # create a cursor
@@ -404,43 +422,8 @@ def get_images_urls_as_dataset(label_list):
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
-
-
-#
-# import PIL.Image
-# # import keras
-# # from keras.applications.imagenet_utils import preprocess_input
-# # from keras_preprocessing import image
-#
-# def load_image_from_uri(local_uri):
-#   img = (get_image_array_from_S3_file(local_uri))
-#   img_arr = np.array(img).astype(np.float32)
-#   img_tnsr = preprocess_input(img_arr[np.newaxis, :])
-#   return img_tnsr
-
-
-
-# # this function will use boto3 on the workers directly to pull the image
-# # and then decode it, all in this function
-# def get_image_array_from_S3_file(image_url):
-#     import boto3
-#     import os
-#
-#     # TODO - will need to implement exceptions handling
-#
-#     s3 = boto3.resource('s3')
-#
-#     # strip off the starting s3a:// from the bucket
-#     bucket_name = os.path.dirname(str(image_url))[6:].split("/", 1)[0]
-#     key = image_url[6:].split("/", 1)[1:][0]
-#
-#     bucket = s3.Bucket(bucket_name)
-#     obj = bucket.Object(key)
-#     img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299, 3))
-#
-#     return img
-
+            # print('Database connection closed.')
+            log.info('Database connection closed.')
 
 
 
@@ -483,7 +466,8 @@ def get_image_counters_for_labels(label_list):
         params = config()
 
         # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        # print('Connecting to the PostgreSQL database...')
+        log.info('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
 
         # create a cursor
@@ -516,7 +500,8 @@ def get_image_counters_for_labels(label_list):
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
+            #print('Database connection closed.')
+            log.info('Database connection closed.')
 
 
 """
@@ -532,12 +517,13 @@ Temp workflow:
 # Invoke model training script to train model in TensorflowOnSpark with the requesting labels
 def invoke_model_training(label_list,user_id):
 
-    print("Invoking model training process...")
-
+    # print("Invoking model training process...")
+    log.info("Invoking model training process...")
 
     import shutil
 
-    print("Removing old training data and model if exist...")
+    #print("Removing old training data and model if exist...")
+    log.info("Removing old training data and model if exist...")
 
     # Remove previous trained data if exist
     if os.path.exists('/tmp/Deep_image_hub_Model_Training/model/'):
@@ -548,16 +534,22 @@ def invoke_model_training(label_list,user_id):
 
 
 
-    print ("Generating the list of urls from requesting lables...")
+    # print ("Generating the list of urls from requesting lables...")
+    log.info("Generating the list of urls from requesting lables...")
+
     labels_urls_list = get_images_urls_as_dataset(label_list)
 
-    print ("Downloading images from url list...")
+    # print ("Downloading images from url list...")
+    log.info("Downloading images from url list...")
+
     download_image_dataset_from_image_urls(labels_urls_list)
 
-    print ("Download Completed")
+    # print ("Download Completed")
+    log.info("Download Completed")
 
 
-    print("Inserting traiing records in database...")
+    # print("Inserting traiing records in database...")
+    log.info("Inserting traiing records in database...")
 
 
     sql = """
@@ -591,7 +583,9 @@ def invoke_model_training(label_list,user_id):
         params = config()
 
         # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        # print('Connecting to the PostgreSQL database...')
+        log.info('Connecting to the PostgreSQL database...')
+
         conn = psycopg2.connect(**params)
 
         # create a cursor
@@ -614,7 +608,8 @@ def invoke_model_training(label_list,user_id):
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
+            #print('Database connection closed.')
+            log.info('Database connection closed.')
 
 
 
@@ -622,60 +617,28 @@ if __name__ == '__main__':
 
     # Set up argument parser
     parser = ArgumentParser()
-    parser.add_argument("-des_b", "--des_bucket_name", help="Destination S3 bucket name", required=True)
-    parser.add_argument("-des_p", "--des_prefix", help="Destination S3 folder prefix", required=True)
     parser.add_argument("-l", "--label_List", nargs='+', help="images label", required=True)
     parser.add_argument("-uid", "--user_id", help="requester user id", required=True)
 
     args = parser.parse_args()
 
-    # Assign input, output files and number of lines variables from command line arguments
-    des_bucket_name = args.des_bucket_name
-    prefix = args.des_prefix
     label_list = args.label_List
     user_id = args.user_id
 
     label_cardinality = len(label_list)
 
-
-    user_info = { "destination_bucket" : des_bucket_name,
-                   "destination_prefix" : prefix,
-                   "user_id"    : user_id
-
-
-    }
-
-
-
     # Verify if the labels are existed in the Database
     if not verify_labels(label_list):
         exit()
-
-
-
 
     # Verify if all the requesting labels are having enough images to train.
     if not verify_labels_quantities(label_list,user_id):
         exit()
 
 
-    invoke_model_training(label_list, user_id)
+    model_id = invoke_model_training(label_list, user_id)
 
-    # image_urls_df = get_images_urls(label_list)
-    #
-    # filePath = image_urls_df.image_url[0]
-    #
-    #
-    # # strip off the starting s3a:// from the bucket
-    # bucket = os.path.dirname(str(filePath))[6:].split("/", 1)[0]
-    # key = os.path.basename(str(filePath))
-    # path  = filePath[6:].split("/", 1)[1:][0]
-    #
-    #
-    # print(bucket)
-    # print(key)
-    # print(path)
-
+    sys.exit(model_id)
 
 
 
