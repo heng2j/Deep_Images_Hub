@@ -33,12 +33,11 @@ Commonly Shared Statics
 """
 
 # Set up project path
-# projectPath = up(up(up(os.getcwd())))
 projectPath = os.getcwd()
 
-s3_bucket_name = "s3://insight-data-images/"
+s3_bucket_name = "insight-deep-images-hub"
 
-database_ini_file_path = "/Deep_Images_Hub/utilities/database/database.ini"
+database_ini_file_path = "/utilities/database/database.ini"
 
 
 

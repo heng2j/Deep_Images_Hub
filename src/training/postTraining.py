@@ -54,7 +54,7 @@ projectPath = os.getcwd()
 
 s3_bucket_name = "insight-deep-images-hub"
 
-database_ini_file_path = "/Deep_Images_Hub/utilities/database/database.ini"
+database_ini_file_path = "/utilities/database/database.ini"
 
 """
 
@@ -92,13 +92,25 @@ def upload_files(path, des_prefix):
     s3 = boto3.resource('s3', region_name='us-east-1')
     bucket = s3.Bucket(s3_bucket_name)
 
+    global downloadable_links
+    global downloadable_link_prefix
+
+
     for subdir, dirs, files in os.walk(path):
         for file in files:
             full_path = os.path.join(subdir, file)
             with open(full_path, 'rb') as data:
                 if not '.DS_Store' in full_path:
                     print("Putting file ", des_prefix + full_path[len(path) + 1:])
-                    bucket.put_object(Key=des_prefix + full_path[len(path) + 1:], Body=data, ACL='public-read')
+
+                    if '.png' in (des_prefix + full_path[len(path) + 1:]):
+                        bucket.put_object(Key=des_prefix + full_path[len(path) + 1:], Body=data, ContentType='image/png', ACL='public-read')
+
+                    else:
+                        bucket.put_object(Key=des_prefix + full_path[len(path) + 1:], Body=data, ACL='public-read')
+
+                    downloadable_links.append(downloadable_link_prefix + des_prefix + full_path[len(path) + 1:])
+
 
 
 def copy_training_results_to_S3(user_id, model_id, source_path, des_prefix, user_des_prefix):
@@ -107,20 +119,36 @@ def copy_training_results_to_S3(user_id, model_id, source_path, des_prefix, user
     upload_files(source_path, des_prefix)
 
     # upload results to user's S3 bucket
-    upload_files(source_path, user_des_prefix)
+    # upload_files(source_path, user_des_prefix)
 
 
-def save_results_to_db(request_number, save_path):
+
+
+def save_results_to_db(request_number, save_path , downloadable_links):
     sql = """
 
     UPDATE training_records
 	SET 							  
     saved_model_path = %s,
-	creation_date	= %s			  
+	downloadable_model_link = %s,
+	downloadable_plot_link = %s,
+	creation_date	= %s
     WHERE model_id = %s;								  
 
 
     """
+
+
+    downloadable_model_link = ""
+    downloadable_plot_link = ""
+
+    for link in downloadable_links:
+        if '.png' in link:
+            downloadable_plot_link = link
+        elif '.model' in link:
+            downloadable_model_link = link
+
+
 
     """ Connect to the PostgreSQL database server """
     conn = None
@@ -138,7 +166,7 @@ def save_results_to_db(request_number, save_path):
         # writing image info into the database
         # execute a statement
         print('writing image batch info into the database...')
-        cur.execute(sql, (save_path, datetime.datetime.now(), request_number))
+        cur.execute(sql, (save_path,downloadable_model_link,downloadable_plot_link, datetime.datetime.now(), request_number))
 
         # commit the changes to the database
         conn.commit()
@@ -174,10 +202,14 @@ if __name__ == '__main__':
 
     source_path = '/tmp/Deep_image_hub_Model_Training'
 
+    downloadable_links = []
+
+    downloadable_link_prefix = "https://s3.amazonaws.com/insight-deep-images-hub/"
+
     copy_training_results_to_S3(user_id, model_id, source_path, des_prefix, user_des_prefix)
 
     # Save results to database
     print("Saving results to database...")
-    save_results_to_db(model_id, des_prefix)
+    save_results_to_db(model_id, des_prefix , downloadable_links)
 
     print("Post training process completed")
