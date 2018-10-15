@@ -94,7 +94,11 @@ Deep learning is increasingly adopted by the big data and data science community
 
 #### Setup
 
-* Initially, Spark/TensorflowOnSpark was run on one 4-node cluster.
+###### Prerequisites 
+ * Please register for Amazon AWS account and set up your AWS CLI according to [Amazon’s documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) 
+ * Please install and configure Pegasus according to the [Github Instructions](https://github.com/InsightDataScience/pegasus)
+ * 
+
 
 
 <hr/>
@@ -124,6 +128,60 @@ documentations. Here are the table of contents of how to get start:
 4. How to train deep learning model distributed with centralized data source?
 5. How to work with deep learning in Spark when it is still in it's infancy.
 6. Work flows to connect all the dots for the platform
+
+
+<hr/>
+#### Libraries used
+For geocoding and decoding:
+[geopy](https://pypi.org/project/geopy/)
+
+
+
+<hr/>
+#### Extra References
+
+###### Deep Learning at Scale: 
+[Apache Mxnet and Apache Spark on Amazon EMR](https://aws.amazon.com/blogs/machine-learning/distributed-inference-using-apache-mxnet-and-apache-spark-on-amazon-emr/)
+[TensorflowOnSpark create AMI](https://github.com/yahoo/TensorFlowOnSpark/wiki/Create_AMI)
+
+###### Computer Vision:
+[Multi-label classification with Keras](https://www.pyimagesearch.com/2018/05/07/multi-label-classification-with-keras/)
+
+###### Spark:
+[Apache Spark Installation Guide on Ubuntu 16.04 LTS](http://www.insightsbot.com/blog/1bHSyT/apache-spark-installation-guide-on-ubuntu-1604-lts)
+[psycopg2 slowness issue on pyspark](https://stackoverflow.com/questions/42238145/pysparkpsycopg2-is-slow-in-writing-the-results-into-the-database)
+
+###### AWS:
+[AWS Step Function](https://blog.scottlogic.com/2018/06/19/step-functions.html)
+[Amazon EMR custom Amazon Machine Image (AMI)](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html)
+[Using AWS Lambda with Amazon S3](https://docs.aws.amazon.com/lambda/latest/dg/with-s3.html)
+[Amazon EC2 Spot Instances Pricing](https://aws.amazon.com/ec2/spot/)
+[SageMaker Example](https://towardsdatascience.com/brewing-up-custom-ml-models-on-aws-sagemaker-e09b64627722)
+[Amazon Aurora vs. RDS](https://www.stratoscale.com/blog/dbaas/aurora-vs-rds/)
+
+###### SQL:
+
+[PostgreSQL Arrays](https://www.compose.com/articles/take-a-dip-into-postgresql-arrays/)
+
+[psycopg2-multiple-insert](https://billyfung.com/blog/2017/06/psycopg2-multiple-insert/)
+
+[PostgreSQL get last inserted Id](https://stackoverflow.com/questions/2944297/postgresql-function-for-last-inserted-id)
+
+
+###### Unix:
+[Screen](https://www.tecmint.com/screen-command-examples-to-manage-linux-terminals/)
+[Check ports in use](https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/)
+[Pop a line of a file from bash](https://stackoverflow.com/questions/13804967/bash-pop-lines-in-a-file)
+
+###### Open Images:
+[Suggested to use OIDv4_ToolKit for downloading source image dataset](https://github.com/openimages/dataset/issues/68)
+[Pretrained Model Resnet 101 trained with Open Images V2](https://github.com/openimages/dataset/blob/master/READMEV3.md)
+
+###### Mobile: 
+[Transfer Files and Data Using TransferUtility and Amazon S3](https://docs.aws.amazon.com/aws-mobile/latest/developerguide/how-to-transfer-files-with-transfer-utility.html)
+[Swift S3TransferUtility Sample](https://github.com/awslabs/aws-sdk-ios-samples/tree/master/S3TransferUtility-Sample/Swift)
+[Swift Amazon S3 Uploading Tutorial](https://github.com/maximbilan/Swift-Amazon-S3-Uploading-Tutorial)
+
 
 
 ###### Performance Optimizations:
