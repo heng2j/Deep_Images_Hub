@@ -131,6 +131,7 @@ documentations. Here are the table of contents of how to get start:
 
 
 <hr/>
+
 #### Libraries used
 For geocoding and decoding:
 [geopy](https://pypi.org/project/geopy/)
@@ -138,6 +139,7 @@ For geocoding and decoding:
 
 
 <hr/>
+
 #### Extra References
 
 ###### Deep Learning at Scale: 
