@@ -30,3 +30,46 @@ generate_vector takes images and :
 
 
 """
+
+
+
+
+def load_headless_pretrained_model():
+    """
+    Loads the pretrained version of VGG with the last layer cut off
+    :return: pre-trained headless VGG16 Keras Model
+    """
+    pretrained_vgg16 = VGG16(weights='imagenet', include_top=True)
+    model = Model(inputs=pretrained_vgg16.input,
+                  outputs=pretrained_vgg16.get_layer('fc2').output)
+    return model
+
+
+def generate_features(numpy_arrays, model):
+    """
+    Takes in an array of image paths, and a trained model.
+    Returns the activations of the last layer for each image
+    :param image_paths: array of image paths
+    :param model: pre-trained model
+    :return: array of last-layer activations, and mapping from array_index to file_path
+    """
+    start = time.time()
+    images = np.zeros(shape=(len(numpy_arrays), 224, 224, 3))
+    file_mapping = {i: f for i, f in enumerate(numpy_arrays)}
+
+    # We load all our dataset in memory because it is relatively small
+    for i, img in enumerate(numpy_arrays):
+        # img = image.load_img(f, target_size=(224, 224))
+
+        x_raw = image.img_to_array(img)
+        x_expand = np.expand_dims(x_raw, axis=0)
+        images[i, :, :, :] = x_expand
+
+    logger.info("%s images loaded" % len(images))
+    inputs = preprocess_input(images)
+    logger.info("Images preprocessed")
+    images_features = model.predict(inputs)
+    end = time.time()
+    logger.info("Inference done, %s Generation time" % (end - start))
+    return images_features, file_mapping
+

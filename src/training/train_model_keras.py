@@ -150,7 +150,7 @@ def get_images_urls(label_list):
 
             # local_train, local_test, _ = uri_sdf.randomSplit([0.005, 0.005, 0.99])
 
-            local_train, local_test, _ = uri_sdf.randomSplit([0.005, 0.005, 0.99])
+            local_train, local_test, _ = uri_sdf.randomSplit([0.8, 0.1, 0.1])
 
             global train_df
             global test_df
@@ -326,9 +326,13 @@ if __name__ == '__main__':
     #
     # model = InceptionV3(weights="imagenet")
 
-    from keras.applications.resnet50 import ResNet50
+    from keras.applications import VGG16
 
-    model = ResNet50(weights=None)
+    model = VGG16(weights='imagenet',
+                     include_top=False,
+                     input_shape=(224, 224, 3))
+
+    # model = ResNet50(weights=None,top_layer = False,input_tensor=None, input_shape=(224, 224, 3))
 
     model.save('/tmp/model-full.h5')  # saves to the local filesystem
 
@@ -367,24 +371,24 @@ if __name__ == '__main__':
 
     image_dataset.show()
 
-    #
-    # from sparkdl.estimators.keras_image_file_estimator import KerasImageFileEstimator
-    #
-    #
-    # estimator = KerasImageFileEstimator(inputCol="uri",
-    #                                     outputCol="prediction",
-    #                                     labelCol="one_hot_label",
-    #                                     imageLoader=load_image_from_uri,
-    #                                     kerasOptimizer='adam',
-    #                                     kerasLoss='categorical_crossentropy',
-    #                                     modelFile='/tmp/model-full.h5')
-    #
-    #
-    #
+
+    from sparkdl.estimators.keras_image_file_estimator import KerasImageFileEstimator
+
+
+    estimator = KerasImageFileEstimator(inputCol="imageUri",
+                                        outputCol="prediction",
+                                        labelCol="categoryVec",
+                                        imageLoader=load_image_from_uri,
+                                        kerasOptimizer='adam',
+                                        kerasLoss='categorical_crossentropy',
+                                        modelFile='/tmp/model-full.h5')
+
     #
     #
-    # transformers = estimator.fit(train_df)
-    # transformers.show()
+    #
+    #
+    transformers = estimator.fit(image_dataset)
+    transformers.show()
 
     # from pyspark.ml.evaluation import BinaryClassificationEvaluator
     # from pyspark.ml.tuning import CrossValidator, ParamGridBuilder

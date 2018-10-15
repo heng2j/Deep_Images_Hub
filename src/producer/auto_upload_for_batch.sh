@@ -1,6 +1,14 @@
 #!/bin/bash
 
 
+# This script will take a file path for the source text file with a list of labels that want to submit the images with.
+# This script will also take the subtype of the dataset either "test" "train" or "validation"
+#
+# Run this script with the following command:
+#
+#       sh auto_upload_for_batch.sh sample_labels.txt "test"
+#
+
 source ~/shrink_venv/bin/activate
 
 LOCATIONS=(" --lon -74.005974 --lat 40.712776 " " --lon -73.989879 --lat 40.734504 " " --lon -73.984058 --lat 40.693165 " " --lon -122.413206 --lat 37.8006461 " " --lon -122.419454 --lat 37.780579 " " --lon -122.470988 --lat 37.758063 "  " --lon -122.448507 --lat  37.791922 " " --lon -73.935242 --lat 40.730610 ")

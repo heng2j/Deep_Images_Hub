@@ -80,21 +80,28 @@ SELECT * FROM places;
 DROP TABLE IF EXISTS images CASCADE;
 
 CREATE TABLE IF NOT EXISTS images (
-    image_id				SERIAL	PRIMARY KEY ,
-    image_object_key		text,
-	image_thumbnail_object_key text,
-	bucket_name				text,
-	full_hadoop_path		text,
-	parent_labels			text, 
-	label_name				text,
-	batch_id				int references images_batches(batch_id),
-	submission_time 		timestamp,
-	user_id					int references users(user_id),
-	place_id				int references places(place_id),
-	image_index				int,
-	embeddings				float[],
-	verified				boolean
+    image_id								SERIAL	PRIMARY KEY ,
+    image_object_key						text,
+	image_thumbnail_object_key 				text,
+	bucket_name								text,
+	full_hadoop_path						text,
+	parent_labels							text, 
+	label_name								text,
+	batch_id								int references images_batches(batch_id),
+	submission_time 						timestamp,
+	user_id									int references users(user_id),
+	place_id								int references places(place_id),
+	image_index								int,
+	embeddings								float[],
+	verified								boolean
 );
+
+
+-- Altered images to include image_thumbnail_small_object_key column
+
+Alter TABLE images 
+ADD COLUMN image_thumbnail_small_object_key text;
+
 
 SELECT * FROM images LIMIT 10;
 
@@ -147,3 +154,11 @@ CREATE TABLE IF NOT EXISTS training_records (
 	
 	
 	
+-- Altered training_records to include downloadable modelPath and downloadable result plot
+
+ALTER TABLE training_records	
+ADD COLUMN downloadable_model_link text,
+ADD COLUMN downloadable_plot_link text
+;
+
+SELECT * FROM training_records;

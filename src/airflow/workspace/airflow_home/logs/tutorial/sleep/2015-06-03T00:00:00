@@ -1,0 +1,46 @@
+[2018-10-14 10:32:17,206] {models.py:167} INFO - Filling up the DagBag from /Users/zhonghengli/Deep_Images_Hub/src/airflow/workspace/airflow_home/dags/demo_dag.py
+[2018-10-14 10:32:17,563] {base_task_runner.py:112} INFO - Running: ['bash', '-c', 'airflow run tutorial sleep 2015-06-03T00:00:00 --job_id 11 --raw -sd DAGS_FOLDER/demo_dag.py']
+[2018-10-14 10:32:17,832] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:17,832] {__init__.py:57} INFO - Using executor SequentialExecutor
+[2018-10-14 10:32:18,205] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:18,205] {models.py:167} INFO - Filling up the DagBag from /Users/zhonghengli/Deep_Images_Hub/src/airflow/workspace/airflow_home/dags/demo_dag.py
+[2018-10-14 10:32:18,543] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:18,543] {models.py:1126} INFO - Dependencies all met for <TaskInstance: tutorial.sleep 2015-06-03 00:00:00 [queued]>
+[2018-10-14 10:32:18,548] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:18,548] {models.py:1126} INFO - Dependencies all met for <TaskInstance: tutorial.sleep 2015-06-03 00:00:00 [queued]>
+[2018-10-14 10:32:18,548] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:18,548] {models.py:1318} INFO - 
+[2018-10-14 10:32:18,548] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-14 10:32:18,548] {base_task_runner.py:95} INFO - Subtask: Starting attempt 1 of 4
+[2018-10-14 10:32:18,549] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-14 10:32:18,549] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-14 10:32:18,561] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:18,559] {models.py:1342} INFO - Executing <Task(BashOperator): sleep> on 2015-06-03 00:00:00
+[2018-10-14 10:32:18,572] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:18,571] {bash_operator.py:71} INFO - tmp dir root location: 
+[2018-10-14 10:32:18,572] {base_task_runner.py:95} INFO - Subtask: /var/folders/fz/pxkgsp6j3d946l3f71v3sj_00000gn/T
+[2018-10-14 10:32:18,572] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:18,572] {bash_operator.py:80} INFO - Temporary script location :/var/folders/fz/pxkgsp6j3d946l3f71v3sj_00000gn/T/airflowtmpxp34tzaa//var/folders/fz/pxkgsp6j3d946l3f71v3sj_00000gn/T/airflowtmpxp34tzaa/sleep_uzb0q7i
+[2018-10-14 10:32:18,572] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:18,572] {bash_operator.py:81} INFO - Running command: sleep 5
+[2018-10-14 10:32:18,579] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:18,578] {bash_operator.py:90} INFO - Output:
+[2018-10-14 10:32:23,588] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:32:23,587] {bash_operator.py:97} INFO - Command exited with return code 0
+[2018-10-14 10:32:23,603] {base_task_runner.py:95} INFO - Subtask: /anaconda3/lib/python3.6/site-packages/airflow/www/app.py:23: FlaskWTFDeprecationWarning: "flask_wtf.CsrfProtect" has been renamed to "CSRFProtect" and will be removed in 1.0.
+[2018-10-14 10:32:23,603] {base_task_runner.py:95} INFO - Subtask:   csrf = CsrfProtect()
+[2018-10-14 10:32:23,603] {base_task_runner.py:95} INFO - Subtask: /anaconda3/lib/python3.6/site-packages/airflow/ti_deps/deps/base_ti_dep.py:94: DeprecationWarning: generator '_get_dep_statuses' raised StopIteration
+[2018-10-14 10:32:23,603] {base_task_runner.py:95} INFO - Subtask:   for dep_status in self._get_dep_statuses(ti, session, dep_context):
+[2018-10-14 10:32:27,573] {jobs.py:2083} INFO - Task exited with return code 0
+[2018-10-14 10:37:44,231] {models.py:167} INFO - Filling up the DagBag from /Users/zhonghengli/Deep_Images_Hub/src/airflow/workspace/airflow_home/dags/demo_dag.py
+[2018-10-14 10:37:44,565] {base_task_runner.py:112} INFO - Running: ['bash', '-c', 'airflow run tutorial sleep 2015-06-03T00:00:00 --job_id 33 --raw -sd DAGS_FOLDER/demo_dag.py']
+[2018-10-14 10:37:44,824] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:44,823] {__init__.py:57} INFO - Using executor SequentialExecutor
+[2018-10-14 10:37:45,181] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:45,181] {models.py:167} INFO - Filling up the DagBag from /Users/zhonghengli/Deep_Images_Hub/src/airflow/workspace/airflow_home/dags/demo_dag.py
+[2018-10-14 10:37:45,506] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:45,506] {models.py:1126} INFO - Dependencies all met for <TaskInstance: tutorial.sleep 2015-06-03 00:00:00 [queued]>
+[2018-10-14 10:37:45,509] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:45,509] {models.py:1126} INFO - Dependencies all met for <TaskInstance: tutorial.sleep 2015-06-03 00:00:00 [queued]>
+[2018-10-14 10:37:45,509] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:45,509] {models.py:1318} INFO - 
+[2018-10-14 10:37:45,510] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-14 10:37:45,510] {base_task_runner.py:95} INFO - Subtask: Starting attempt 2 of 4
+[2018-10-14 10:37:45,510] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-10-14 10:37:45,510] {base_task_runner.py:95} INFO - Subtask: 
+[2018-10-14 10:37:45,515] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:45,514] {models.py:1342} INFO - Executing <Task(BashOperator): sleep> on 2015-06-03 00:00:00
+[2018-10-14 10:37:45,524] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:45,524] {bash_operator.py:71} INFO - tmp dir root location: 
+[2018-10-14 10:37:45,524] {base_task_runner.py:95} INFO - Subtask: /var/folders/fz/pxkgsp6j3d946l3f71v3sj_00000gn/T
+[2018-10-14 10:37:45,524] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:45,524] {bash_operator.py:80} INFO - Temporary script location :/var/folders/fz/pxkgsp6j3d946l3f71v3sj_00000gn/T/airflowtmpr4thf1bv//var/folders/fz/pxkgsp6j3d946l3f71v3sj_00000gn/T/airflowtmpr4thf1bv/sleepd0ie8izs
+[2018-10-14 10:37:45,524] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:45,524] {bash_operator.py:81} INFO - Running command: sleep 5
+[2018-10-14 10:37:45,531] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:45,531] {bash_operator.py:90} INFO - Output:
+[2018-10-14 10:37:50,536] {base_task_runner.py:95} INFO - Subtask: [2018-10-14 10:37:50,536] {bash_operator.py:97} INFO - Command exited with return code 0
+[2018-10-14 10:37:50,552] {base_task_runner.py:95} INFO - Subtask: /anaconda3/lib/python3.6/site-packages/airflow/www/app.py:23: FlaskWTFDeprecationWarning: "flask_wtf.CsrfProtect" has been renamed to "CSRFProtect" and will be removed in 1.0.
+[2018-10-14 10:37:50,552] {base_task_runner.py:95} INFO - Subtask:   csrf = CsrfProtect()
+[2018-10-14 10:37:50,552] {base_task_runner.py:95} INFO - Subtask: /anaconda3/lib/python3.6/site-packages/airflow/ti_deps/deps/base_ti_dep.py:94: DeprecationWarning: generator '_get_dep_statuses' raised StopIteration
+[2018-10-14 10:37:50,552] {base_task_runner.py:95} INFO - Subtask:   for dep_status in self._get_dep_statuses(ti, session, dep_context):
+[2018-10-14 10:37:54,577] {jobs.py:2083} INFO - Task exited with return code 0
