@@ -97,7 +97,7 @@ Deep learning is increasingly adopted by the big data and data science community
 ###### Prerequisites 
  * Please register for Amazon AWS account and set up your AWS CLI according to [Amazon’s documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) 
  * Please install and configure Pegasus according to the [Github Instructions](https://github.com/InsightDataScience/pegasus)
- * 
+ * Please create a PostgreSQL DB Instance with AWS RDS by following this [user guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html)
 
 
 
@@ -141,46 +141,65 @@ For geocoding and decoding:
 #### Extra References
 
 ###### Deep Learning at Scale: 
-[Apache Mxnet and Apache Spark on Amazon EMR](https://aws.amazon.com/blogs/machine-learning/distributed-inference-using-apache-mxnet-and-apache-spark-on-amazon-emr/)
-[TensorflowOnSpark create AMI](https://github.com/yahoo/TensorFlowOnSpark/wiki/Create_AMI)
+* [HANDS ON DEEP LEARNING WITH KERAS, TENSORFLOW, AND APACHE SPARK™](https://brookewenig.github.io/DeepLearning.html#/)
+* [Databrick distributed deep Learning Overview](https://docs.databricks.com/applications/deep-learning/distributed-deep-learning/index.html#)
+* [Apache Mxnet and Apache Spark on Amazon EMR](https://aws.amazon.com/blogs/machine-learning/distributed-inference-using-apache-mxnet-and-apache-spark-on-amazon-emr/)
+* [TensorflowOnSpark create AMI](https://github.com/yahoo/TensorFlowOnSpark/wiki/Create_AMI)
+* [TensorflowOnSpark on EC2](https://github.com/yahoo/TensorFlowOnSpark/wiki/GetStarted_EC2)
+* [Remember to include the package for Sparkdl](https://spark-packages.org/package/databricks/spark-deep-learning)
 
 ###### Computer Vision:
-[Multi-label classification with Keras](https://www.pyimagesearch.com/2018/05/07/multi-label-classification-with-keras/)
+* [Keras and Convolutional Neural Networks (CNNs)](https://www.pyimagesearch.com/2018/04/16/keras-and-convolutional-neural-networks-cnns/)
+* [Multi-label classification with Keras](https://www.pyimagesearch.com/2018/05/07/multi-label-classification-with-keras/)
 
 ###### Spark:
-[Apache Spark Installation Guide on Ubuntu 16.04 LTS](http://www.insightsbot.com/blog/1bHSyT/apache-spark-installation-guide-on-ubuntu-1604-lts)
-[psycopg2 slowness issue on pyspark](https://stackoverflow.com/questions/42238145/pysparkpsycopg2-is-slow-in-writing-the-results-into-the-database)
+* [Apache Spark Installation Guide on Ubuntu 16.04 LTS](http://www.insightsbot.com/blog/1bHSyT/apache-spark-installation-guide-on-ubuntu-1604-lts)
+* [psycopg2 slowness issue on pyspark](https://stackoverflow.com/questions/42238145/pysparkpsycopg2-is-slow-in-writing-the-results-into-the-database)
+* [Spark Tutorial](https://www.dezyre.com/apache-spark-tutorial/pyspark-tutorial)
+* [Spark Dataframe and Operation](https://www.analyticsvidhya.com/blog/2016/10/spark-dataframe-and-operations/)
+* [Image support in Spark with ImageSchema](https://blogs.technet.microsoft.com/machinelearning/2018/03/05/image-data-support-in-apache-spark/)
 
 ###### AWS:
-[AWS Step Function](https://blog.scottlogic.com/2018/06/19/step-functions.html)
-[Amazon EMR custom Amazon Machine Image (AMI)](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html)
-[Using AWS Lambda with Amazon S3](https://docs.aws.amazon.com/lambda/latest/dg/with-s3.html)
-[Amazon EC2 Spot Instances Pricing](https://aws.amazon.com/ec2/spot/)
-[SageMaker Example](https://towardsdatascience.com/brewing-up-custom-ml-models-on-aws-sagemaker-e09b64627722)
-[Amazon Aurora vs. RDS](https://www.stratoscale.com/blog/dbaas/aurora-vs-rds/)
+* [AWS Step Function](https://blog.scottlogic.com/2018/06/19/step-functions.html)
+* [Amazon EMR custom Amazon Machine Image (AMI)](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html)
+* [Using AWS Lambda with Amazon S3](https://docs.aws.amazon.com/lambda/latest/dg/with-s3.html)
+* [Amazon EC2 Spot Instances Pricing](https://aws.amazon.com/ec2/spot/)
+* [SageMaker Example](https://towardsdatascience.com/brewing-up-custom-ml-models-on-aws-sagemaker-e09b64627722)
+* [Amazon Aurora vs. RDS](https://www.stratoscale.com/blog/dbaas/aurora-vs-rds/)
+* [Amazon S3 on Hadoop](https://wiki.apache.org/hadoop/AmazonS3)
 
 ###### SQL:
 
-[PostgreSQL Arrays](https://www.compose.com/articles/take-a-dip-into-postgresql-arrays/)
+* [PostgreSQL Arrays](https://www.compose.com/articles/take-a-dip-into-postgresql-arrays/)
 
-[psycopg2-multiple-insert](https://billyfung.com/blog/2017/06/psycopg2-multiple-insert/)
+* [psycopg2-multiple-insert](https://billyfung.com/blog/2017/06/psycopg2-multiple-insert/)
 
-[PostgreSQL get last inserted Id](https://stackoverflow.com/questions/2944297/postgresql-function-for-last-inserted-id)
+* [PostgreSQL get last inserted Id](https://stackoverflow.com/questions/2944297/postgresql-function-for-last-inserted-id)
 
+* [Style Guide](https://www.sqlstyle.guide/)
+
+* [Run on Shell](https://www.manniwood.com/postgresql_and_bash_stuff/)
 
 ###### Unix:
-[Screen](https://www.tecmint.com/screen-command-examples-to-manage-linux-terminals/)
-[Check ports in use](https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/)
-[Pop a line of a file from bash](https://stackoverflow.com/questions/13804967/bash-pop-lines-in-a-file)
+* [Check ports in use](https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/)
+* [Pop a line of a file from bash](https://stackoverflow.com/questions/13804967/bash-pop-lines-in-a-file)
+
+###### Airflow:
+* [Get started developing workflows with Apache Airflow](http://michal.karzynski.pl/blog/2017/03/19/developing-workflows-with-apache-airflow/)
+* [Airflow Tutorial for Data Pipelines](https://blog.godatadriven.com/practical-airflow-tutorial)
+
+
+###### Flask
+[The Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
 ###### Open Images:
-[Suggested to use OIDv4_ToolKit for downloading source image dataset](https://github.com/openimages/dataset/issues/68)
-[Pretrained Model Resnet 101 trained with Open Images V2](https://github.com/openimages/dataset/blob/master/READMEV3.md)
+* [Suggested to use OIDv4_ToolKit for downloading source image dataset](https://github.com/openimages/dataset/issues/68)
+* [Pretrained Model Resnet 101 trained with Open Images V2](https://github.com/openimages/dataset/blob/master/READMEV3.md)
 
 ###### Mobile: 
-[Transfer Files and Data Using TransferUtility and Amazon S3](https://docs.aws.amazon.com/aws-mobile/latest/developerguide/how-to-transfer-files-with-transfer-utility.html)
-[Swift S3TransferUtility Sample](https://github.com/awslabs/aws-sdk-ios-samples/tree/master/S3TransferUtility-Sample/Swift)
-[Swift Amazon S3 Uploading Tutorial](https://github.com/maximbilan/Swift-Amazon-S3-Uploading-Tutorial)
+* [Transfer Files and Data Using TransferUtility and Amazon S3](https://docs.aws.amazon.com/aws-mobile/latest/developerguide/how-to-transfer-files-with-transfer-utility.html)
+* [Swift S3TransferUtility Sample](https://github.com/awslabs/aws-sdk-ios-samples/tree/master/S3TransferUtility-Sample/Swift)
+* [Swift Amazon S3 Uploading Tutorial](https://github.com/maximbilan/Swift-Amazon-S3-Uploading-Tutorial)
 
 
 
