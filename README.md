@@ -94,7 +94,11 @@ Deep learning is increasingly adopted by the big data and data science community
 
 #### Setup
 
-* Initially, Spark/TensorflowOnSpark was run on one 4-node cluster.
+###### Prerequisites 
+ * Please register for Amazon AWS account and set up your AWS CLI according to [Amazon’s documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) 
+ * Please install and configure Pegasus according to the [Github Instructions](https://github.com/InsightDataScience/pegasus)
+ * Please create a PostgreSQL DB Instance with AWS RDS by following this [user guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html)
+
 
 
 <hr/>
@@ -104,13 +108,13 @@ Deep learning is increasingly adopted by the big data and data science community
 Please check Deep Images Hub [wiki site](../../wiki) for detailed
 documentations. Here are the table of contents of how to get start:
 
-* [Data Prepartion](../../wiki/Data-Preparation) 
+* [Data Prepartion](../../wiki/1.-Data-Preparation) 
   * Can also reference the Juypter Notebook for [Exploratory Data Analysis on the Pen Images classes](https://github.com/heng2j/Deep_Images_Hub/blob/master/src/noteBooks/Exploratory%20Data%20Analysis%20on%20Open%20Images%20Classes.ipynb))
-* [Backend Design and Implementtation](../../wiki/Design-and-Planing)
-* [Simulating Crowdsourcing Images Workflow](../../wiki/Image-Suppliers-Implementation)
-* [Business User Requests on Deep Image Hub Website Workflow](../../wiki/Business-Users-Requests-Implementation)
-* [Computer Vision Model Training Workflow](../../wiki/Premium-Business-Users-Requests-Implementation)
-* [Summary & Future Works](../../wiki/Results-and-Future-Works)
+* [Backend Design and Implementtation](../../wiki/2.-Design-and-Planing)
+* [Simulating Crowdsourcing Images Workflow](../../wiki/3.-Image-Suppliers-Implementation)
+* [Business User Requests on Deep Image Hub Website Workflow](../../wiki/4.-Business-Users-Requests-Implementation)
+* [Computer Vision Model Training Workflow](../../wiki/5.-Premium-Business-Users-Requests-Implementation)
+* [Summary & Future Works](../../wiki/6.-Results-and-Future-Works)
 
 
 
@@ -126,4 +130,16 @@ documentations. Here are the table of contents of how to get start:
 6. Work flows to connect all the dots for the platform
 
 
-###### Performance Optimizations:
+<hr/>
+
+#### Libraries used
+For geocoding and decoding:
+[geopy](https://pypi.org/project/geopy/)
+
+
+
+<hr/>
+
+#### Extra References
+
+These [references and resources](../../wiki/7.-References-&-Resources) I came across while I was working on this project. They gave me lights of how to solve some of the technically challenges.
