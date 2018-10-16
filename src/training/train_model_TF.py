@@ -352,25 +352,6 @@ if __name__ == '__main__':
                               StructField("mode", IntegerType(), False),
                               StructField("data", BinaryType(), False)])
 
-    # root
-    # | -- image: struct(nullable=true)
-    # | | -- mode: string(nullable=false)
-    # | | -- height: integer(nullable=false)
-    # | | -- width: integer(nullable=false)
-    # | | -- nChannels: integer(nullable=false)
-    # | | -- data: binary(nullable=false)
-    # | -- label: string(nullable=false)
-    #
-    #
-    # root
-    # | -- image: struct(nullable=true)
-    # | | -- origin: string(nullable=true)
-    # | | -- height: integer(nullable=false)
-    # | | -- width: integer(nullable=false)
-    # | | -- nChannels: integer(nullable=false)
-    # | | -- mode: integer(nullable=false)
-    # | | -- data: binary(nullable=false)
-    # | -- label: integer(nullable=false)
 
 
     schema = StructType([StructField("image", imageSchema), StructField("label", IntegerType(), False)])

@@ -65,6 +65,7 @@ import numpy as np
 from pyspark.sql import SQLContext
 from pyspark.context import SparkContext
 from pyspark.conf import SparkConf
+from pyspark.sql.types import StructType, StructField, IntegerType,StringType,BooleanType, Row
 
 
 
@@ -84,7 +85,7 @@ sqlContext = SQLContext(sc)
 
 
 # Set up project path
-projectPath = up(up(os.getcwd()))
+projectPath = up(up(up(os.getcwd())))
 
 
 database_ini_file_path = "/utilities/database/database.ini"
@@ -408,7 +409,7 @@ Fetch images, *compare image embeddings and put image to the proper folder in th
 """
 
 
-def import_images_from_source(bucket, prefix, destination_prefix, image_info,new_keys,new_thumbnail_keys,new_small_thumbnail_keys):
+def import_images_from_source(bucket,new_bucket, prefix, destination_prefix, image_info,new_keys,new_thumbnail_keys,new_small_thumbnail_keys):
 
     image_counter = 0
 
@@ -591,7 +592,11 @@ def create_spark_dataframe_from_list(label_list):
 
 
 
-def process_label(label_name):
+def process_label(row):
+
+
+    label_name = row.label
+
 
     random_index = random.randint(0,5)
     user_id = random.randint(1,5)
@@ -663,9 +668,16 @@ def process_label(label_name):
     # Initiate an empty list of new small thumbnail keys (as string) of where the image object locate at destinated S3 bucket
     new_small_thumbnail_keys = []
 
+    # From
+    s3 = boto3.resource('s3', region_name='us-east-1')
+    bucket = s3.Bucket(src_bucket_name)
+
+    # To
+    new_bucket = s3.Bucket(des_bucket_name)
+
 
     # Processing images
-    image_counter = import_images_from_source(bucket, prefix + label_name + '/' , destination_prefix, image_info ,new_keys,new_thumbnail_keys,new_small_thumbnail_keys)
+    image_counter = import_images_from_source(bucket,new_bucket, prefix + label_name + '/' , destination_prefix, image_info ,new_keys,new_thumbnail_keys,new_small_thumbnail_keys)
 
     print("Added "+ str(image_counter) + " images.")
     image_info['image_counter'] = image_counter
@@ -682,6 +694,7 @@ def process_label(label_name):
     # write_imageinfo_to_DB(new_keys,images_features[0], image_info)
     write_imageinfo_to_DB(new_keys,new_thumbnail_keys,new_small_thumbnail_keys, image_info)
 
+    return label_name, isLabel
 
 
 if __name__ == '__main__':
@@ -703,18 +716,7 @@ if __name__ == '__main__':
 
     src_type = args.src_type
 
-    # From
-    s3 = boto3.resource('s3', region_name='us-east-1')
-    bucket = s3.Bucket(src_bucket_name)
 
-
-    # To
-    destination_prefix = ""
-    new_bucket = s3.Bucket(des_bucket_name)
-
-
-
-    # prefix = args.src_prefix  + src_type + '/' + label_name + '/'
     prefix = args.src_prefix + src_type + '/'
 
     source_file_path = args.source_file
@@ -728,11 +730,6 @@ if __name__ == '__main__':
     with path.open() as f:
         label_list = list(f)
 
-    #
-    # with open(source_file_path) as file:
-    #     for i, line in enumerate(file):
-    #         label_list.append(file.readlines())
-
     print("label_list: ", label_list)
     labels_sdf = create_spark_dataframe_from_list(label_list)
 
@@ -740,9 +737,15 @@ if __name__ == '__main__':
 
 
     labels_sdf = labels_sdf.repartition(100)
-    #
-    labels_sdf.rdd.map(process_label)
 
-    # for row in labels_sdf.rdd.collect():
-    #     print("row: ", row.label.strip())
-    #     process_label(row.label.strip())
+    schema = StructType([StructField("label", StringType()), StructField("isSubmitted", BooleanType(), False)])
+
+    # Create result DF to check if all labels are processed
+    result_df = (
+        labels_sdf
+            .rdd
+            .map(process_label)
+            .toDF(schema)
+    )
+
+    result_df.show()

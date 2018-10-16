@@ -1,1 +1,5 @@
 Dolphin
+Cutting_board
+Helmet
+Skirt
+Oyster

@@ -17,7 +17,7 @@ LIMIT 100;
 
 
 
-SELECT * FROM images WHERE batch_id = 2072;
+SELECT * FROM images WHERE label_name = 'Dolphin';
 
 
 select * from images 
@@ -70,20 +70,6 @@ LIMIT 24;
 	
 	
 select * from images LIMIT 10;
-	
-
-model_id					SERIAL	PRIMARY KEY ,
-    label_names  				varchar[] ,
-	image_counts_for_labels		int[],
-	final_accuracy				float,		
-	final_validation_accuracy	float,
-	final_loss					float,
-	final_validation_loss		float,
-	saved_model_path text,
-	initial_requested_user_id int references users(user_id),
-    purchased_user_ids    int[],
-	creation_date 		timestamp,
-	note				text
 
 
 -- Select top 3 most recent trained models with info
