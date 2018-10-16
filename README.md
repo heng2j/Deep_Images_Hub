@@ -10,7 +10,7 @@
 This project create a platform to automatically verify, preprocess and orangize crowdsourced labeled images as datasets for users to select and download by their choice. Additionally, the platform allow premium users to train a sample computer vision model with their choice of image subsets. 
 
 
-[Deep Images Hub WebPage](http://www.deepimagehub.space:5000/)
+[Deep Images Hub WebPage](http://www.deepimagehub.space)
 
 
 
