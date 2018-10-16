@@ -25,6 +25,47 @@
 
 </head>
 
+
+<style>
+.filterDiv {
+  float: left;
+  background-color: #2196F3;
+  color: #ffffff;
+  width: 100px;
+  line-height: 100px;
+  text-align: center;
+  margin: 2px;
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.container {
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+/* Style the buttons */
+.label_btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.label_btn:hover {
+  background-color: #ddd;
+}
+
+.label_btn.active {
+  background-color: #666;
+  color: white;
+}
+</style>
+
 <body>
     <!-- Search Wrapper Area Start -->
     <div class="search-wrapper section-padding-100">
@@ -53,7 +94,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.html"><img src="/static/img/core-img/Deep_image_hub_logo.png" alt=""></a>
+                <a href="/index.html"><img src="/static/img/core-img/Deep_image_hub_logo.png" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -69,18 +110,16 @@
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="index.html"><img src="/static/img/core-img/Deep_image_hub_logo.png" alt=""></a>
+                <a href="/index.html"><img src="/static/img/core-img/Deep_image_hub_logo.png" alt=""></a>
             </div>
 
-                {% block login_content %}{% endblock %}
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="shop.html">Shop</a></li>
-                    <li><a href="product-details.html">Product</a></li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
+                    <li class="active"><a href="/index.html">Home</a></li>
+                    <li><a href="/shop.html">Labels Collections</a></li>
+                    <li><a href="/cart.html">Trained Models</a></li>
+
                 </ul>
             </nav>
             <!-- Button Group -->
@@ -119,8 +158,9 @@
                 <!-- Newsletter Text -->
                 <div class="col-12 col-lg-6 col-xl-7">
                     <div class="newsletter-text mb-100">
-                        <h2>Subscribe for a <span>25% Discount</span></h2>
-                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
+                        <h2>Earn rewards to be an <span>Image Hunter!!</span></h2>
+                        <p> For data silentest and business users can also contact us by email </p>
+
                     </div>
                 </div>
                 <!-- Newsletter Form -->
@@ -146,7 +186,7 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="index.html"><img src="/static/img/core-img/logo2.png" alt=""></a>
+                            <!--<a href="index.html"><img src="/static/img/core-img/Deep_image_hub_logo.png" alt=""></a>-->
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -164,19 +204,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item active">
-                                            <a class="nav-link" href="index.html">Home</a>
+                                            <a class="nav-link" href="/index.html">Home</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="shop.html">Shop</a>
+                                            <a class="nav-link" href="/shop.html">Labels Collection</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="product-details.html">Product</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="cart.html">Cart</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="checkout.html">Checkout</a>
+                                         <li class="nav-item">
+                                            <a class="nav-link" href="/cart.html">Trained Model</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -188,6 +222,57 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!-- ##### Footer Area End ##### -->
+
+
+
+
+
+
+<script>
+filterSelection("all")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("filterDiv");
+  if (c == "all") c = "";
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
+}
+
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+  }
+}
+
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);
+    }
+  }
+  element.className = arr1.join(" ");
+}
+
+// Add active class to the current button (highlight it)
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("label_btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function(){
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+</script>
+
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
     <script src="/static/js/jquery/jquery-2.2.4.min.js"></script>

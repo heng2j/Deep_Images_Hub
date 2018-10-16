@@ -8,7 +8,7 @@ INNER JOIN places as pl
 ON ib.place_id = pl.place_id
 WHERE ib.submitted_count > 0
 ORDER BY ib.on_board_date  DESC
-LIMIT 10;
+LIMIT 100;
 
 SELECT *
 FROM images_batches AS ib
@@ -17,7 +17,7 @@ LIMIT 100;
 
 
 
-SELECT * FROM images WHERE label_name = 'Dolphin';
+SELECT * FROM images WHERE label_name = 'Guitar';
 
 
 select * from images 
@@ -81,13 +81,36 @@ LIMIT 3;
 
 
 -- Select trained models by model_id
-SELECT tr.model_id,tr.label_names,tr.image_counts_for_labels,tr.final_accuracy, tr.final_validation_accuracy, tr.final_loss, tr.final_validation_loss,tr.creation_date, tr.note, array_length(tr.purchased_user_ids,1) AS number_purchased,downloadable_model_link, downloadable_plot_link, (SELECT image_thumbnail_small_object_key FROM images WHERE label_name in (select unnest( tr.label_names) ORDER BY random() LIMIT 1 ) LIMIT 1) AS thumbnail_image
+SELECT tr.model_id,tr.label_names,tr.image_counts_for_labels,tr.final_accuracy, tr.final_validation_accuracy, tr.final_loss, tr.final_validation_loss,tr.creation_date, tr.note, array_length(tr.purchased_user_ids,1) AS number_purchased,downloadable_model_link, downloadable_plot_link
 FROM training_records tr
 WHERE model_id = 17;
+
+
+SELECT image_thumbnail_small_object_key 
+FROM images 
+WHERE label_name in (select unnest( tr.label_names) from training_records tr where model_id = 17 ) ;
+
+
+
+-- Created get_image_thumbnail_small_object_keys function to get the sample mage_thumbnail_small_object_key for each label by model id
+DROP FUNCTION get_image_thumbnail_small_object_keys;
+CREATE FUNCTION get_image_thumbnail_small_object_keys(int) RETURNS SETOF text AS
+$BODY$
+DECLARE
+    temprow   text;
+BEGIN
+FOR temprow IN
+        SELECT unnest( tr.label_names) FROM training_records tr WHERE model_id = $1 
+    LOOP
+    RETURN QUERY EXECUTE  'SELECT image_thumbnail_small_object_key FROM images WHERE label_name = ''' || temprow || ''' LIMIT 1' ;
 	
+	END LOOP;
+ END
+$BODY$
+LANGUAGE plpgsql;
 
-
-
+-- Returns a sample image_thumbnail_small_object_key for each label by model id
+SELECT * FROM get_image_thumbnail_small_object_keys(17);
 
 
 

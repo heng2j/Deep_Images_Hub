@@ -545,7 +545,7 @@ def write_imageinfo_to_DB(obj_keys, thumbnail_keys,small_thumbnail_keys,image_in
 
             values = (obj_key,
               thumbnail_keys[i],
-              thumbnail_keys[i],
+              small_thumbnail_keys[i],
               image_info['destination_bucket'],
               s3a_prefix + image_info['destination_bucket'] + '/' + obj_key,
               image_info['destination_prefix'],
@@ -595,7 +595,7 @@ def create_spark_dataframe_from_list(label_list):
 def process_label(row):
 
 
-    label_name = row.label
+    label_name = row.label.replace("\n","")
 
 
     random_index = random.randint(0,5)
@@ -736,7 +736,7 @@ if __name__ == '__main__':
     labels_sdf.show()
 
 
-    labels_sdf = labels_sdf.repartition(100)
+    labels_sdf = labels_sdf.repartition(10)
 
     schema = StructType([StructField("label", StringType()), StructField("isSubmitted", BooleanType(), False)])
 

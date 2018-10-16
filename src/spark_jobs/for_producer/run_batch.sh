@@ -13,11 +13,11 @@ ${SPARK_HOME}/bin/spark-submit \
 --master ${MASTER} \
 --conf spark.cores.max=${TOTAL_CORES} \
 --conf spark.task.cpus=${CORES_PER_WORKER} \
---conf spark.task.maxFailures=1 \
---conf spark.stage.maxConsecutiveAttempts=1 \
+--conf spark.task.maxFailures=5 \
+--conf spark.stage.maxConsecutiveAttempts=5 \
 --conf spark.executorEnv.JAVA_HOME="$JAVA_HOME" \
 --conf spark.executorEnv.AWS_REGION=${AWS_REGION} \
---executor-memory 3G \
+--executor-memory 4G \
 producer_distributed.py \
 --src_bucket_name "insight-data-images" \
 --src_prefix "dataset/not_occluded/" \

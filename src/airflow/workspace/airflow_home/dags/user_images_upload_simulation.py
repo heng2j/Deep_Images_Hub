@@ -25,7 +25,7 @@ peg scp to-rem pySpark-cluster 1 ~/sample_labelsaa /home/ubuntu/sample_labelsaa
 
 peg sshcmd-node pySpark-cluster 1 "touch dummy_from_airflow.txt" 
 
-peg sshcmd-node pySpark-cluster 1 "nohup sh ~/Deep_Images_Hub/src/producer/auto_upload.sh ~/sample_labelsaa "test"  > ~/Deep_Images_Hub/src/producer/auto_upload.log &" 
+peg sshcmd-node pySpark-cluster 1 "nohup sh ~/Deep_Images_Hub/src/producer/auto_upload.sh ~/sample_labelsaa "test"  > ~/Deep_Images_Hub/src/producer/auto_upload.log & " 
 
 """
 
