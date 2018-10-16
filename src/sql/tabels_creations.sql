@@ -19,6 +19,11 @@ ALTER TABLE labels
 ADD FOREIGN KEY (parent_name)
 REFERENCES labels(label_name);
 
+UPDATE labels
+SET image_count = 0,
+updated_date = null;
+
+
 	
 SELECT * FROM labels;
 
@@ -83,6 +88,7 @@ CREATE TABLE IF NOT EXISTS images (
     image_id								SERIAL	PRIMARY KEY ,
     image_object_key						text,
 	image_thumbnail_object_key 				text,
+	image_thumbnail_small_object_key 		text,
 	bucket_name								text,
 	full_hadoop_path						text,
 	parent_labels							text, 
@@ -96,11 +102,6 @@ CREATE TABLE IF NOT EXISTS images (
 	verified								boolean
 );
 
-
--- Altered images to include image_thumbnail_small_object_key column
-
-Alter TABLE images 
-ADD COLUMN image_thumbnail_small_object_key text;
 
 
 SELECT * FROM images LIMIT 10;

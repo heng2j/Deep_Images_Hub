@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" afterPath="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html" afterPath="$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/all_labels_For_Simulation.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py" afterPath="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/auto_upload.sh" afterPath="$PROJECT_DIR$/src/producer/auto_upload.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sql/insert_sample_data.sql" afterPath="$PROJECT_DIR$/src/sql/insert_sample_data.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sql/producer_queries.sql" afterPath="$PROJECT_DIR$/src/sql/producer_queries.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sql/tabels_creations.sql" afterPath="$PROJECT_DIR$/src/sql/tabels_creations.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sql/web_UI_queries.sql" afterPath="$PROJECT_DIR$/src/sql/web_UI_queries.sql" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,30 +20,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DAO.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/DAO.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1557">
-              <caret line="330" column="0" lean-forward="false" selection-start-line="330" selection-start-column="0" selection-end-line="330" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="shop.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/shop.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2684">
-              <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="product-details.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="product-details.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="525">
@@ -54,8 +37,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="all_labels.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/all_labels.txt">
+      <file leaf-file-name="auto_upload_for_batch.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="producer_local.log" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/producer/producer_local.log">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -64,31 +57,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/base.html">
+      <file leaf-file-name="Batch_Image_submissions.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="274" column="0" lean-forward="true" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
+            <state relative-caret-position="502">
+              <caret line="47" column="3" lean-forward="true" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cart.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/cart.html">
+      <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="14" />
+            <state relative-caret-position="-9469">
+              <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="auto_upload_for_batch.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh">
+      <file leaf-file-name="images_submission_simulation.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="114" />
+            <state relative-caret-position="0">
+              <caret line="0" column="37" lean-forward="false" selection-start-line="0" selection-start-column="37" selection-end-line="0" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -104,21 +97,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sample_labels.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/spark_jobs/for_producer/sample_labels.txt">
+      <file leaf-file-name="auto_upload.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/producer/auto_upload.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="30" column="4" lean-forward="true" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+            <state relative-caret-position="113">
+              <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="122" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/index.html">
+      <file leaf-file-name="all_labels_For_Simulation.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/all_labels_For_Simulation.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="776">
-              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="14" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="moving_images.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/producer/moving_images.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -177,7 +180,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/airflow/workspace/airflow_home/dags/user_images_upload_simulation.py" />
         <option value="$PROJECT_DIR$/src/consumer/requester.py" />
         <option value="$PROJECT_DIR$/webapp_flask/app/DAO.py" />
         <option value="$PROJECT_DIR$/webapp_flask/app/templates/base.html" />
@@ -209,7 +211,6 @@
         <option value="$PROJECT_DIR$/src/producer/producer_distributed.py" />
         <option value="$PROJECT_DIR$/src/data_preprocessor/generate_vector.py" />
         <option value="$PROJECT_DIR$/src/producer/all_labels.txt" />
-        <option value="$PROJECT_DIR$/src/producer/auto_upload.sh" />
         <option value="$PROJECT_DIR$/src/producer/run_batch.sh" />
         <option value="$PROJECT_DIR$/src/spark_jobs/run_batch.sh" />
         <option value="$PROJECT_DIR$/src/producer/producer_local.py" />
@@ -226,8 +227,10 @@
         <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/base.html" />
         <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/shop.html" />
         <option value="$PROJECT_DIR$/data/sample_labels.txt" />
-        <option value="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" />
         <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html" />
+        <option value="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" />
+        <option value="$PROJECT_DIR$/src/producer/auto_upload.sh" />
+        <option value="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py" />
       </list>
     </option>
   </component>
@@ -316,31 +319,6 @@
               <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="producer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="spark_jobs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="spark_jobs" type="462c0819:PsiDirectoryNode" />
-              <item name="for_producer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="sql" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="training" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
@@ -575,20 +553,11 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="5" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/logs/local_model_training/training_request_processing/2018-10-13T08:51:05.964344" />
-    <entry file="file://$PROJECT_DIR$/src/training/run_local.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///anaconda3/lib/python3.6/site-packages/keras_preprocessing/image.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -668,14 +637,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/moving_images.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-461">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/producer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-13584">
@@ -684,26 +645,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/auto_upload.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/run_auto.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3822">
-          <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -792,16 +737,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="25" column="63" lean-forward="false" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#37#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/spark_jobs/for_producer/batch_image_submissions.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -824,14 +759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="908">
           <caret line="55" column="3" lean-forward="true" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="47" column="3" lean-forward="true" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -953,14 +880,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="114" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
@@ -973,6 +892,70 @@
             <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="47" column="3" lean-forward="true" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/producer_local.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9469">
+          <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/moving_images.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/all_labels_For_Simulation.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/auto_upload.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="122" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="37" lean-forward="false" selection-start-line="0" selection-start-column="37" selection-end-line="0" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>

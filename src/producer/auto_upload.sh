@@ -6,7 +6,7 @@
 #
 # Run this script with the following command:
 #
-#       sh auto_upload.sh sample_labels.txt "test"
+#       sh ~/Deep_Images_Hub/src/producer/auto_upload.sh ~/Deep_Images_Hub/data/all_labels_For_Simulation.txt "validation"
 #
 
 

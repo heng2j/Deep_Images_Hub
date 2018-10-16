@@ -92,9 +92,9 @@ WHERE label_name in (select unnest( tr.label_names) from training_records tr whe
 
 
 
--- Created get_image_thumbnail_small_object_keys function to get the sample mage_thumbnail_small_object_key for each label by model id
-DROP FUNCTION get_image_thumbnail_small_object_keys;
-CREATE FUNCTION get_image_thumbnail_small_object_keys(int) RETURNS SETOF text AS
+-- Created get_image_thumbnail_object_keys function to get the sample mage_thumbnail_object_key for each label by model id
+DROP FUNCTION get_image_thumbnail_object_keys;
+CREATE FUNCTION get_image_thumbnail_object_keys(int) RETURNS SETOF text AS
 $BODY$
 DECLARE
     temprow   text;
@@ -102,7 +102,7 @@ BEGIN
 FOR temprow IN
         SELECT unnest( tr.label_names) FROM training_records tr WHERE model_id = $1 
     LOOP
-    RETURN QUERY EXECUTE  'SELECT image_thumbnail_small_object_key FROM images WHERE label_name = ''' || temprow || ''' LIMIT 1' ;
+    RETURN QUERY EXECUTE  'SELECT image_thumbnail_object_key FROM images WHERE label_name = ''' || temprow || ''' LIMIT 1' ;
 	
 	END LOOP;
  END
@@ -110,7 +110,7 @@ $BODY$
 LANGUAGE plpgsql;
 
 -- Returns a sample image_thumbnail_small_object_key for each label by model id
-SELECT * FROM get_image_thumbnail_small_object_keys(17);
+SELECT * FROM get_image_thumbnail_object_keys(17);
 
 
 
