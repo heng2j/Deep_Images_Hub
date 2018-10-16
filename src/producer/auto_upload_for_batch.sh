@@ -6,7 +6,7 @@
 #
 # Run this script with the following command:
 #
-#       sh ~/Deep_Images_Hub/src/producer/auto_upload_for_batch.sh ~/Deep_Images_Hub/src/producer/sample_labels.txt "test"
+#       sh ~/Deep_Images_Hub/src/producer/auto_upload_for_batch.sh ~/Deep_Images_Hub/data/sample_labels.txt "test"
 #
 
 source ~/shrink_venv/bin/activate

@@ -2,29 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/sample_labels.txt" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/sample_labels_aa" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/sample_labels_ab" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/sample_labels_ac" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/sample_labels_ad" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/data/doc/labels/bbox_labels_600_hierarchy.json" afterPath="$PROJECT_DIR$/data/bbox_labels_600_hierarchy.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/data/doc/labels/class-descriptions.csv" afterPath="$PROJECT_DIR$/data/class-descriptions.csv" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/data/doc/labels/classes-trainable.txt" afterPath="$PROJECT_DIR$/data/classes-trainable.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/data/doc/labels/classes.txt" afterPath="$PROJECT_DIR$/data/classes.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/producer/sample_labels.txt" afterPath="$PROJECT_DIR$/data/sample_labels.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/user_images_upload_simulation.py" afterPath="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/user_images_upload_simulation.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" afterPath="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/spark_jobs/for_producer/producer_distributed.py" afterPath="$PROJECT_DIR$/src/spark_jobs/for_producer/producer_distributed.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/spark_jobs/for_producer/run_batch.sh" afterPath="$PROJECT_DIR$/src/spark_jobs/for_producer/run_batch.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/spark_jobs/for_producer/sample_labels.txt" afterPath="$PROJECT_DIR$/src/spark_jobs/for_producer/sample_labels.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sql/web_UI_queries.sql" afterPath="$PROJECT_DIR$/src/sql/web_UI_queries.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webapp_flask/app/DAO.py" afterPath="$PROJECT_DIR$/src/webapp_flask/app/DAO.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webapp_flask/app/routes.py" afterPath="$PROJECT_DIR$/src/webapp_flask/app/routes.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webapp_flask/app/templates/base.html" afterPath="$PROJECT_DIR$/src/webapp_flask/app/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webapp_flask/app/templates/cart.html" afterPath="$PROJECT_DIR$/src/webapp_flask/app/templates/cart.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html" afterPath="$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webapp_flask/app/templates/shop.html" afterPath="$PROJECT_DIR$/src/webapp_flask/app/templates/shop.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="product-details.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="product-details.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
-              <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="14" />
+            <state relative-caret-position="525">
+              <caret line="123" column="24" lean-forward="false" selection-start-line="123" selection-start-column="24" selection-end-line="123" selection-end-column="24" />
               <folding>
                 <element signature="n#style#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -108,8 +87,8 @@
       <file leaf-file-name="auto_upload_for_batch.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="8" column="98" lean-forward="false" selection-start-line="8" selection-start-column="98" selection-end-line="8" selection-end-column="98" />
+            <state relative-caret-position="176">
+              <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="114" />
               <folding />
             </state>
           </provider>
@@ -125,7 +104,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sample_labels.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sample_labels.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/spark_jobs/for_producer/sample_labels.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="660">
@@ -241,14 +220,14 @@
         <option value="$PROJECT_DIR$/src/spark_jobs/for_producer/run_batch.sh" />
         <option value="$PROJECT_DIR$/src/spark_jobs/for_producer/sample_labels.txt" />
         <option value="$PROJECT_DIR$/src/spark_jobs/for_producer/producer_distributed.py" />
-        <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html" />
         <option value="$PROJECT_DIR$/src/webapp_flask/app/routes.py" />
         <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/cart.html" />
         <option value="$PROJECT_DIR$/src/webapp_flask/app/DAO.py" />
         <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/base.html" />
         <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/shop.html" />
-        <option value="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" />
         <option value="$PROJECT_DIR$/data/sample_labels.txt" />
+        <option value="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" />
+        <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html" />
       </list>
     </option>
   </component>
@@ -562,8 +541,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16239317" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16239317" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -835,7 +815,7 @@
         <state relative-caret-position="1717">
           <caret line="661" column="37" lean-forward="false" selection-start-line="661" selection-start-column="37" selection-end-line="661" selection-end-column="37" />
           <folding>
-            <element signature="e#1251#1288#0" expanded="true" />
+            <element signature="e#1251#1288#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -885,7 +865,7 @@
         <state relative-caret-position="936">
           <caret line="49" column="87" lean-forward="false" selection-start-line="49" selection-start-column="87" selection-end-line="49" selection-end-column="87" />
           <folding>
-            <element signature="e#0#33#0" expanded="true" />
+            <element signature="e#0#33#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -941,42 +921,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="8" column="98" lean-forward="false" selection-start-line="8" selection-start-column="98" selection-end-line="8" selection-end-column="98" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/sample_labels.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="956">
-          <caret line="46" column="12" lean-forward="false" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/producer/sample_labels.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#2;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#3;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -993,6 +942,37 @@
         <state relative-caret-position="660">
           <caret line="30" column="4" lean-forward="true" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/sample_labels.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="956">
+          <caret line="46" column="12" lean-forward="false" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="114" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="123" column="24" lean-forward="false" selection-start-line="123" selection-start-column="24" selection-end-line="123" selection-end-column="24" />
+          <folding>
+            <element signature="n#style#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#2;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#3;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
