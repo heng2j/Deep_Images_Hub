@@ -1,7 +1,7 @@
 from flask import render_template
 from app import app
 from app.forms import LoginForm
-from app.DAO import get_featured_batches, get_all_labels, get_parent_labels
+from app.DAO import get_featured_batches, get_all_labels, get_parent_labels , get_recent_trained_models
 
 
 # TODO - Fix his qucik and dirty ways to make query with proper SQLAlchemy style
@@ -35,6 +35,16 @@ def shop():
     parent_labels = get_parent_labels()
 
     return render_template('shop.html', title='Shop', all_labels=all_labels, parent_labels = parent_labels)
+
+
+@app.route('/')
+@app.route('/cart.html')
+def cart():
+
+    model_list = get_recent_trained_models()
+
+    return render_template('cart.html', title='Trained Models', model_list=model_list)
+
 
 
 if __name__ == '__main__':

@@ -269,12 +269,124 @@ def get_parent_labels():
             conn.close()
             print('Database connection closed.')
 
+# Get most recent trained model records (Count 3 for now)
+def get_recent_trained_models():
+
+    sql = """
+    
+        SELECT tr.model_id,tr.label_names,tr.image_counts_for_labels,tr.final_accuracy, tr.final_validation_accuracy, tr.final_loss, tr.final_validation_loss,tr.creation_date, tr.note, array_length(tr.purchased_user_ids,1) AS number_purchased,downloadable_model_link, downloadable_plot_link, (SELECT image_thumbnail_small_object_key FROM images WHERE label_name in (select unnest( tr.label_names) ORDER BY random() LIMIT 1 ) LIMIT 1) AS thumbnail_image
+        FROM training_records tr
+        ORDER by tr.creation_date  DESC
+        LIMIT 3;	
+
+    """
+
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        # execute a statement
+        print('Getting the most recent trained model records  ...')
+        cur.execute(sql)
+
+        #results_list = sorted([result[0] for result in cur.fetchall()])
+
+        results = cur.fetchall()
+
+        results_pdf = pd.DataFrame(results,
+                                   columns=['model_id', 'label_names', 'image_counts_for_labels',
+                                            'final_accuracy', 'final_validation_accuracy' ,'final_loss',
+                                            'final_validation_loss', 'creation_date', 'note',
+                                            'number_purchased', 'downloadable_model_link', 'downloadable_plot_link' ,'thumbnail_image'])
 
 
+        recent_models = []
 
-# featured_batches = get_featured_batches()
-#
-# print(featured_batches)
-# print(type(featured_batches))
+        for index, row in results_pdf.iterrows():
+
+            model_details = {}
+            model_details['model_id'] = row.model_id
+            model_details['label_names'] = row.label_names
+            model_details['image_counts_for_labels'] = row.image_counts_for_labels
+            model_details['final_accuracy'] = row.final_accuracy
+            model_details['final_validation_accuracy'] = row.final_validation_accuracy
+            model_details['final_loss'] = row.final_loss
+            model_details['final_validation_loss'] = row.final_validation_loss
+            model_details['creation_date'] = row.creation_date
+            model_details['note'] = row.note
+            model_details['number_purchased'] = row.number_purchased
+            model_details['downloadable_model_link'] = row.downloadable_model_link
+            model_details['downloadable_plot_link'] = row.downloadable_plot_link
+            model_details['thumbnail_image'] = row.thumbnail_image
+
+            recent_models.append(model_details)
+
+
+        # close the communication with the PostgreSQL
+        cur.close()
+
+        # All labels ready return True
+        return recent_models
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
+# Get most recent trained model records (Count 3 for now)
+def get_trained_models_by_id(model_id):
+    sql = """
+
+        SELECT tr.model_id,tr.label_names,tr.image_counts_for_labels,tr.final_accuracy, tr.final_validation_accuracy, tr.final_loss, tr.final_validation_loss,tr.creation_date, tr.note, array_length(tr.purchased_user_ids,1) AS number_purchased,downloadable_model_link, downloadable_plot_link, (SELECT image_thumbnail_small_object_key FROM images WHERE label_name in (select unnest( tr.label_names) ORDER BY random() LIMIT 1 ) LIMIT 1) AS thumbnail_image
+        FROM training_records tr
+        WHERE model_id = %s ;	
+
+    """
+
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        # execute a statement
+        print('Getting all parent labels with children has images ...')
+        cur.execute(sql,(model_id))
+
+        results_list = sorted([result[0] for result in cur.fetchall()])
+
+        # close the communication with the PostgreSQL
+        cur.close()
+
+        # All labels ready return True
+        return results_list
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
 
 

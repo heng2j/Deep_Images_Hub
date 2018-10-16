@@ -741,8 +741,8 @@ if __name__ == '__main__':
 
     labels_sdf = labels_sdf.repartition(100)
     #
-    # labels_sdf.rdd.map(process_label)
+    labels_sdf.rdd.map(process_label)
 
-    for row in labels_sdf.rdd.collect():
-        print("row: ", row.label.strip())
-        process_label(row.label.strip())
+    # for row in labels_sdf.rdd.collect():
+    #     print("row: ", row.label.strip())
+    #     process_label(row.label.strip())

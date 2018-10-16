@@ -23,5 +23,5 @@ producer_distributed.py \
 --src_prefix "dataset/not_occluded/" \
 --src_type "test"  \
 --des_bucket_name "insight-deep-images-hub" \
---source_file "./all_labels.txt"
+--source_file "./sample_labels.txt"
 

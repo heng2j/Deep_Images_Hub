@@ -133,19 +133,19 @@ WHERE label_name = 'Soft_drink';
 DELETE FROM requesting_label_watchlist;
 INSERT INTO requesting_label_watchlist  (label_name, user_ids,last_requested_userid, new_requested_date ) VALUES
 
-( 'Apple',ARRAY[1], 1, (SELECT NOW()) );
+( 'LaCroix_Sparkling_Water_Lemon',ARRAY[2], 2, (SELECT NOW()) );
 	
 	
-INSERT INTO requesting_label_watchlist (label_name, user_ids,last_requested_userid, new_requested_date ) VALUES
-
-( 'Apple',ARRAY[1], 1, (SELECT NOW()) )
+INSERT INTO requesting_label_watchlist (label_name, user_ids,last_requested_userid, new_requested_date ) 
+VALUES
+( 'LaCroix_Sparkling_Water_Lemon',ARRAY[2], 2, (SELECT NOW()) )
  ON CONFLICT (label_name)  
  DO
  UPDATE
- SET user_ids = array_append(requesting_label_watchlist.user_ids, 1),
- 	 last_requested_userid = 1
+ SET user_ids = array_append(requesting_label_watchlist.user_ids, 2),
+ 	 last_requested_userid = 2
  
- WHERE requesting_label_watchlist.label_name = 'Apple';
+ WHERE requesting_label_watchlist.label_name = 'LaCroix_Sparkling_Water_Lemon';
  
 
 
