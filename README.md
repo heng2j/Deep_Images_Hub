@@ -86,12 +86,6 @@ Deep learning is increasingly adopted by the big data and data science community
 
 
 
-#### Data Flow
-
-
-
-<hr/>
-
 #### Setup
 
 ###### Prerequisites 
