@@ -7,7 +7,7 @@
 
 # Deep Images Hub
 
-This project create a platform to automatically verify, preprocess and orangize crowdsourced labeled images as datasets for users to select and download by their choice. Additionally, the platform allow premium users to train a sample computer vision model with their choice of image subsets. 
+This project create a platform to automatically verify, preprocess and organize crowdsourced labeled images as datasets for users to select and download by their choice. Additionally, the platform allow premium users to train a sample computer vision model with their choice of image subsets. 
 
 
 [Deep Images Hub WebPage](http://www.deepimagehub.space)
@@ -33,17 +33,17 @@ Without image datasets, model can’t be train and new business can’t be creat
 
 Deep Images Hub is the centralized image data hub that provides crowdsourced labeled images from images suppliers to data scientist. Data Scientist can download the images by their choices of labels. 
 
-Additionally for premium users, they can request to train a baseline model. So Deep Image Hub is the automated platform for computer vision. We envisoned to be the artificial the computer vison platform just like Amazon's Mechanical Turk.
+Additionally for premium users, they can request to train a baseline model. So Deep Image Hub is the automated platform for computer vision. We envisoned to be the artificial the computer vision platform just like Amazon's Mechanical Turk.
 
 ![Alt text](README_images/Simple%20Platform%20Blueprint.png?raw=true "Motivation")
 
 
-More details can be found in this more indepth slides:
+More details can be found in this more in-depth slides:
 [Slides](https://docs.google.com/presentation/d/17XCa3oY8J-khs3DmT14Esi0rPLR4x-ynFPMEQ80cagw/edit#slide=id.g36132c4481_0_39)
 
 <hr/>
 
-#### Painpoints to be Solved
+#### Pain-points to be Solved
 
 There are not enough diversified image datasets and computer vision model to meet the demands from different consumer products and services use cases?
 
@@ -59,7 +59,7 @@ Deep learning is increasingly adopted by the big data and data science community
 
 * Open Images subset with Image-Level Labels (1.74 million images and 600 classes with hierarchies). [Source](https://storage.googleapis.com/openimages/web/factsfigures.html)
 
-* Dataset are stored in image source S3 bucket. An automated process will be copy the images from the source S3 bucket to Image Data Hub's bucket with preprocessings to simulate cloudsourced labled imges submissions. 
+* Dataset are stored in image source S3 bucket. An automated process will be copy the images from the source S3 bucket to Image Data Hub's bucket with preprocessing to simulate crowdsourced labeledd images submissions. 
 
 <hr/>
 
@@ -73,6 +73,8 @@ Deep learning is increasingly adopted by the big data and data science community
 #### Data Modeling and Database Schema
 
 ![Alt text](README_images/Database%20Schema.png?raw=true "Databae Schema")
+
+[Sample Business Use Cases that handle by the current Data Model](https://github.com/heng2j/Deep_Images_Hub/wiki/4.-Business-Users-Requests-Implementation)
 
  [All SQLs can be found here](/src/sql)
 
@@ -102,9 +104,9 @@ Deep learning is increasingly adopted by the big data and data science community
 Please check Deep Images Hub [wiki site](../../wiki) for detailed
 documentations. Here are the table of contents of how to get start:
 
-* [Data Prepartion](../../wiki/1.-Data-Preparation) 
+* [Data Preparation](../../wiki/1.-Data-Preparation) 
   * Can also reference the Juypter Notebook for [Exploratory Data Analysis on the Pen Images classes](https://github.com/heng2j/Deep_Images_Hub/blob/master/src/noteBooks/Exploratory%20Data%20Analysis%20on%20Open%20Images%20Classes.ipynb))
-* [Backend Design and Implementtation](../../wiki/2.-Design-and-Planing)
+* [Backend Design and Implementation](../../wiki/2.-Design-and-Planing)
 * [Simulating Crowdsourcing Images Workflow](../../wiki/3.-Image-Suppliers-Implementation)
 * [Business User Requests on Deep Image Hub Website Workflow](../../wiki/4.-Business-Users-Requests-Implementation)
 * [Computer Vision Model Training Workflow](../../wiki/5.-Premium-Business-Users-Requests-Implementation)
@@ -118,7 +120,7 @@ documentations. Here are the table of contents of how to get start:
 
 1. How to simulate crowdsourced labeled image submission?
 2. How can we preprocess the crowdsourced images in our centralized data hub?
-3. How to design a platfrom that host image datasets that are ready for users to download and train with distributedly on demands?
+3. How to design a platform that host image datasets that are ready for users to download and train with distributedly on demands?
 4. How to train deep learning model distributed with centralized data source?
 5. How to work with deep learning in Spark when it is still in it's infancy.
 6. Work flows to connect all the dots for the platform
