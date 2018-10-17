@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bec018b-c3e0-429d-af18-166082fafbc7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/all_labels_For_Simulation.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/OIDv4_batch_image_downloader.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/upload_s3.sh" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/consumer/read_images_from_S3.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/consumer/map1.geojson" afterPath="$PROJECT_DIR$/data/map1.geojson" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py" afterPath="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/producer/auto_upload.sh" afterPath="$PROJECT_DIR$/src/producer/auto_upload.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sql/insert_sample_data.sql" afterPath="$PROJECT_DIR$/src/sql/insert_sample_data.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sql/producer_queries.sql" afterPath="$PROJECT_DIR$/src/sql/producer_queries.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sql/tabels_creations.sql" afterPath="$PROJECT_DIR$/src/sql/tabels_creations.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sql/web_UI_queries.sql" afterPath="$PROJECT_DIR$/src/sql/web_UI_queries.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/training/train_model_TF.py" afterPath="$PROJECT_DIR$/src/training/train_model_TF.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/training/train_model_keras.py" afterPath="$PROJECT_DIR$/src/training/train_model_keras.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,35 +21,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="product-details.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html">
+      <file leaf-file-name="images_submission_simulation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="123" column="24" lean-forward="false" selection-start-line="123" selection-start-column="24" selection-end-line="123" selection-end-column="24" />
+            <state relative-caret-position="331">
+              <caret line="21" column="49" lean-forward="false" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="101" />
               <folding>
-                <element signature="n#style#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#li#2;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#li#3;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#0#37#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="auto_upload_for_batch.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh">
+      <file leaf-file-name="all_labels.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/all_labels.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="1" />
+            <state relative-caret-position="781">
+              <caret line="251" column="6" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="251" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="producer_local.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/producer/producer_local.log">
+      <file leaf-file-name="train_model_keras.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/training/train_model_keras.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="498">
+              <caret line="340" column="66" lean-forward="false" selection-start-line="340" selection-start-column="66" selection-end-line="340" selection-end-column="66" />
+              <folding>
+                <element signature="e#216#254#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="train_model_TF_backup.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/training/train_model_TF_backup.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -57,41 +65,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Batch_Image_submissions.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/Batch_Image_submissions.py">
+      <file leaf-file-name="train_model_TF.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/training/train_model_TF.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="502">
-              <caret line="47" column="3" lean-forward="true" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
+            <state relative-caret-position="436">
+              <caret line="374" column="19" lean-forward="false" selection-start-line="374" selection-start-column="9" selection-end-line="374" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="producer_local.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/producer/producer_local.py">
+      <file leaf-file-name="upload_s3.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/upload_s3.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-9469">
-              <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+            <state relative-caret-position="132">
+              <caret line="6" column="100" lean-forward="false" selection-start-line="6" selection-start-column="67" selection-end-line="6" selection-end-column="100" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="images_submission_simulation.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="37" lean-forward="false" selection-start-line="0" selection-start-column="37" selection-end-line="0" selection-end-column="37" />
+            <state relative-caret-position="198">
+              <caret line="9" column="80" lean-forward="true" selection-start-line="9" selection-start-column="80" selection-end-line="9" selection-end-column="80" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sample_labels.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/sample_labels.txt">
+      <file leaf-file-name="OIDv4_batch_image_downloader.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/OIDv4_batch_image_downloader.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="956">
-              <caret line="46" column="12" lean-forward="false" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
+            <state relative-caret-position="44">
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="4" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -100,8 +108,8 @@
       <file leaf-file-name="auto_upload.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/producer/auto_upload.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="122" />
+            <state relative-caret-position="524">
+              <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -109,16 +117,6 @@
       </file>
       <file leaf-file-name="all_labels_For_Simulation.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/all_labels_For_Simulation.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="moving_images.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/producer/moving_images.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -139,10 +137,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>categoryIndex</find>
-      <find>StructType</find>
-      <find>=</find>
-      <find>jpg</find>
       <find>spark</find>
       <find>SparkSession</find>
       <find>sql</find>
@@ -169,6 +163,10 @@
       <find>150</find>
       <find>index.html</find>
       <find>Dessert</find>
+      <find>create_image_dataframe</find>
+      <find>Getting image urls for requesting labels</find>
+      <find>Pipeline</find>
+      <find>FILE</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -180,9 +178,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/consumer/requester.py" />
-        <option value="$PROJECT_DIR$/webapp_flask/app/DAO.py" />
-        <option value="$PROJECT_DIR$/webapp_flask/app/templates/base.html" />
         <option value="$PROJECT_DIR$/webapp_flask/app/templates/index.html" />
         <option value="$PROJECT_DIR$/webapp_flask/app/templates/shop.html" />
         <option value="$PROJECT_DIR$/src/producer/run.sh" />
@@ -204,7 +199,6 @@
         <option value="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/demo_dag.py" />
         <option value="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/local_model_training_procedure.py" />
         <option value="$PROJECT_DIR$/src/training/run_local.sh" />
-        <option value="$PROJECT_DIR$/src/training/train_model_keras.py" />
         <option value="$PROJECT_DIR$/src/consumer/web_requests.py" />
         <option value="$PROJECT_DIR$/src/producer/producer.py" />
         <option value="$PROJECT_DIR$/src/training/requester.py" />
@@ -216,7 +210,6 @@
         <option value="$PROJECT_DIR$/src/producer/producer_local.py" />
         <option value="$PROJECT_DIR$/src/webapp_flask/app/__init__.py" />
         <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/index.html" />
-        <option value="$PROJECT_DIR$/src/training/train_model_TF.py" />
         <option value="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/user_images_upload_simulation.py" />
         <option value="$PROJECT_DIR$/src/spark_jobs/for_producer/run_batch.sh" />
         <option value="$PROJECT_DIR$/src/spark_jobs/for_producer/sample_labels.txt" />
@@ -230,7 +223,12 @@
         <option value="$PROJECT_DIR$/src/webapp_flask/app/templates/product-details.html" />
         <option value="$PROJECT_DIR$/src/producer/auto_upload_for_batch.sh" />
         <option value="$PROJECT_DIR$/src/producer/auto_upload.sh" />
+        <option value="$PROJECT_DIR$/src/training/train_model_TF.py" />
         <option value="$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py" />
+        <option value="$PROJECT_DIR$/src/training/train_model_keras.py" />
+        <option value="$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/upload_s3.sh" />
+        <option value="$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/OIDv4_batch_image_downloader.sh" />
+        <option value="$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/README.md" />
       </list>
     </option>
   </component>
@@ -276,89 +274,20 @@
               <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
               <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="airflow" type="462c0819:PsiDirectoryNode" />
+              <item name="data_preparation" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
               <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="airflow" type="462c0819:PsiDirectoryNode" />
-              <item name="workspace" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="airflow" type="462c0819:PsiDirectoryNode" />
-              <item name="workspace" type="462c0819:PsiDirectoryNode" />
-              <item name="airflow_home" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="airflow" type="462c0819:PsiDirectoryNode" />
-              <item name="workspace" type="462c0819:PsiDirectoryNode" />
-              <item name="airflow_home" type="462c0819:PsiDirectoryNode" />
-              <item name="dags" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="consumer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="data_preprocessor" type="462c0819:PsiDirectoryNode" />
+              <item name="data_preparation" type="462c0819:PsiDirectoryNode" />
+              <item name="OIDv4_ToolKit" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
               <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="producer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp_flask" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp_flask" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp_flask" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp_flask" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Deep_Images_Hub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Deep_Images_Hub" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="test_training" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -558,52 +487,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///anaconda3/lib/python3.6/site-packages/keras_preprocessing/image.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/training/cnn-keras/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="91" column="23" lean-forward="false" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/training/postTraining.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="879">
-          <caret line="168" column="83" lean-forward="false" selection-start-line="168" selection-start-column="83" selection-end-line="168" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/requester_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="564" column="33" lean-forward="true" selection-start-line="564" selection-start-column="33" selection-end-line="564" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/consumer/web_requests.py" />
-    <entry file="file://$PROJECT_DIR$/src/data_preprocessor/create_thumbnail.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/consumer/map1.geojson">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1102">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/data_preprocessor/image_filter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -645,14 +528,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/run_auto.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/webapp_flask/microblog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -676,24 +551,6 @@
         <state relative-caret-position="292">
           <caret line="199" column="102" lean-forward="false" selection-start-line="199" selection-start-column="99" selection-end-line="199" selection-end-column="102" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/training/train_model_keras.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-692">
-          <caret line="338" column="4" lean-forward="false" selection-start-line="338" selection-start-column="4" selection-end-line="338" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/training/train_model_TF.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="227" column="30" lean-forward="true" selection-start-line="227" selection-start-column="21" selection-end-line="227" selection-end-column="30" />
-          <folding>
-            <element signature="e#250#288#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -771,14 +628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/spark_jobs/for_producer/run_batch.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="19" lean-forward="false" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/user_images_upload_simulation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="484">
@@ -842,8 +691,8 @@
         <state relative-caret-position="2684">
           <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -852,14 +701,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/all_labels.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -885,12 +726,12 @@
         <state relative-caret-position="525">
           <caret line="123" column="24" lean-forward="false" selection-start-line="123" selection-start-column="24" selection-end-line="123" selection-end-column="24" />
           <folding>
-            <element signature="n#style#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#2;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#3;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#li#2;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#li#3;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#table#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -943,18 +784,118 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/producer/auto_upload.sh">
+    <entry file="file://$PROJECT_DIR$/src/training/train_model_TF_backup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="122" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/all_labels.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="781">
+          <caret line="251" column="6" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="251" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/training/train_model_keras.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="340" column="66" lean-forward="false" selection-start-line="340" selection-start-column="66" selection-end-line="340" selection-end-column="66" />
+          <folding>
+            <element signature="e#216#254#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utilities/geographic/geoinfo.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/map1.geojson">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_preparation/read_images_from_S3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5258">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/spark_jobs/for_producer/run_batch.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="19" column="19" lean-forward="false" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/airflow/workspace/airflow_home/dags/images_submission_simulation.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="21" column="49" lean-forward="false" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="101" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/run_auto.sh">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="37" lean-forward="false" selection-start-line="0" selection-start-column="37" selection-end-line="0" selection-end-column="37" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/training/train_model_TF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="374" column="19" lean-forward="false" selection-start-line="374" selection-start-column="9" selection-end-line="374" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/producer/auto_upload.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/OIDv4_batch_image_downloader.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="4" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/upload_s3.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="100" lean-forward="false" selection-start-line="6" selection-start-column="67" selection-end-line="6" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_preparation/OIDv4_ToolKit/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="80" lean-forward="true" selection-start-line="9" selection-start-column="80" selection-end-line="9" selection-end-column="80" />
           <folding />
         </state>
       </provider>

@@ -138,6 +138,8 @@ def get_images_urls(label_list):
         # execute a statement
         print('Getting image urls for requesting labels and append to train and test dfs ...')
 
+        url_list = []
+
         for i, label_name in enumerate(label_list):
 
             sql = "SELECT image_thumbnail_object_key FROM images WHERE label_name =  %s ;"
@@ -147,6 +149,10 @@ def get_images_urls(label_list):
             results = [r[0] for r in cur.fetchall()]
 
             uri_sdf = CreateTrainImageUriandLabels(results, i, label_name, label_cardinality, 0)
+
+            for url in results:
+
+                url_list.append(url)
 
             # local_train, local_test, _ = uri_sdf.randomSplit([0.005, 0.005, 0.99])
 
@@ -158,9 +164,12 @@ def get_images_urls(label_list):
             train_df = train_df.unionAll(local_train)
             test_df = test_df.unionAll(local_test)
 
+
+
         # close the communication with the PostgreSQL
         cur.close()
 
+        return url_list
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -300,7 +309,7 @@ if __name__ == '__main__':
 
     label_cardinality = 2
 
-    label_list = ['Table', 'Chair']
+    label_list = ['Cat', 'Panda']
 
     label_cardinality = len(label_list)
     label_nums = list(range(label_cardinality))
@@ -308,99 +317,147 @@ if __name__ == '__main__':
     train_df = CreateTrainImageUriandLabels(['dummy'], 1, 'empty', 2, 1)
     test_df = CreateTrainImageUriandLabels(['dummy'], 0, 'empty', 2, 1)
 
+    url_list = get_images_urls(label_list)
 
-    get_images_urls(label_list)
+    print(url_list)
 
-    train_df = train_df.filter(train_df.isDefault == 0)
-    test_df = test_df.filter(test_df.isDefault == 0)
-
-    train_df.show()
-    test_df.show()
-
-    # Under the hood, each of the partitions is fully loaded in memory, which may be expensive.
-    # This ensure that each of the paritions has a small size.
-    train_df = train_df.repartition(100)
-    test_df = test_df.repartition(100)
-
-    # from keras.applications import InceptionV3
-    #
-    # model = InceptionV3(weights="imagenet")
-
-    from keras.applications import VGG16
-
-    model = VGG16(weights='imagenet',
-                     include_top=False,
-                     input_shape=(224, 224, 3))
-
-    # model = ResNet50(weights=None,top_layer = False,input_tensor=None, input_shape=(224, 224, 3))
-
-    model.save('/tmp/model-full.h5')  # saves to the local filesystem
-
-    import PIL.Image
+    from keras.applications.inception_v3 import preprocess_input
+    from keras.preprocessing.image import img_to_array, load_img
     import numpy as np
-    from keras.applications.imagenet_utils import preprocess_input
+    import os
+    from pyspark.sql.types import StringType
+    from sparkdl import KerasImageFileTransformer
+
+    from keras.applications import InceptionV3
+
+    # Load inception v3 (Best Image Classifier)
+    model = InceptionV3(weights="imagenet")
+
+    # Save the model
+    model.save('/tmp/model-full.h5')
+
+    # Parameters
+    SIZE = (299, 299)  # Size accepted by Inception model
+    IMAGES_PATH = 'datasets/image_classifier/test/'  # Images Path
+    MODEL = '/tmp/model-full-tmp.h5'  # Model Path
 
 
-    def load_image_from_uri(local_uri):
-
-        response = requests.get(local_uri)
-        # img = Image.open(BytesIO(response.content))
-        # img = image.load_img(BytesIO(response.content), target_size=(299, 299))
-        #
-        img = (PIL.Image.open(BytesIO(response.content)).convert('RGB').resize((224, 224), PIL.Image.ANTIALIAS))
-        img_arr = np.array(img).astype(np.float32)
-        img_tnsr = preprocess_input(img_arr[np.newaxis, :])
-
-        print("img_tnsr: ", img_tnsr)
-
-        return img_tnsr
+    # Image Preprocessing
+    def preprocess_keras_inceptionV3(uri):
+        image = img_to_array(load_img(uri, target_size=SIZE))
+        image = np.expand_dims(image, axis=0)
+        return preprocess_input(image)
 
 
-
-    stringIndexer = StringIndexer(inputCol="label_name", outputCol="categoryIndex")
-    indexed_dateset = stringIndexer.fit(train_df).transform(train_df)
-
-
-    # encoder = OneHotEncoder(inputCol="categoryIndex", outputCol="categoryVec")
-
-    encoder = OneHotEncoderEstimator(inputCols=["categoryIndex"], outputCols=["categoryVec"])
-
-    encoder_model = encoder.fit(indexed_dateset)
-
-    image_dataset = encoder_model.transform(indexed_dateset)
-
-    image_dataset.show()
+    # Define Spark Transformer
+    transformer = KerasImageFileTransformer(inputCol="uri", outputCol="predictions",
+                                            modelFile=MODEL,
+                                            imageLoader=preprocess_keras_inceptionV3,
+                                            outputMode="vector")
 
 
-    from sparkdl.estimators.keras_image_file_estimator import KerasImageFileEstimator
+
+    uri_df = sqlContext.createDataFrame(url_list, StringType()).toDF("uri")
+
+    # Get Output
+    labels_df = transformer.transform(uri_df)
+
+    # Show Output
+    labels_df.show()
 
 
-    estimator = KerasImageFileEstimator(inputCol="imageUri",
-                                        outputCol="prediction",
-                                        labelCol="categoryVec",
-                                        imageLoader=load_image_from_uri,
-                                        kerasOptimizer='adam',
-                                        kerasLoss='categorical_crossentropy',
-                                        modelFile='/tmp/model-full.h5')
 
+    #
+    # train_df = train_df.filter(train_df.isDefault == 0)
+    # test_df = test_df.filter(test_df.isDefault == 0)
+    #
+    # train_df.show()
+    # test_df.show()
+    #
+    # # Under the hood, each of the partitions is fully loaded in memory, which may be expensive.
+    # # This ensure that each of the paritions has a small size.
+    # train_df = train_df.repartition(100)
+    # test_df = test_df.repartition(100)
+    #
+    # # from keras.applications import InceptionV3
+    # #
+    # # model = InceptionV3(weights="imagenet")
+    #
+    # from keras.applications import VGG16
+    #
+    # model = VGG16(weights='imagenet',
+    #                  include_top=False,
+    #                  input_shape=(224, 224, 3))
+    #
+    # # model = ResNet50(weights=None,top_layer = False,input_tensor=None, input_shape=(224, 224, 3))
+    #
+    # model.save('/tmp/model-full.h5')  # saves to the local filesystem
+    #
+    # import PIL.Image
+    # import numpy as np
+    # from keras.applications.imagenet_utils import preprocess_input
+    #
+    #
+    # def load_image_from_uri(local_uri):
+    #
+    #     response = requests.get(local_uri)
+    #     # img = Image.open(BytesIO(response.content))
+    #     # img = image.load_img(BytesIO(response.content), target_size=(299, 299))
+    #     #
+    #     img = (PIL.Image.open(BytesIO(response.content)).convert('RGB').resize((224, 224), PIL.Image.ANTIALIAS))
+    #     img_arr = np.array(img).astype(np.float32)
+    #     img_tnsr = preprocess_input(img_arr[np.newaxis, :])
+    #
+    #     print("img_tnsr: ", img_tnsr)
+    #
+    #     return img_tnsr
     #
     #
     #
-    #
-    transformers = estimator.fit(image_dataset)
-    transformers.show()
-
-    # from pyspark.ml.evaluation import BinaryClassificationEvaluator
-    # from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
-    #
-    # paramGrid = (
-    #     ParamGridBuilder()
-    #         .addGrid(estimator.kerasFitParams, [{"batch_size": 16, "verbose": 0},
-    #                                             {"batch_size": 16, "verbose": 0}])
-    #         .build()
-    # )
-    # mc = BinaryClassificationEvaluator(rawPredictionCol="prediction", labelCol="label")
-    # cv = CrossValidator(estimator=estimator, estimatorParamMaps=paramGrid, evaluator=mc, numFolds=2)
+    # stringIndexer = StringIndexer(inputCol="label_name", outputCol="categoryIndex")
+    # indexed_dateset = stringIndexer.fit(train_df).transform(train_df)
     #
     #
-    # cvModel = cv.fit(train_df)
+    # # encoder = OneHotEncoder(inputCol="categoryIndex", outputCol="categoryVec")
+    #
+    # encoder = OneHotEncoderEstimator(inputCols=["categoryIndex"], outputCols=["categoryVec"])
+    #
+    # encoder_model = encoder.fit(indexed_dateset)
+    #
+    # image_dataset = encoder_model.transform(indexed_dateset)
+    #
+    # image_dataset.show()
+    #
+    #
+    # from sparkdl.estimators.keras_image_file_estimator import KerasImageFileEstimator
+    #
+    #
+    # estimator = KerasImageFileEstimator(inputCol="imageUri",
+    #                                     outputCol="prediction",
+    #                                     labelCol="categoryVec",
+    #                                     imageLoader=load_image_from_uri,
+    #                                     kerasOptimizer='adam',
+    #                                     kerasLoss='categorical_crossentropy',
+    #                                     modelFile='/tmp/model-full.h5')
+    #
+    # #
+    # #
+    # #
+    # #
+    # transformers = estimator.fit(image_dataset)
+    # transformers.show()
+    #
+    # # from pyspark.ml.evaluation import BinaryClassificationEvaluator
+    # # from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
+    # #
+    # # paramGrid = (
+    # #     ParamGridBuilder()
+    # #         .addGrid(estimator.kerasFitParams, [{"batch_size": 16, "verbose": 0},
+    # #                                             {"batch_size": 16, "verbose": 0}])
+    # #         .build()
+    # # )
+    # # mc = BinaryClassificationEvaluator(rawPredictionCol="prediction", labelCol="label")
+    # # cv = CrossValidator(estimator=estimator, estimatorParamMaps=paramGrid, evaluator=mc, numFolds=2)
+    # #
+    # #
+    # # cvModel = cv.fit(train_df)

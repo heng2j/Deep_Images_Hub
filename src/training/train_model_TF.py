@@ -199,16 +199,12 @@ def get_images_urls(label_list):
 #     return img_arr
 
 
-def load_image_from_uri(local_uri):
+def load_image_from_uri(local_url):
 
-    response = requests.get(local_uri)
-    # img = Image.open(BytesIO(response.content))
-    # img = image.load_img(BytesIO(response.content), target_size=(299, 299))
-    #
+    response = requests.get(local_url)
     img = (PIL.Image.open(BytesIO(response.content)).convert('RGB').resize((299, 299), PIL.Image.ANTIALIAS))
     img_arr = np.array(img).astype(np.float32)
     img_tnsr = preprocess_input(img_arr[np.newaxis, :])
-
 
     return img_tnsr
 
@@ -220,7 +216,6 @@ def create_image_dataframe(row):
     image_dataframe = imageArrayToStruct(img_array)
 
     # updated Mode to be 16 _OcvType(name="CV_8UC3", ord=16, nChannels=3, dtype="uint8"), : reference https://github.com/databricks/spark-deep-learning/blob/master/python/sparkdl/image/imageIO.py
-
     d = image_dataframe.asDict()
     d['mode'] = 16
     new_row = Row(**d)

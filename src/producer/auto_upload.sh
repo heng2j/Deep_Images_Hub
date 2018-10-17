@@ -34,7 +34,6 @@ time python ~/Deep_Images_Hub/src/producer/producer_local.py --src_bucket_name "
 
 
 
-echo "Done with the Label: "
 DONE_LABEL=$(echo | sed -e \$$'{w/dev/stdout\n;d}' -i~ ${FILE})
 echo ${DONE_LABEL}
 
