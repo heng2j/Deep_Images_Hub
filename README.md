@@ -126,7 +126,7 @@ documentations. Here are the table of contents of how to get start:
 
 <hr/>
 
-#### Libraries used
+#### Extra Libraries used to simulate geolocation with given latitude and longitude
 For geocoding and decoding:
 [geopy](https://pypi.org/project/geopy/)
 
