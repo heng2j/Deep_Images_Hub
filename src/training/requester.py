@@ -3,49 +3,28 @@
 # ---------------
 # Author: Zhongheng Li
 # Init Date: 09-21-2018
-# Updated Date: 09-21-2018
+# Updated Date: 10-05-2018
 
 """
 
-requester is used by end users to make request on image classicfication models with their choices of classes.
+requester is used by end users to make request on image classification models with their choices of labels.
 
- Temp: ...
- TODO: ...
-
- Given: user_id, classes_list, destination_bucket
+ Inputs: user_id, label_list
 
  1. Get user_info from user_id
- 2. Verify classes
-    1. Check the images counts for each given label is there enough images for training - Threshold: 500
+ 2. Verify given labels
+    1. Check the images counts for each given label is there enough images for training - Threshold: 100
  3. If there are enough images:
-        1. Train the model with given labels of images
-            1. Bring up the Training Cluster with EMR with specified AMI
-                1. Lambda Function when ready trigger train
-                2. When training is done, send the zip and send the model to CPU node to create the CoreML model
-                    1. Start Tiering Down the GPU cluster
-                3. When CoreML model is created, send both the TF trained model, Training Plot and CoreML model to the user's bucket
-                4. Once completed tier down the last CPU node.
-                5. Notify user by e-mail the model is ready with Lambda funciton
+        1. Download the images to the /tmp folder with proper folder structure for the requested labels
+        2. Save the meta data into database for this training request and return an model_id from database
 
-            2. Train the model
-            3. Send the model back to
-        2. Convert the model with to CoreML model
-        3. Send both the weights and CoreML model to user's bucket
-        4. Notify user when ready.
     If there is not enough images for training:
-        1. Store the shorted labels into a list
-        2. Send user an e-mail to notify him that there is not enough trainig data for the listing labels at the moment.
- **4. Use is able to subscribe to a label of images Subscribe to a
+        1. Store the shorted labels into a watch list
+        2. Send user an e-mail to notify him that there is not enough traiing data for the listing labels at the moment.
 
+    Execute the script as the following:
 
-
-    Run with .....:
-
-    example:
-        requester.py "s3://insight-deep-images-hub/users/username_organization_id/models/packaged_food"
-
-        python requester.py --des_bucket_name "insight-deep-images-hub" --des_prefix "user/userid/model/" --label_List 'Apple' 'Banana' 'protein_bar'  --user_id 2
-
+        python ~/Deep_Images_Hub/src/training/requester.py --label_List Guitar Piano Microphone   --user_id 2
 
 """
 
@@ -116,7 +95,6 @@ Temp workflow:
                 1. Either user can wait - show waiting message and constantly monitoring the jobs
                 2. or exist and execute the command again  
     3. Return all labels ready Flag
-2. If all Labels ready kick start the training model training process
 
 """
 
@@ -220,7 +198,7 @@ def verify_labels_quantities(label_list, user_id):
             # print("These labels will save into the requesting_label_watchlist table")
             log.info("These labels will save into the requesting_label_watchlist table")
 
-            # TODO - Save labels into the requesting_label_watchlist table
+            # Save labels into the requesting_label_watchlist table
             save_to_requesting_label_to_watchlist(cur, results, user_id)
 
             # commit changes
@@ -260,7 +238,6 @@ def save_to_requesting_label_to_watchlist(cur, label_list, user_id):
     # print('Saving labels into the requesting_label_watchlist table...')
     log.info('Saving labels into the requesting_label_watchlist table...')
     for label_name in label_list:
-        # TODO -  augmented SQL statement
 
         sql = " INSERT INTO requesting_label_watchlist (label_name, user_ids,last_requested_userid, new_requested_date ) VALUES \
         ( '" + label_name[0] + "',ARRAY[" + user_id + "], " + user_id + ", (SELECT NOW()) ) ON CONFLICT (label_name)\
@@ -281,63 +258,8 @@ def save_to_requesting_label_to_watchlist(cur, label_list, user_id):
 
 retrieve image urls from database
 
-Temp workflow:
-
 
 """
-
-
-def get_images_urls(label_list):
-    """ Connect to the PostgreSQL database server """
-    conn = None
-    try:
-        # read connection parameters
-        params = config()
-
-        # connect to the PostgreSQL server
-        # print('Connecting to the PostgreSQL database...')
-        log.info('Connecting to the PostgreSQL database...')
-        conn = psycopg2.connect(**params)
-
-        # create a cursor
-        cur = conn.cursor()
-
-        values_list = []
-
-        for label_name in label_list:
-            values_list.append(label_name)
-
-        print("values_list: ", values_list)
-        log.info("values_list: ", values_list)
-
-        sql = "SELECT full_hadoop_path , label_name  FROM images WHERE label_name IN  %(values_list)s ;"
-
-        # execute a statement
-        # print('Getting image urls for requesting labels ...')
-        log.info('Getting image urls for requesting labels ...')
-        cur.execute(sql,
-                    {
-                        'values_list': tuple(values_list),
-                    })
-
-        results = cur.fetchall()
-
-        results_df = pd.DataFrame(results, columns=['image_url', 'label_name'])
-
-        # close the communication with the PostgreSQL
-        cur.close()
-
-        # All labels ready return True
-        return results_df
-
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            # print('Database connection closed.')
-            log.info('Database connection closed.')
-
 
 def get_images_urls_as_dataset(label_list):
     label_nums = list(range(len(label_list)))
@@ -408,59 +330,10 @@ def download_image_dataset_from_image_urls(url_dataset):
         download_from_S3_img_thumbnail_urls(url)
 
 
-def get_image_counters_for_labels(label_list):
-    label_nums = list(range(len(label_list)))
-
-    """ Connect to the PostgreSQL database server """
-    conn = None
-    try:
-        # read connection parameters
-        params = config()
-
-        # connect to the PostgreSQL server
-        # print('Connecting to the PostgreSQL database...')
-        log.info('Connecting to the PostgreSQL database...')
-        conn = psycopg2.connect(**params)
-
-        # create a cursor
-        cur = conn.cursor()
-
-        results_list = []
-
-        for i, label_name in enumerate(label_list):
-            sql = "SELECT image_thumbnail_object_key FROM images WHERE label_name =  %s ;"
-
-            cur.execute(sql, (label_name,))
-
-            results = [r[0] for r in cur.fetchall()]
-
-            results_list.append(results)
-
-        # close the communication with the PostgreSQL
-        cur.close()
-
-        # flatten the results_list
-        flattened_results_list = [y for x in results_list for y in x]
-
-        # All labels ready return True
-        return flattened_results_list
-
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            # print('Database connection closed.')
-            log.info('Database connection closed.')
-
 
 """
 
-Kick Start Traiing Process
-
-Temp workflow:
-    1. Get counts for total number of images 
-    2. Evaluate the number of slaves nodes 
+Invoke Traiing Process
 
 """
 

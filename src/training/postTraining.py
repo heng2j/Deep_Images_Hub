@@ -6,22 +6,16 @@
 # Updated Date: 10-10-2018
 
 """
+Post training processes will take care the images clean up on the tmp folder,
+save the trained model and the training progress plot to S3 Bucket, and upload the meta data to database.
 
-requester is used by end users to make request on image classicfication models with their choices of classes.
-
- Temp: ...
- TODO: ...
-
- Given: user_id, classes_list, destination_bucket
+ Inputs: training request id, user_id
 
 
 
-    Run with .....:
+    Execute the script as the following:
 
-    example:
-        requester.py "s3://insight-deep-images-hub/users/username_organization_id/models/packaged_food"
-
-        python requester.py --des_bucket_name "insight-deep-images-hub" --des_prefix "user/userid/model/" --label_List 'Apple' 'Banana' 'protein_bar'  --user_id 2
+    time python ~/Deep_Images_Hub/src/training/postTraining.py --training_request_number 20 --user_id 2
 
 
 """
@@ -30,23 +24,15 @@ from __future__ import print_function
 from argparse import ArgumentParser
 from configparser import ConfigParser
 import os
-from io import BytesIO
 import psycopg2
-from psycopg2 import extras
 import boto3
-from PIL import Image
-import requests
-import shutil
 import datetime
-import numpy as np
-from os.path import dirname as up
 
-import pandas as pd
 
 """
   Commonly Shared Statics
 
-  """
+"""
 
 # Set up project path
 # projectPath = up(up(os.getcwd()))
@@ -117,9 +103,6 @@ def copy_training_results_to_S3(user_id, model_id, source_path, des_prefix, user
     print("Copying training results to S3...")
     # upload results to model pool
     upload_files(source_path, des_prefix)
-
-    # upload results to user's S3 bucket
-    # upload_files(source_path, user_des_prefix)
 
 
 
