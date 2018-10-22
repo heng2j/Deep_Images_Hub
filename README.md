@@ -39,7 +39,7 @@ Additionally for premium users, they can request to train a baseline model. So D
 
 
 More details can be found in this more in-depth slides:
-[Slides](https://docs.google.com/presentation/d/1Dm88HW-UpQUgqy-grZOZE9Bef7bAkb7nlSiXDYZWf0A/edit?usp=sharing)
+[Slides](https://drive.google.com/open?id=1x_RbbePCEsLJ1nYnUL0SfHdD3wxGG2VbvJ8iIgGJ6K0)
 
 <hr/>
 
@@ -106,7 +106,7 @@ documentations. Here are the table of contents of how to get start:
 
 * [Data Preparation](../../wiki/1.-Data-Preparation) 
   * Can also reference the Juypter Notebook for [Exploratory Data Analysis on the Pen Images classes](https://github.com/heng2j/Deep_Images_Hub/blob/master/src/noteBooks/Exploratory%20Data%20Analysis%20on%20Open%20Images%20Classes.ipynb))
-* [Backend Design and Implementation](../../wiki/2.-Design-and-Planing)
+* [Design and Planing](../../wiki/2.-Design-and-Planing)
 * [Simulating Crowdsourcing Images Workflow](../../wiki/3.-Image-Suppliers-Implementation)
 * [Business User Requests on Deep Image Hub Website Workflow](../../wiki/4.-Business-Users-Requests-Implementation)
 * [Computer Vision Model Training Workflow](../../wiki/5.-Premium-Business-Users-Requests-Implementation)
