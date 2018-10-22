@@ -1,71 +1,18 @@
-#!/usr/bin/env python2
-# requester.py
+#!/usr/bin/env python3
+# requester_test.py
 # ---------------
 # Author: Zhongheng Li
 # Init Date: 09-21-2018
-# Updated Date: 09-21-2018
+# Updated Date: 10-16-2018
 
-"""
-
-requester is used by end users to make request on image classicfication models with their choices of classes.
-
- Temp: ...
- TODO: ...
-
- Given: user_id, classes_list, destination_bucket
-
- 1. Get user_info from user_id
- 2. Verify classes
-    1. Check the images counts for each given label is there enough images for training - Threshold: 500
- 3. If there are enough images:
-        1. Train the model with given labels of images
-            1. Bring up the Training Cluster with EMR with specified AMI
-                1. Lambda Function when ready trigger train
-                2. When training is done, send the zip and send the model to CPU node to create the CoreML model
-                    1. Start Tiering Down the GPU cluster
-                3. When CoreML model is created, send both the TF trained model, Training Plot and CoreML model to the user's bucket
-                4. Once completed tier down the last CPU node.
-                5. Notify user by e-mail the model is ready with Lambda funciton
-
-            2. Train the model
-            3. Send the model back to
-        2. Convert the model with to CoreML model
-        3. Send both the weights and CoreML model to user's bucket
-        4. Notify user when ready.
-    If there is not enough images for training:
-        1. Store the shorted labels into a list
-        2. Send user an e-mail to notify him that there is not enough trainig data for the listing labels at the moment.
- **4. Use is able to subscribe to a label of images Subscribe to a
-
-
-
-    Run with .....:
-
-    example:
-        requester.py "s3://insight-deep-images-hub/users/username_organization_id/models/packaged_food"
-
-        python requester.py --des_bucket_name "insight-deep-images-hub" --des_prefix "user/userid/model/" --label_List 'Apple' 'Banana' 'protein_bar'  --user_id 2
-
-
-"""
 
 from __future__ import print_function
-import sys
 from argparse import ArgumentParser
 from configparser import ConfigParser
 import os
-import boto3
 from io import BytesIO
-import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import psycopg2
-from psycopg2 import extras
-from geopy.geocoders import Nominatim
-import json
-import time
-import datetime
-import random
-import math
 import numpy as np
 from os.path import dirname as up
 
@@ -117,28 +64,8 @@ def config(filename=projectPath+database_ini_file_path, section='postgresql'):
 Verify Batch ID
 
 """
-## TODO - Maybe not in this Scope
 
 
-"""
-Analysing Image Labels
-
-Temp workflow:
-1. Loop though the list of labels
-    1. Is the label existed?
-        1. If not, inform user and exit
-    2. Is the label currently have enough images?
-        1. If Yes, proceed
-        2. If No
-            1. Insert into label_watch_list table in the DB
-            2. Inform user label not ready
-                1. Either user can wait - show waiting message and constantly monitoring the jobs
-                2. or exist and execute the command again  
-    3. Return all labels ready Flag
-2. If all Labels ready kick start the training model training process
-
-"""
-## TODO
 def verify_labels(label_list):
     """ Connect to the PostgreSQL database server """
     conn = None
@@ -345,26 +272,6 @@ def get_images_urls(label_list):
 
 
 
-"""
-
-Kick Start Traiing Process
-
-Temp workflow:
-    1. Get counts for total number of images 
-    2. Evaluate the number of slaves nodes 
-
-"""
-
-# Invoke model training script to train model in TensorflowOnSpark with the requesting labels
-def invoke_model_training(label_list,user_info):
-
-    #TODO
-    print("Invoking model training process...")
-    print("Training started")
-
-
-
-
 if __name__ == '__main__':
 
     # Set up argument parser
@@ -391,191 +298,171 @@ if __name__ == '__main__':
     }
 
 
-    # # verify_labels(label_list)
-    # # verify_labels_quantities(label_list,user_info)
-    #
-    #
-    # image_urls_df = get_images_urls(label_list)
-    #
-    # filePath = image_urls_df.image_url[0]
-    #
-    #
-    # # strip off the starting s3a:// from the bucket
-    # bucket = os.path.dirname(str(filePath))[6:].split("/", 1)[0]
-    # key = os.path.basename(str(filePath))
-    # path  = filePath[6:].split("/", 1)[1:][0]
-    #
-    #
-    # print(bucket)
-    # print(key)
-    # print(path)
+    verify_labels(label_list)
+    verify_labels_quantities(label_list,user_info)
 
 
+    image_urls_df = get_images_urls(label_list)
 
+    filePath = image_urls_df.image_url[0]
 
-
-
-"""
-
-For Testing
-
-"""
-
-
-
-
-def get_images_urls(label_list):
-
-
-    label_nums = list(range(len(label_list)))
-
-
-    """ Connect to the PostgreSQL database server """
-    conn = None
-    try:
-        # read connection parameters
-        params = config()
-
-        # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
-        conn = psycopg2.connect(**params)
-
-        # create a cursor
-        cur = conn.cursor()
-
-        results_list = []
-
-        for i, label_name in enumerate(label_list):
-
-            sql = "SELECT full_hadoop_path FROM images WHERE label_name =  %s ;"
-
-            cur.execute(sql,(label_name,))
-
-            results = [r[0] for r in cur.fetchall()]
-
-            print(results)
-
-            results_list.append(results)
-
-        # close the communication with the PostgreSQL
-        cur.close()
-
-        # All labels ready return True
-        return results_list
-
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            print('Database connection closed.')
-
-
-
-"""
-For testing purpose
-
-"""
-
-import PIL.Image
-import keras
-from keras.applications.imagenet_utils import preprocess_input
-from keras_preprocessing import image
-
-def load_image_from_uri(local_uri):
-
-
-  # img = (PIL.Image.open(local_uri).convert('RGB').resize((299, 299), PIL.Image.ANTIALIAS))
-
-  img = (get_image_array_from_S3_file(local_uri))
-
-  img_arr = np.array(img).astype(np.float32)
-  img_tnsr = preprocess_input(img_arr[np.newaxis, :])
-  return img_tnsr
-
-
-
-def load_image_from_uri_local(local_uri):
-  img = (PIL.Image.open(local_uri).convert('RGB').resize((299, 299), PIL.Image.ANTIALIAS))
-
-
-  plt.figure(0)
-  plt.imshow(img)
-  plt.title('Sample Image from S3')
-  plt.pause(0.05)
-
-
-
-  img_arr = np.array(img).astype(np.float32)
-  img_tnsr = preprocess_input(img_arr[np.newaxis, :])
-  return img_tnsr
-
-
-
-# this function will use boto3 on the workers directly to pull the image
-# and then decode it, all in this function
-def get_image_array_from_S3_file(image_url):
-    import boto3
-    import os
-
-    # TODO - will need to implement exceptions handling
-
-    s3 = boto3.resource('s3')
 
     # strip off the starting s3a:// from the bucket
-    bucket_name = os.path.dirname(str(image_url))[6:].split("/", 1)[0]
-    key = image_url[6:].split("/", 1)[1:][0]
-
-    bucket = s3.Bucket(bucket_name)
-    obj = bucket.Object(key)
-    img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299))
-
-    return img
+    bucket = os.path.dirname(str(filePath))[6:].split("/", 1)[0]
+    key = os.path.basename(str(filePath))
+    path  = filePath[6:].split("/", 1)[1:][0]
 
 
-    # if contents:
-    #     try:
-    #
-    #         img = image.load_img(contents, target_size=(299, 299))
-    #
-    #         plt.figure(0)
-    #         plt.imshow(img)
-    #         plt.title('Sample Image from S3')
-    #         plt.pause(0.05)
-    #
-    #         return img
-    #     except:
-    #         return None
+    print(bucket)
+    print(key)
+    print(path)
 
 
 
-labels_urls_list = get_images_urls(label_list)
+    """
+    
+    Functions For Testing
+    
+    """
 
 
-image_url = labels_urls_list[0][0]
 
-print(image_url)
-
-img = get_image_array_from_S3_file(image_url)
-
-print("img from s3 type: ", type(img))
-
-plt.figure(0)
-plt.imshow(img)
-plt.title('Sample Image from S3')
-plt.pause(0.05)
+    def get_images_urls(label_list):
 
 
-img_tnsr = load_image_from_uri(image_url)
-
-print (img_tnsr)
-
-local_image_path = projectPath + "/data/images/dummy_dataset_1000/car/2008_000085.jpg"
+        label_nums = list(range(len(label_list)))
 
 
-load_image_from_uri_local(local_image_path)
+        """ Connect to the PostgreSQL database server """
+        conn = None
+        try:
+            # read connection parameters
+            params = config()
 
-# for label in labels_urls_list:
-#     for url in label:
-#         img_tnsr = load_image_from_uri(url)
-#         print(type(img_tnsr))
+            # connect to the PostgreSQL server
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+
+            # create a cursor
+            cur = conn.cursor()
+
+            results_list = []
+
+            for i, label_name in enumerate(label_list):
+
+                sql = "SELECT full_hadoop_path FROM images WHERE label_name =  %s ;"
+
+                cur.execute(sql,(label_name,))
+
+                results = [r[0] for r in cur.fetchall()]
+
+                print(results)
+
+                results_list.append(results)
+
+            # close the communication with the PostgreSQL
+            cur.close()
+
+            # All labels ready return True
+            return results_list
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+
+
+
+    """
+    For testing retrieve images from S3 urls 
+    
+    """
+
+    import PIL.Image
+    import keras
+    from keras.applications.imagenet_utils import preprocess_input
+    from keras_preprocessing import image
+
+    def load_image_from_uri(local_uri):
+
+
+      # img = (PIL.Image.open(local_uri).convert('RGB').resize((299, 299), PIL.Image.ANTIALIAS))
+
+      img = (get_image_array_from_S3_file(local_uri))
+
+      img_arr = np.array(img).astype(np.float32)
+      img_tnsr = preprocess_input(img_arr[np.newaxis, :])
+      return img_tnsr
+
+
+
+    def load_image_from_uri_local(local_uri):
+      img = (PIL.Image.open(local_uri).convert('RGB').resize((299, 299), PIL.Image.ANTIALIAS))
+
+
+      plt.figure(0)
+      plt.imshow(img)
+      plt.title('Sample Image from S3')
+      plt.pause(0.05)
+
+
+
+      img_arr = np.array(img).astype(np.float32)
+      img_tnsr = preprocess_input(img_arr[np.newaxis, :])
+      return img_tnsr
+
+
+
+    # this function will use boto3 on the workers directly to pull the image
+    # and then decode it, all in this function
+    def get_image_array_from_S3_file(image_url):
+        import boto3
+        import os
+
+
+        s3 = boto3.resource('s3')
+
+        # strip off the starting s3a:// from the bucket
+        bucket_name = os.path.dirname(str(image_url))[6:].split("/", 1)[0]
+        key = image_url[6:].split("/", 1)[1:][0]
+
+        bucket = s3.Bucket(bucket_name)
+        obj = bucket.Object(key)
+        img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299))
+
+        return img
+
+
+
+    labels_urls_list = get_images_urls(label_list)
+
+
+    image_url = labels_urls_list[0][0]
+
+    print(image_url)
+
+    img = get_image_array_from_S3_file(image_url)
+
+    print("img from s3 type: ", type(img))
+
+    plt.figure(0)
+    plt.imshow(img)
+    plt.title('Sample Image from S3')
+    plt.pause(0.05)
+
+
+    img_tnsr = load_image_from_uri(image_url)
+
+    print (img_tnsr)
+
+    local_image_path = projectPath + "/data/images/dummy_dataset_1000/car/2008_000085.jpg"
+
+
+    load_image_from_uri_local(local_image_path)
+
+    for label in labels_urls_list:
+        for url in label:
+            img_tnsr = load_image_from_uri(url)
+            print(type(img_tnsr))

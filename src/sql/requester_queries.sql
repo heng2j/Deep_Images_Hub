@@ -77,6 +77,34 @@ ON ib.place_id = pl.place_id
 WHERE pl.city = 'NYC'
 ORDER BY ib.on_board_date  DESC
 LIMIT 100;
+	
+	
+	
+SELECT jsonb_build_object(
+    'type',     'FeatureCollection',
+    'features', jsonb_agg(features.feature)
+)
+FROM (
+  SELECT jsonb_build_object(
+    'type',       'Feature',
+    'id',         gid,
+    'geometry',   ST_AsGeoJSON(geom)::jsonb,
+    'properties', to_jsonb(inputs) - 'gid' - 'geom'
+  ) AS feature
+  FROM (
+	  
+	  SELECT ib.batch_id, ib.place_id, ib.submitted_count, ib.on_board_date, pl.city, pl.neighbourhood, pl.geometry 
+FROM images_batches AS ib
+JOIN places as pl
+ON ib.place_id = pl.place_id 
+WHERE pl.city = 'NYC'
+ORDER BY ib.on_board_date  DESC
+LIMIT 100
+	   
+	   
+	   
+	   ) inputs) features;
+	
 
 	
 -- Select all images from the label's children

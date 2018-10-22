@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # requester.py
 # ---------------
 # Author: Zhongheng Li

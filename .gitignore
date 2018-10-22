@@ -1,4 +1,6 @@
 # Ignore database credentials 
 utilities/database/database.ini
 src/airflow/workspace/airflow_home/airflow.db
+src/airflow/workspace/airflow_home/airflow.cfg
+*.log
 

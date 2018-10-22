@@ -218,6 +218,7 @@ def create_image_dataframe(row):
     # updated Mode to be 16 _OcvType(name="CV_8UC3", ord=16, nChannels=3, dtype="uint8"), : reference https://github.com/databricks/spark-deep-learning/blob/master/python/sparkdl/image/imageIO.py
     d = image_dataframe.asDict()
     d['mode'] = 16
+    d['origin'] = row.uri
     new_row = Row(**d)
 
     return new_row , row.label
@@ -253,7 +254,7 @@ if __name__ == '__main__':
 
     label_cardinality = 2
 
-    label_list = ['Tap', 'Teapot']
+    label_list = ['Guitar', 'Piano']
 
     label_cardinality = len(label_list)
     label_nums = list(range(label_cardinality))
@@ -362,6 +363,11 @@ if __name__ == '__main__':
     image_df.show()
     image_df.printSchema()
     image_df.select("image.*").show()
+
+    image_df.select("image.data").show()
+
+    print("Get the shape of image.data " )
+    print((image_df.select("image.data").count(), len(image_df.select("image.data").columns)))
 
 
 

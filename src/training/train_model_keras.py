@@ -49,10 +49,14 @@ import pyspark.ml.linalg as spla
 import pyspark.sql.types as sptyp
 import numpy as np
 
+
 from pyspark.sql.types import StructType, StructField, IntegerType,StringType,LongType,DoubleType ,FloatType
 from pyspark.sql import SQLContext
 from pyspark.context import SparkContext
 from pyspark.conf import SparkConf
+
+from keras.applications.imagenet_utils import preprocess_input
+
 
 
 
@@ -177,107 +181,6 @@ def get_images_urls(label_list):
         if conn is not None:
             conn.close()
             print('Database connection closed.')
-
-
-
-
-
-# def CreateTrainImageUriandLabels(image_uris, label, label_name, cardinality, isDefault):
-#   # Create image categorical labels (integer IDs)
-#   local_rows = []
-#   for uri in image_uris:
-#     label_inds = np.zeros(cardinality)
-#     label_inds[label] = 1.0
-#     one_hot_vec = spla.Vectors.dense(label_inds.tolist())
-#     _row_struct = {"uri": uri, "one_hot_label": one_hot_vec, "label": float(label), "label_name": str(label_name), "isDefault": int(isDefault)}
-#     row = sptyp.Row(**_row_struct)
-#     local_rows.append(row)
-#
-#   image_uri_df = sqlContext.createDataFrame(local_rows)
-#   return image_uri_df
-
-
-
-# banana_image_df = ImageSchema.readImages("hdfs://ec2-18-235-62-224.compute-1.amazonaws.com:9000/OID/Dataset/test/Banana").withColumn("label", lit(1))
-#
-# # banana_image_df = banana_image_df.withColumn("prefix", lit('Entity/data/food/fruit/'))
-#
-# accordion_image_df = ImageSchema.readImages("hdfs://ec2-18-235-62-224.compute-1.amazonaws.com:9000/OID/Dataset/test/Accordion").withColumn("label", lit(0))
-#
-# # accordion_image_df = accordion_image_df.withColumn("prefix", lit('Entity/data/food/fruit/'))
-
-
-
-
-
-#
-# banana_train, banana_test, _ = banana_image_df.randomSplit([0.99, 0.005, 0.005])  # use larger training sets (e.g. [0.6, 0.4] for non-community edition clusters)
-# accordion_train, accordion_test, _ = accordion_image_df.randomSplit([0.99, 0.005, 0.005])     # use larger training sets (e.g. [0.6, 0.4] for non-community edition clusters)
-#
-# train_df = accordion_train.unionAll(banana_train)
-# test_df = accordion_test.unionAll(accordion_train)
-#
-# # Under the hood, each of the partitions is fully loaded in memory, which may be expensive.
-# # This ensure that each of the paritions has a small size.
-# train_df = train_df.repartition(100)
-# test_df = test_df.repartition(100)
-
-
-
-
-# # move to a permanent place for future use
-# dbfs_model_full_path = 'dbfs:/models/model-full.h5'
-# dbutils.fs.cp('file:/tmp/model-full.h5', dbfs_model_full_path)
-
-from PIL import Image
-
-import requests
-from io import BytesIO
-from keras.applications.imagenet_utils import preprocess_input
-from keras_preprocessing import image
-#
-# def load_image_from_uri(local_uri):
-#
-#
-#     # print("local_uri: " , local_uri)
-#
-#     response = requests.get(local_uri)
-#     #img = Image.open(BytesIO(response.content))
-#     img = image.load_img(BytesIO(response.content), target_size=(299, 299))
-#
-#     # print("img type: ", type(img))
-#
-#     img_arr = np.array(img).astype(np.float32)
-#
-#     # print("img_arr shape: ", img_arr.shape)
-#     img_tnsr = preprocess_input(img_arr[np.newaxis, :])
-#
-#
-#     return img_tnsr
-
-
-
-#
-# def get_image_array_from_S3_file(image_url):
-#     import boto3
-#     import os
-#
-#     # TODO - will need to implement exceptions handling
-#
-#     s3 = boto3.resource('s3')
-#
-#     # strip off the starting s3a:// from the bucket
-#     bucket_name = os.path.dirname(str(image_url))[6:].split("/", 1)[0]
-#     key = image_url[6:].split("/", 1)[1:][0]
-#
-#     bucket = s3.Bucket(bucket_name)
-#     obj = bucket.Object(key)
-#     img = image.load_img(BytesIO(obj.get()['Body'].read()), target_size=(299, 299))
-#
-#     return img
-
-
-
 
 
 if __name__ == '__main__':

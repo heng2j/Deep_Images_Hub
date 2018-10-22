@@ -2,7 +2,7 @@
 
 
 -- Select 9 most recent image batches 
-SELECT (SELECT label_name FROM images WHERE batch_id in (ib.batch_id) LIMIT 1 ) AS label_name , ib.submitted_count, ib.on_board_date, pl.city, pl.neighbourhood, pl.geometry, (SELECT image_thumbnail_object_key FROM images WHERE batch_id in (ib.batch_id)ORDER BY random() LIMIT 1 ) AS sample_image
+SELECT ib.batch_id, (SELECT label_name FROM images WHERE batch_id in (ib.batch_id) LIMIT 1 ) AS label_name , ib.submitted_count, ib.on_board_date, pl.city, pl.neighbourhood, pl.geometry, (SELECT image_thumbnail_object_key FROM images WHERE batch_id in (ib.batch_id)ORDER BY random() LIMIT 1 ) AS sample_image
 FROM images_batches AS ib
 INNER JOIN places as pl
 ON ib.place_id = pl.place_id
@@ -14,6 +14,26 @@ SELECT *
 FROM images_batches AS ib
 ORDER BY ib.on_board_date  DESC
 LIMIT 100;
+
+
+
+-- Sum the count of images from the selected image batches
+
+SELECT * 
+FROM images_batches
+WHERE on_board_date > '2018-10-16 23:41:28.3089'
+ORDER BY on_board_date  DESC;
+
+
+SELECT SUM(submitted_count)
+FROM images_batches 
+WHERE on_board_date > '2018-10-16 23:41:28.3089';
+ORDER BY on_board_date  DESC;
+
+
+"2647"
+
+
 
 
 
