@@ -39,7 +39,7 @@ Additionally for premium users, they can request to train a baseline model. So D
 
 
 More details can be found in this more in-depth slides:
-[Slides](https://drive.google.com/open?id=1x_RbbePCEsLJ1nYnUL0SfHdD3wxGG2VbvJ8iIgGJ6K0)
+[Slides](https://docs.google.com/presentation/d/1uETN9dQCVQQ89XVuYfgTn7xlVYdw-gI2lOq9BGVm6f4/edit?usp=sharing)
 
 <hr/>
 
